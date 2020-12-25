@@ -1,0 +1,24 @@
+{
+  "name": "kohr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R2Jeu-prive/kohr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/R2Jeu-prive/kohr/issues"
+  },
+  "homepage": "https://github.com/R2Jeu-prive/kohr#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.4"
+  }
+}
