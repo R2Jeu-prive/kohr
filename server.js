@@ -11,9 +11,6 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     tempName = Math.floor(Math.random() * 1000)+1;
-    while(getSocketByPseudo(tempName) != "pseudoNotKnown") {
-        tempName = Math.floor(Math.random() * 1000)+1;
-    }
     users[socket.id] = tempName;
     console.log(users);
     socket.emit("setTempName",{tempName : tempName});
