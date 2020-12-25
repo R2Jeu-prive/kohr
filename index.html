@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Kohr</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/682997526676373521/712225425656643594/favicon.ico" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script>
+      $(document).ready(function() {
+        var socket = io();
+        socket.on("disconnect",function(){
+        });
+
+        socket.on("error",function(data){
+        })
+        
+        socket.on("killSession",function(data){
+          document.location.reload(false);
+        })
+        
+      });
+
+    </script>
+  </body>
+</html>
