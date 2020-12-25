@@ -23,6 +23,7 @@ io.on('connection', function(socket){
         pseudo = users[socket.id];
         console.log(pseudo + " lost !")
         delete users[socket.id];
+        console.log(users);
     });
 });
 
