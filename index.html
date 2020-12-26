@@ -14,8 +14,8 @@
     <div id="login-frame" hidden>
       <h1 id="login-title">Bienvenue sur Kohr !<h1>
       <label id="login-label">Pseudo :<input id="login-pseudo-input" placeholder="Jean-Kévin"/></label>
-      <input id="login-submit-fullscreen" value="C'est parti !" type="button"/>
-      <input id="login-submit-normal" value="Jouer sans plein écran" type="button"/>
+      <input id="login-submit-fullscreen" class="login-submit" value="C'est parti !" type="button"/>
+      <input id="login-submit-normal" class="login-submit" value="Jouer sans plein écran" type="button"/>
     </div>
     <script>
       $(document).ready(function() {
@@ -39,6 +39,13 @@
           console.log("Passive error : " + data.text)
         })
         
+        $(".login-submit").click(function() {
+          enteredPseudo = $("#login-pseudo-input").val()
+          if(/^[a-z0-9]*$/.test(enteredPseudo)){
+            alert("yes")
+          }
+        })
+
       });
 
     </script>
