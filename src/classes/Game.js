@@ -13,4 +13,4 @@ class Game {
     }
 }
 
-module.exports = User
+module.exports = Game
