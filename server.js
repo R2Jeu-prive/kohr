@@ -2,10 +2,8 @@ let express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 let io = require('socket.io')(http);
-const Building = require('./src/classes/Building.js')
-let building = new Building("core")
-console.log(building.type)
-users = {};
+const User = require('./src/classes/User.js')
+users = [];
 //users[socket.id] = pseudo;
 
 app.get('/', function(req, res){
@@ -14,7 +12,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     tempName = Math.floor(Math.random() * 1000)+1;
-    users[socket.id] = tempName;
+    users.push(new User(tempName,socket.id))
     console.log(users);
     socket.emit("setTempName",{tempName : tempName});
   
@@ -23,10 +21,10 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function() {
-        pseudo = users[socket.id];
+        /*pseudo = users[socket.id];
         console.log(pseudo + " lost !")
         delete users[socket.id];
-        console.log(users);
+        console.log(users);*/
     });
 });
 
