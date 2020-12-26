@@ -22,7 +22,7 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function() {
         console.log(users.find(user => user.socket_id === socket.id).pseudo + " lost !")
-        delete users.find(user => user.socket_id === socket.id)
+        delete users[users.findIndex(user => user.socket_id === socket.id)]
         console.log(users);
     });
 });
