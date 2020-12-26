@@ -2,6 +2,9 @@ let express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 let io = require('socket.io')(http);
+const Building = require('./src/classes/Building.js')
+let building = new Building("core")
+console.log(building.type)
 users = {};
 //users[socket.id] = pseudo;
 
