@@ -21,10 +21,9 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function() {
-        /*pseudo = users[socket.id];
-        console.log(pseudo + " lost !")
-        delete users[socket.id];
-        console.log(users);*/
+        console.log(users.find(user => user.socket_id === socket.id).pseudo + " lost !")
+        delete users.find(user => user.socket_id === socket.id)
+        console.log(users);
     });
 });
 
