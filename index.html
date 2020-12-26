@@ -8,17 +8,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+    <div id="disconnected-frame">
+      <h1 id="disconnected-title">Connection en cours...</h1>
+    </div>
+    <div id="login-frame" hidden>
+      <h1 id="login-title">Bienvenue sur Kohr !<h1>
+      <label id="login-label">Pseudo :<input id="login-pseudo-input" placeholder="Jean-Kévin"/></label>
+      <input id="login-submit-fullscreen" value="C'est parti !" type="button"/>
+      <input id="login-submit-normal" value="Jouer sans plein écran" type="button"/>
+    </div>
     <script>
       $(document).ready(function() {
         var socket = io();
         socket.on("disconnect",function(){
+          $("#disconnected-frame").attr("hidden",false);
+          $("#login-frame").attr("hidden",true);
         });
 
-        socket.on("error",function(data){
+        socket.on("setTempName",function(){
+          $("#disconnected-frame").attr("hidden",true);
+          $("#login-frame").attr("hidden",false);
+        });
+
+        socket.on("fatalError",function(data){
+          alert("Fatal error : " + data.text)
+          document.location.reload(false);
         })
         
-        socket.on("killSession",function(data){
-          document.location.reload(false);
+        socket.on("passiveError",function(data){
+          console.log("Passive error : " + data.text)
         })
         
       });
