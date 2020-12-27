@@ -51,7 +51,13 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function() {
-        console.log(users.find(user => user.socket_id === socket.id).pseudo + " lost !");
+        leavingUser = users.find(user => user.socket_id === socket.id)
+
+        //check games
+        games.forEach(game => game.playerLeave(leavingUser,io))
+
+        //remove user
+        console.log(leavingUser.pseudo + " lost !");
         users.splice(users.findIndex(user => user.socket_id === socket.id),1);
         console.log(users);
     });

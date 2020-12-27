@@ -18,6 +18,14 @@ class Game {
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
         )
     }
+    playerLeave(user,io){
+        if(this.players.find(player => player == user) != undefined){
+            this.players.splice(this.players.findIndex(player => player == user),1);
+            this.players.forEach(player =>
+                io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
+            )
+        }
+    }
 }
 
 module.exports = Game
