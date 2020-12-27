@@ -42,8 +42,12 @@
           document.location.reload(false);
         })
         
-        socket.on("passiveError",function(data){
-          console.log("Passive error : " + data.text)
+        socket.on("logError",function(data){
+          console.log("Warning : " + data.text)
+        })
+
+        socket.on("showError",function(data){
+          alert(data.text)
         })
 
         socket.on("setTempName",function(data){

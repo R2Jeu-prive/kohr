@@ -26,20 +26,28 @@ io.on('connection', function(socket){
     socket.emit("setTempName",{tempName : tempName});
   
     socket.on('joinSession', function(data){
-        user = users.find(user => user.pseudo == data.tempName)
-        if(user == undefined){
-            socket.emit("fatalError",{text : "Error #001 | Le tempName fournis ne correspond à aucun joueur connu !"});
-        }else{
-            user.changePseudo(data.pseudo)
-            game = games.find(game => game.gameInfo.maxPlayers > game.players.length)
-            if(game == undefined){
-                //aucune game vide : on en créé une nouvelle
-                //[TODO] ici on met deux joueurs mais ça doit pouvoir être modifié
-                game = new Game(user.pseudo,2)
-                games.push(game)
-            }
-            game.playerJoin(user)
+        if(!/^[a-z0-9]*$/.test(data.pseudo)){
+            socket.emit("showError",{text : "Pseudo Invalid"})
+            return
         }
+        user = users.find(user => user.socket_id == socket.id)
+        if(user == undefined){
+            socket.emit("fatalError",{text : "Error #001 | Le socket ne colle pas !"});
+            return
+        }
+        if(users.find(user => user.pseudo == data.pseudo) != undefined){
+            socket.emit("showError",{text : "Un joueur existe déjà avec ce pseudo"})
+            return
+        }
+        user.changePseudo(data.pseudo)
+        game = games.find(game => game.gameInfo.maxPlayers > game.players.length)
+        if(game == undefined){
+            //aucune game vide : on en créé une nouvelle
+            //[TODO] ici on met deux joueurs mais ça doit pouvoir être modifié
+            game = new Game(user.pseudo,2)
+            games.push(game)
+        }
+        game.playerJoin(user)
     });
 
     socket.on('disconnect', function() {
