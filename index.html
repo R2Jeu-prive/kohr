@@ -8,15 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body id="body">
+
     <div id="disconnected-frame">
       <h1 id="disconnected-title">Connection en cours...</h1>
     </div>
+
     <div id="login-frame" hidden>
       <h1 id="login-title">Bienvenue sur Kohr !<h1>
       <label id="login-label">Pseudo :<input id="login-pseudo-input" placeholder="Jean-Kévin"/></label>
       <input id="login-submit-fullscreen" class="login-submit" value="C'est parti !" type="button"/>
       <input id="login-submit-normal" class="login-submit" value="Jouer sans plein écran" type="button"/>
     </div>
+    
+    <div id="lobby-frame" hidden>
+      <h1 id="lobby-title">Partie : </h1>
+      <p id="lobby-gamemode">Mode : </p>
+      <p id="lobby-player-list-label">Joueurs</p>
+      <ul id="lobby-player-list"></ul>
+    </div>
+
     <script>
       $(document).ready(function() {
         var socket = io();
@@ -40,6 +50,16 @@
           tempName = data.tempName
           $("#disconnected-frame").attr("hidden",true);
           $("#login-frame").attr("hidden",false);
+        });
+
+        socket.on("showLobby",function(data){
+          $("#lobby-title").text("Partie : " + data.gameinfo.name)
+          $("#lobby-gamemode").text("Mode : " + data.gameinfo.maxPlayers/2 + "vs" + data.gameinfo.maxPlayers/2)
+          data.players.forEach(player =>
+            $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + "</li>")
+          )
+          $("#disconnected-frame").attr("hidden",false);
+          $("#lobby-frame").attr("hidden",true);
         });
         
         $(".login-submit").click(function() {
