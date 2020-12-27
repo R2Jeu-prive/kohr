@@ -25,6 +25,7 @@
           $("#login-frame").attr("hidden",true);
         });
 
+        tempName = -1;
         socket.on("setTempName",function(data){
 
           $("#disconnected-frame").attr("hidden",true);
@@ -42,7 +43,7 @@
         
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
-          if(!!tempName){
+          if(tempName == -1){
             document.location.reload(false);
           }
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
