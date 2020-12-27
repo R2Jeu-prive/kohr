@@ -12,10 +12,10 @@ class Game {
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.last_timestamp = 0;
     }
-    playerJoin(user){
+    playerJoin(user,io){
         this.players.push(user)
         this.players.forEach(player =>
-            player.socket.emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
+            io.sockets.connected[player.socket_id].emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
         )
     }
 }

@@ -47,7 +47,7 @@ io.on('connection', function(socket){
             game = new Game(user.pseudo,2)
             games.push(game)
         }
-        game.playerJoin(user)
+        game.playerJoin(user,io)
     });
 
     socket.on('disconnect', function() {
