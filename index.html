@@ -42,7 +42,16 @@
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
-            alert("yes")
+            socket.emit("joinSession",{pseudo : enteredPseudo, tempName : tempName});
+            if(this.id == "login-submit-fullscreen"){
+              if ($("body").requestFullscreen) {
+                $("body").requestFullscreen();
+              } else if ($("body").webkitRequestFullscreen) { /* Safari */
+                $("body").webkitRequestFullscreen();
+              } else if ($("body").msRequestFullscreen) { /* IE11 */
+                $("body").msRequestFullscreen();
+              }
+            }
           }
         })
 
