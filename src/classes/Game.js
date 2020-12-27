@@ -14,9 +14,8 @@ class Game {
     }
     playerJoin(user,io){
         this.players.push(user)
-        console.log(io.sockets)
         this.players.forEach(player =>
-            io.sockets.connected[player.socket_id].emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
+            io.sockets[player.socket_id].emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
         )
     }
 }
