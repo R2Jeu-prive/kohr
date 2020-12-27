@@ -27,7 +27,7 @@
 
         tempName = -1;
         socket.on("setTempName",function(data){
-
+          tempName = data.tempName
           $("#disconnected-frame").attr("hidden",true);
           $("#login-frame").attr("hidden",false);
         });
