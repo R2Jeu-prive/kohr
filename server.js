@@ -20,8 +20,22 @@ io.on('connection', function(socket){
     console.log(users);
     socket.emit("setTempName",{tempName : tempName});
   
-    socket.on('lolilool', function(data){
-
+    socket.on('joinSession', function(data){
+        user = users.find(user => user.pseudo == data.tempName)
+        if(user == undefined){
+            socket.emit("fatalError",{text : "Error #001 | Le tempName fournis ne correspond à aucun joueur connu !"});
+        }else{
+            user.changePseudo(data.pseudo)
+            game = games.find(game => game.gameInfo.maxPlayers > game.players.length)
+            if(game == undefined){
+                //aucune game vide : on en créé une nouvelle
+                //[TODO] ici on met deux joueurs mais ça doit pouvoir être modifié
+                game = new Game(user.pseudo,2)
+                games.push(game)
+            }
+            game.playerJoin(user.pseudo)
+            socket.emit("showLobby",{gameInfo : game.gameInfo, players : game.players});
+        }
     });
 
     socket.on('disconnect', function() {
