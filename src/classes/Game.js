@@ -12,8 +12,8 @@ class Game {
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.last_timestamp = 0;
     }
-    playerJoin(pseudo){
-        this.players.push(pseudo)
+    playerJoin(user){
+        this.players.push(user)
     }
 }
 
