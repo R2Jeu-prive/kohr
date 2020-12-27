@@ -1,7 +1,8 @@
 class User {
-    constructor(pseudo,socket_id){
+    constructor(pseudo,socket){
         this.pseudo = pseudo
-        this.socket_id = socket_id
+        this.socket_id = socket.id
+        this.socket = socket
     }
     changePseudo(pseudo){
         this.pseudo = pseudo

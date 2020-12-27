@@ -21,7 +21,7 @@ addRoute("/css/index","/web/css/index.css")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
-    users.push(new User(tempName,socket.id))
+    users.push(new User(tempName,socket))
     console.log(users);
     socket.emit("setTempName",{tempName : tempName});
   
