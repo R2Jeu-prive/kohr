@@ -1,4 +1,4 @@
-class Game {
+export class Game {
     constructor(masterPseudo,maxPlayers){
         this.gameInfo = {}
         this.gameInfo.name = "Partie de " + masterPseudo
@@ -26,6 +26,7 @@ class Game {
             )
         }
     }
-}
+    startGame(){
 
-module.exports = Game
+    }
+}
