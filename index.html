@@ -25,7 +25,8 @@
           $("#login-frame").attr("hidden",true);
         });
 
-        socket.on("setTempName",function(){
+        socket.on("setTempName",function(data){
+
           $("#disconnected-frame").attr("hidden",true);
           $("#login-frame").attr("hidden",false);
         });
@@ -41,6 +42,9 @@
         
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
+          if(!tempName){
+            document.location.reload(false);
+          }
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
             socket.emit("joinSession",{pseudo : enteredPseudo, tempName : tempName});
             if(this.id == "login-submit-fullscreen"){
