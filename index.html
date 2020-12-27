@@ -42,7 +42,7 @@
         
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
-          if(!tempName){
+          if(!!tempName){
             document.location.reload(false);
           }
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
