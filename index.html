@@ -47,7 +47,7 @@
         })
 
         socket.on("setTempName",function(data){
-          tempName = data.tempName
+          pseudo = data.tempName
           $("#disconnected-frame").attr("hidden",true);
           $("#login-frame").attr("hidden",false);
         });

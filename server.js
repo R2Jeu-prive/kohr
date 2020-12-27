@@ -26,7 +26,6 @@ io.on('connection', function(socket){
     socket.emit("setTempName",{tempName : tempName});
   
     socket.on('joinSession', function(data){
-        console.log(data)
         user = users.find(user => user.pseudo == data.tempName)
         if(user == undefined){
             socket.emit("fatalError",{text : "Error #001 | Le tempName fournis ne correspond à aucun joueur connu !"});
