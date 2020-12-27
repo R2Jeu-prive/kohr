@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap&subset=latin-ext" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body id="body">
     <div id="disconnected-frame">
       <h1 id="disconnected-title">Connection en cours...</h1>
     </div>
@@ -49,12 +49,13 @@
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
             socket.emit("joinSession",{pseudo : enteredPseudo, tempName : tempName});
             if(this.id == "login-submit-fullscreen"){
-              if ($("body").requestFullscreen) {
-                $("body").requestFullscreen();
-              } else if ($("body").webkitRequestFullscreen) { /* Safari */
-                $("body").webkitRequestFullscreen();
-              } else if ($("body").msRequestFullscreen) { /* IE11 */
-                $("body").msRequestFullscreen();
+              var body = document.getElementById("body")
+              if (body.requestFullscreen) {
+                body.requestFullscreen();
+              } else if (body.webkitRequestFullscreen) { /* Safari */
+                body.webkitRequestFullscreen();
+              } else if (body.msRequestFullscreen) { /* IE11 */
+                body.msRequestFullscreen();
               }
             }
           }
