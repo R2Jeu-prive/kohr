@@ -17,8 +17,7 @@ function addRoute(search,path){
 }
 
 addRoute("/","/index.html")
-addRoute("/clickFunctions","/web/js/click.js")
-addRoute("/socketOnFunctions","/web/js/socketOn.js")
+addRoute("/css/index","/web/css/index.css")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
