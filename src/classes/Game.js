@@ -5,6 +5,7 @@ class Game {
         this.gameinfo.maxPlayers = maxPlayers
         this.gameinfo.status = "lobby"
         this.gameinfo.masterPseudo = masterPseudo
+        this.gameinfo.teamNames = ["Equipe A", "Equipe B"]
         this.pieces = []
         this.buildings = []
         this.players = []

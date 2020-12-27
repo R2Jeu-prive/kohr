@@ -10,12 +10,18 @@ const Game = require('./src/classes/Game.js')
 games = [];
 //users[socket.id] = pseudo;
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
-});
+function addRoute(search,path){
+    app.get(search , function(req, res){
+        res.sendFile(__dirname + path);
+    });
+}
+
+addRoute("/","/index.html")
+addRoute("/clickFunctions","/web/js/click.js")
+addRoute("/socketOnFunctions","/web/js/socketOn.js")
 
 io.on('connection', function(socket){
-    tempName = Math.floor(Math.random() * 1000)+1;
+    tempName = "#" + Math.floor(Math.random() * 1000)+1;
     users.push(new User(tempName,socket.id))
     console.log(users);
     socket.emit("setTempName",{tempName : tempName});

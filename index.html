@@ -20,16 +20,11 @@
     <script>
       $(document).ready(function() {
         var socket = io();
+        pseudo = "#-1";
+
         socket.on("disconnect",function(){
           $("#disconnected-frame").attr("hidden",false);
           $("#login-frame").attr("hidden",true);
-        });
-
-        tempName = -1;
-        socket.on("setTempName",function(data){
-          tempName = data.tempName
-          $("#disconnected-frame").attr("hidden",true);
-          $("#login-frame").attr("hidden",false);
         });
 
         socket.on("fatalError",function(data){
@@ -40,14 +35,21 @@
         socket.on("passiveError",function(data){
           console.log("Passive error : " + data.text)
         })
+
+        socket.on("setTempName",function(data){
+          tempName = data.tempName
+          $("#disconnected-frame").attr("hidden",true);
+          $("#login-frame").attr("hidden",false);
+        });
         
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
-          if(tempName == -1){
+          if(pseudo == "#-1"){
             document.location.reload(false);
           }
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
-            socket.emit("joinSession",{pseudo : enteredPseudo, tempName : tempName});
+            socket.emit("joinSession",{pseudo : enteredPseudo, tempName : pseudo});
+            pseudo = enteredPseudo
             $("#disconnected-frame").attr("hidden",false);
             $("#login-frame").attr("hidden",true);
             if(this.id == "login-submit-fullscreen"){
