@@ -1,7 +1,7 @@
 class Game {
     constructor(masterPseudo,maxPlayers){
         this.gameInfo = {}
-        this.gameInfo.name = "Partie des Anonymous"
+        this.gameInfo.name = "Partie de " + masterPseudo
         this.gameInfo.maxPlayers = maxPlayers
         this.gameInfo.status = "lobby"
         this.gameInfo.masterPseudo = masterPseudo
@@ -14,6 +14,9 @@ class Game {
     }
     playerJoin(user){
         this.players.push(user)
+        this.players.forEach(player =>
+            player.socket.emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
+        )
     }
 }
 

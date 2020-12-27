@@ -39,7 +39,6 @@ io.on('connection', function(socket){
                 games.push(game)
             }
             game.playerJoin(user)
-            socket.emit("showLobby",{gameInfo : game.gameInfo, players : game.players});
         }
     });
 
