@@ -55,11 +55,12 @@
         socket.on("showLobby",function(data){
           $("#lobby-title").text("Partie : " + data.gameInfo.name)
           $("#lobby-gamemode").text("Mode : " + data.gameInfo.maxPlayers/2 + "vs" + data.gameInfo.maxPlayers/2)
+          console.log(data)
           data.players.forEach(player =>
             $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + "</li>")
           )
-          $("#disconnected-frame").attr("hidden",false);
-          $("#lobby-frame").attr("hidden",true);
+          $("#disconnected-frame").attr("hidden",true);
+          $("#lobby-frame").attr("hidden",false);
         });
         
         $(".login-submit").click(function() {
