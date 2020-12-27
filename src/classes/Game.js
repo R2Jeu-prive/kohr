@@ -1,11 +1,11 @@
 class Game {
     constructor(masterPseudo,maxPlayers){
-        this.gameinfo = {}
-        this.gameinfo.name = "Partie des Anonymous"
-        this.gameinfo.maxPlayers = maxPlayers
-        this.gameinfo.status = "lobby"
-        this.gameinfo.masterPseudo = masterPseudo
-        this.gameinfo.teamNames = ["Equipe A", "Equipe B"]
+        this.gameInfo = {}
+        this.gameInfo.name = "Partie des Anonymous"
+        this.gameInfo.maxPlayers = maxPlayers
+        this.gameInfo.status = "lobby"
+        this.gameInfo.masterPseudo = masterPseudo
+        this.gameInfo.teamNames = ["Equipe A", "Equipe B"]
         this.pieces = []
         this.buildings = []
         this.players = []
