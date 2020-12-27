@@ -53,8 +53,8 @@
         });
 
         socket.on("showLobby",function(data){
-          $("#lobby-title").text("Partie : " + data.gameinfo.name)
-          $("#lobby-gamemode").text("Mode : " + data.gameinfo.maxPlayers/2 + "vs" + data.gameinfo.maxPlayers/2)
+          $("#lobby-title").text("Partie : " + data.gameInfo.name)
+          $("#lobby-gamemode").text("Mode : " + data.gameInfo.maxPlayers/2 + "vs" + data.gameInfo.maxPlayers/2)
           data.players.forEach(player =>
             $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + "</li>")
           )
