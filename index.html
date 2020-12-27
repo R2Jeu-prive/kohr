@@ -48,6 +48,8 @@
           }
           if(/^[a-z0-9]*$/.test(enteredPseudo)){
             socket.emit("joinSession",{pseudo : enteredPseudo, tempName : tempName});
+            $("#disconnected-frame").attr("hidden",false);
+            $("#login-frame").attr("hidden",true);
             if(this.id == "login-submit-fullscreen"){
               var body = document.getElementById("body")
               if (body.requestFullscreen) {
