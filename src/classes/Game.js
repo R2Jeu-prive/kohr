@@ -28,7 +28,7 @@ class Game {
         if(this.players.length == this.gameInfo.maxPlayers){
             console.log("game is full")
             setTimeout(function(){
-                this.tryStartGame()
+                tryStartGame()
             }, 3000);
         }
     }
