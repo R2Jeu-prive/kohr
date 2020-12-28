@@ -7,7 +7,6 @@ class Building {
 
 class Core extends Building {
     constructor(maxPlayers,team){
-        console.log(maxPlayers,team)
         if(maxPlayers == 2 && team == 0){
             position = [4,1]
         }else if(maxPlayers == 2 && team == 1){
