@@ -14,6 +14,12 @@ class Game {
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.last_timestamp = 0;
     }
+    tryStartGame(){
+        if(this.players.length == this.gameInfo.maxPlayers){
+            this.buildings.push(new Core(this.maxPlayers,0))
+            this.buildings.push(new Core(this.maxPlayers,1))
+        }
+    }
     playerJoin(user,io){
         this.players.push(user)
         this.players.forEach(player =>
@@ -32,12 +38,6 @@ class Game {
             this.players.forEach(player =>
                 io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
             )
-        }
-    }
-    tryStartGame(){
-        if(this.players.length == this.gameInfo.maxPlayers){
-            this.buildings.push(new Core(this.maxPlayers,0))
-            this.buildings.push(new Core(this.maxPlayers,1))
         }
     }
 }
