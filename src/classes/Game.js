@@ -30,11 +30,11 @@ class Game {
         this.teamPlaying = -1*this.teamPlaying+1 //switch from 0 to 1 or 1 to 0
 
         //ENERGY
-        numberOfBatteries = this.countBuildings("Battery",this.teamPlaying)
-        numberOfWorkshops = this.countBuildings("Workshop",this.teamPlaying)
-        energyCapacity = 10 + 2*numberOfBatteries
-        energyGain = 5 + 1*numberOfWorkshops
-        maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
+        var numberOfBatteries = this.countBuildings("Battery",this.teamPlaying)
+        var numberOfWorkshops = this.countBuildings("Workshop",this.teamPlaying)
+        var energyCapacity = 10 + 2*numberOfBatteries
+        var energyGain = 5 + 1*numberOfWorkshops
+        var maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
         console.log("testing",maxEnergyGain)
         energyGain = min(energyGain,maxEnergyGain)
         this.stats[this.teamPlaying][0] = this.stats[this.teamPlaying][0] + energyGain
