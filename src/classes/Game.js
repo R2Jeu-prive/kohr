@@ -21,6 +21,7 @@ class Game {
         }
     }
     playerJoin(user,io){
+        let self = this
         this.players.push(user)
         this.players.forEach(player =>
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
@@ -28,7 +29,7 @@ class Game {
         if(this.players.length == this.gameInfo.maxPlayers){
             console.log("game is full")
             setTimeout(function(){
-                tryStartGame()
+                self.tryStartGame()
             }, 3000);
         }
     }
