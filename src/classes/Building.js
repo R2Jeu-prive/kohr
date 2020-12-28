@@ -36,7 +36,7 @@ class Extractor extends Building {
         super(x,y,atMiddle,team)
         this.health = [20,20]
         this.level = 1
-        this.inventory = [0,10,ressource]
+        this.inventory = [0,250,ressource]
     }
     countNeighbours(gameBuildings){
         var neighbours = 0

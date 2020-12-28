@@ -32,7 +32,7 @@ class Game {
 
         //COUNTS TURN (1,-1,2,-2,3,-3,etc...)
         this.gameInfo.turn = -this.gameInfo.turn
-        if(this.gameInfo.turn > 0){
+        if(this.gameInfo.turn >= 0){
             this.gameInfo.turn = this.gameInfo.turn + 1
         }
 
@@ -89,7 +89,8 @@ class Game {
         this.buildings.push(new Core(this.gameInfo.maxPlayers,0))
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
         this.buildings.push(new Extractor("copper",3,3,false,0))
-        this.gameInfo.turn = 1
+        this.buildings.push(new Extractor("copper",3,4,false,0))
+        this.gameInfo.turn = 0
         this.gameInfo.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
         this.processTurn(io)
     }
