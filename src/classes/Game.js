@@ -1,7 +1,6 @@
-import {Building, Core, Extractor, Workshop, Wall, Battery, LightArmory, HeavyArmory} from '/Building.js';
-import {Piece, Queen, Rook, Knight, Bishop, Pawn, Enchanter} from '/Piece.js';
+const Core = require('./Building.js')
 
-export class Game {
+class Game {
     constructor(masterPseudo,maxPlayers){
         this.gameInfo = {}
         this.gameInfo.name = "Partie de " + masterPseudo
@@ -21,6 +20,7 @@ export class Game {
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
         )
         if(this.players.length == this.gameInfo.maxPlayers){
+            console.log("game is full")
             setTimeout(function(){
                 tryStartGame()
             }, 3000);
@@ -36,7 +36,10 @@ export class Game {
     }
     tryStartGame(){
         if(this.players.length == this.gameInfo.maxPlayers){
-            this.buildings.push(new Core())
+            this.buildings.push(new Core(this.maxPlayers,0))
+            this.buildings.push(new Core(this.maxPlayers,1))
         }
     }
 }
+
+module.exports = Game

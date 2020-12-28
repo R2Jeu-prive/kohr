@@ -6,7 +6,7 @@ let io = require('socket.io')(http);
 const User = require('./src/classes/User.js')
 users = [];
 
-import {Game} from '/src/classes/Game.js';
+const Game = require('./src/classes/Game.js')
 games = [];
 //users[socket.id] = pseudo;
 
@@ -22,7 +22,6 @@ addRoute("/css/index","/web/css/index.css")
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
     users.push(new User(tempName,socket))
-    console.log(users);
     socket.emit("setTempName",{tempName : tempName});
   
     socket.on('joinSession', function(data){
@@ -59,7 +58,6 @@ io.on('connection', function(socket){
         //remove user
         console.log(leavingUser.pseudo + " lost !");
         users.splice(users.findIndex(user => user.socket_id === socket.id),1);
-        console.log(users);
     });
 });
 

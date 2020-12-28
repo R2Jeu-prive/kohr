@@ -1,11 +1,11 @@
-export class Building {
+class Building {
     constructor(x,y,atMiddle,team){
         this.position = [x,y,atMiddle]
         this.team = team
     }
 }
 
-export class Core extends Building {
+class Core extends Building {
     constructor(maxPlayers,team){
         if(maxPlayers == 2 && team == 0){
             position = [4,1]
@@ -27,7 +27,7 @@ export class Core extends Building {
     }
 }
 
-export class Extractor extends Building {
+class Extractor extends Building {
     constructor(ressource,x,y,atMiddle,team){
         super(x,y,atMiddle,team)
         this.health = [20,20]
@@ -36,14 +36,14 @@ export class Extractor extends Building {
     }
 }
 
-export class Workshop extends Building {
+class Workshop extends Building {
     constructor(x,y,atMiddle,team){
         super(x,y,atMiddle,team)
         this.health = [10,10]
     }
 }
 
-export class Wall extends Building {
+class Wall extends Building {
     constructor(x,y,team){
         super(x,y,true,team)
         this.health = [50,50]
@@ -51,23 +51,32 @@ export class Wall extends Building {
     }
 }
 
-export class Battery extends Building {
+class Battery extends Building {
     constructor(x,y,team){
         super(x,y,false,team)
         this.health = [10,10]
     }
 }
 
-export class LightArmory extends Building {
+class LightArmory extends Building {
     constructor(x,y,atMiddle,team){
         super(x,y,atMiddle,team)
         this.health = [40,40]
     }
 }
 
-export class HeavyArmory extends Building {
+class HeavyArmory extends Building {
     constructor(x,y,atMiddle,team){
         super(x,y,atMiddle,team)
         this.health = [50,50]
     }
 }
+
+module.exports = Building
+module.exports = Core
+module.exports = Extractor
+module.exports = Workshop
+module.exports = Wall
+module.exports = Battery
+module.exports = LightArmory
+module.exports = HeavyArmory

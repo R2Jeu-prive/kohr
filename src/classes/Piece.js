@@ -1,11 +1,11 @@
-export class Piece {
+class Piece {
     constructor(x,y,team){
         this.position = [x,y]
         this.team = team
     }
 }
 
-export class Queen extends Piece{
+class Queen extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [150,150]
@@ -13,7 +13,7 @@ export class Queen extends Piece{
     }
 }
 
-export class Bishop extends Piece{
+class Bishop extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [95,95]
@@ -21,7 +21,7 @@ export class Bishop extends Piece{
     }
 }
 
-export class Knight extends Piece{
+class Knight extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [60,60]
@@ -29,7 +29,7 @@ export class Knight extends Piece{
     }
 }
 
-export class Rook extends Piece{
+class Rook extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [200,200]
@@ -37,7 +37,7 @@ export class Rook extends Piece{
     }
 }
 
-export class Enchanter extends Piece{
+class Enchanter extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [25,25]
@@ -45,10 +45,18 @@ export class Enchanter extends Piece{
     }
 }
 
-export class Pawn extends Piece{
+class Pawn extends Piece{
     constructor(x,y,team){
         super(x,y,team)
         this.health = [50,50]
         this.buildingTimeLeft = 1
     }
 }
+
+module.exports = Piece
+module.exports = Queen
+module.exports = Bishop
+module.exports = Knight
+module.exports = Rook
+module.exports = Enchanter
+module.exports = Pawn
