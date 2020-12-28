@@ -1,4 +1,4 @@
-import Core from './Building.js'
+const {Building,Core} = require('Building.js')
 
 class Game {
     constructor(masterPseudo,maxPlayers){
