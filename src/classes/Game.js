@@ -18,6 +18,7 @@ class Game {
         if(this.players.length == this.gameInfo.maxPlayers){
             this.buildings.push(new Core(this.maxPlayers,0))
             this.buildings.push(new Core(this.maxPlayers,1))
+            console.log(this)
         }
     }
     playerJoin(user,io){
