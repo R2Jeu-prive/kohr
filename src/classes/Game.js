@@ -14,16 +14,41 @@ class Game {
         this.buildings = []
         this.players = []
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
-        this.last_timestamp = 0;
+        this.lastTimestamp = 0;
+        this.skipId = undefined
     }
-    processTurn(){
-        this.players.forEach(function(player){
-            if(player.team == this.teamPlaying){
-                
+    countBuildings(buildingName,team){
+        result = 0
+        this.buildings.forEach(function(building){
+            if(building.constructor.name == buildingName && building.team == team){
+                count = count + 1
             }
         },this)
+        return count
     }
-    tryStartGame(){
+    processTurn(io){
+        this.teamPlaying = -1*this.teamPlaying+1 //switch from 0 to 1 or 1 to 0
+
+        //ENERGY
+        numberOfBatteries = this.countBuildings("Battery",this.teamPlaying)
+        numberOfWorkshops = this.countBuildings("Workshop",this.teamPlaying)
+        energyCapacity = 10 + 2*numberOfBatteries
+        energyGain = 5 + 1*numberOfWorkshops
+        maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
+        console.log("testing",maxEnergyGain)
+        energyGain = min(energyGain,maxEnergyGain)
+        this.stats[this.teamPlaying][0] = this.stats[this.teamPlaying][0] + energyGain
+
+        this.players.forEach(function(player){
+            if(player.team == this.teamPlaying){
+                io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
+            }else{
+                io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
+            }
+        },this)
+        this.skipId = setTimeout(this.processTurn, 30000, io); //in 30 secs will recall itself
+    }
+    tryStartGame(io){
         if(this.players.length != this.gameInfo.maxPlayers){
             console.log("la partie n'es pas pleine")
             return
@@ -46,7 +71,7 @@ class Game {
         this.buildings.push(new Core(this.gameInfo.maxPlayers,0))
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
         this.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
-        this.processTurn()
+        this.processTurn(io)
     }
     playerJoin(user,io){
         let self = this

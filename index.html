@@ -67,6 +67,14 @@
           $("#lobby-frame").attr("hidden",false);
         });
         
+        socket.on("showGamePlay",function(data){
+          console.log(data)
+        })
+        
+        socket.on("showGameWait",function(data){
+          console.log(data)
+        })
+
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
           if(pseudo == "#-1"){
