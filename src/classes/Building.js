@@ -7,18 +7,20 @@ class Building {
 
 class Core extends Building {
     constructor(maxPlayers,team){
-        position = []
+        z = 17
         if(maxPlayers == 2 && team == 0){
-            position = [4,1]
+            x = 4
+            y = 1
         }else if(maxPlayers == 2 && team == 1){
-            position = [4,7]
+            x = 4
+            y = 7
         }else if(maxPlayers == 4 && team == 0){
-            position = [5,1]
+            x = 5
+            y = 1
         }else if(maxPlayers == 4 && team == 1){
-            position = [5,9]
+            x = 5
+            y = 9
         }
-        x = position[0]
-        y = position[1]
         super(x,y,true,team)
         if(maxPlayers == 2){
             this.health = [500,500]
