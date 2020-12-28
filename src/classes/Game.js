@@ -26,8 +26,7 @@ class Game {
         },this)
         return count
     }
-    processTurn(io,thisGame){
-        this = thisGame
+    processTurn(io){
         this.teamPlaying = -1*this.teamPlaying+1 //switch from 0 to 1 or 1 to 0
 
         //ENERGY
@@ -47,8 +46,7 @@ class Game {
                 io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
             }
         },this)
-        thisGame = this
-        this.skipId = setTimeout(this.processTurn, 10000, io,thisGame); //in 30 secs will recall itself
+        this.skipId = setTimeout(this.processTurn.bind(this), 10000, io); //in 30 secs will recall itself
     }
     tryStartGame(io){
         if(this.players.length != this.gameInfo.maxPlayers){
@@ -73,7 +71,7 @@ class Game {
         this.buildings.push(new Core(this.gameInfo.maxPlayers,0))
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
         this.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
-        this.processTurn(io,this)
+        this.processTurn(io)
     }
     playerJoin(user,io){
         let self = this
