@@ -72,11 +72,4 @@ class HeavyArmory extends Building {
     }
 }
 
-module.exports = Building
-module.exports = Core
-module.exports = Extractor
-module.exports = Workshop
-module.exports = Wall
-module.exports = Battery
-module.exports = LightArmory
-module.exports = HeavyArmory
+module.exports = {Building,Core,Extractor,Workshop,Wall,Battery,LightArmory,HeavyArmory}

@@ -1,4 +1,4 @@
-const Core = require('./Building.js')
+import {Core} from '/Building.js'
 
 class Game {
     constructor(masterPseudo,maxPlayers){
@@ -17,7 +17,7 @@ class Game {
     tryStartGame(){
         if(this.players.length == this.gameInfo.maxPlayers){
             this.buildings.push(new Core(this.maxPlayers,0))
-            this.buildings.push(new Core(this.maxPlayers,1))
+            this.buildings.push(new Core())
             console.log(this)
         }
     }
