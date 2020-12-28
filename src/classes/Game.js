@@ -28,7 +28,7 @@ class Game {
         return count
     }
     processTurn(io){
-        this.teamPlaying = -1*this.teamPlaying+1 //switch from 0 to 1 or 1 to 0
+        this.teamPlaying = (-1*this.teamPlaying)+1 //switch from 0 to 1 or 1 to 0
 
         //COUNTS TURN (1,-1,2,-2,3,-3,etc...)
         this.gameInfo.turn = -this.gameInfo.turn
