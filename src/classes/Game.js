@@ -18,7 +18,7 @@ class Game {
         this.skipId = undefined
     }
     countBuildings(buildingName,team){
-        result = 0
+        var count = 0
         this.buildings.forEach(function(building){
             if(building.constructor.name == buildingName && building.team == team){
                 count = count + 1
