@@ -28,7 +28,7 @@ class Game {
         return count
     }
     processTurn(io){
-        this.teamPlaying = (-1*this.teamPlaying)+1 //switch from 0 to 1 or 1 to 0
+        this.gameInfo.teamPlaying = (-1*this.gameInfo.teamPlaying)+1 //switch from 0 to 1 or 1 to 0
 
         //COUNTS TURN (1,-1,2,-2,3,-3,etc...)
         this.gameInfo.turn = -this.gameInfo.turn
@@ -37,17 +37,17 @@ class Game {
         }
 
         //ENERGY
-        var numberOfBatteries = this.countBuildings("Battery",this.teamPlaying)
-        var numberOfWorkshops = this.countBuildings("Workshop",this.teamPlaying)
+        var numberOfBatteries = this.countBuildings("Battery",this.gameInfo.teamPlaying)
+        var numberOfWorkshops = this.countBuildings("Workshop",this.gameInfo.teamPlaying)
         var energyCapacity = 10 + 2*numberOfBatteries
         var energyGain = 5 + 1*numberOfWorkshops
-        var maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
+        var maxEnergyGain = energyCapacity - this.stats[this.gameInfo.teamPlaying][0]
         energyGain = Math.min(energyGain,maxEnergyGain)
-        this.stats[this.teamPlaying][0] = this.stats[this.teamPlaying][0] + energyGain
+        this.stats[this.gameInfo.teamPlaying][0] = this.stats[this.gameInfo.teamPlaying][0] + energyGain
 
         //EXTRACTOR
         this.buildings.forEach(function(building){
-            if(building.constructor.name == "Extractor" && building.team == this.teamPlaying){
+            if(building.constructor.name == "Extractor" && building.team == this.gameInfo.teamPlaying){
                 var initialProduction = (2.5*building.level*building.level)-(2.5*building.level)+10 // 1 => 10 | 2 => 15 | 3 => 25
                 var proximityBonus = building.countNeighbours(this.buildings)*5
                 var maxProduction = building.inventory[1] - building.inventory[0]
@@ -58,7 +58,7 @@ class Game {
         },this)
 
         this.players.forEach(function(player){
-            if(player.team == this.teamPlaying){
+            if(player.team == this.gameInfo.teamPlaying){
                 io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
             }else{
                 io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
@@ -90,7 +90,7 @@ class Game {
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
         this.buildings.push(new Extractor("copper",3,3,false,0))
         this.gameInfo.turn = 1
-        this.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
+        this.gameInfo.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
         this.processTurn(io)
     }
     playerJoin(user,io){
