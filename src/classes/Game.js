@@ -47,7 +47,7 @@ class Game {
 
         //EXTRACTOR
         this.buildings.forEach(function(building){
-            if(building.constructor.name == "Extractor"){
+            if(building.constructor.name == "Extractor" && building.team == this.teamPlaying){
                 var initialProduction = (2.5*building.level*building.level)-(2.5*building.level)+10 // 1 => 10 | 2 => 15 | 3 => 25
                 var proximityBonus = building.countNeighbours(this.buildings)*5
                 var maxProduction = building.inventory[1] - building.inventory[0]
