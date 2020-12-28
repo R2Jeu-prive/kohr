@@ -6,7 +6,7 @@ let io = require('socket.io')(http);
 const User = require('./src/classes/User.js')
 users = [];
 
-const Game = require('./src/classes/Game.js')
+import {Game} from '/src/classes/Game.js';
 games = [];
 //users[socket.id] = pseudo;
 

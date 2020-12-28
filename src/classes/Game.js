@@ -1,3 +1,6 @@
+import {Building, Core, Extractor, Workshop, Wall, Battery, LightArmory, HeavyArmory} from '/Building.js';
+import {Piece, Queen, Rook, Knight, Bishop, Pawn, Enchanter} from '/Piece.js';
+
 export class Game {
     constructor(masterPseudo,maxPlayers){
         this.gameInfo = {}
@@ -17,6 +20,11 @@ export class Game {
         this.players.forEach(player =>
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
         )
+        if(this.players.length == this.gameInfo.maxPlayers){
+            setTimeout(function(){
+                tryStartGame()
+            }, 3000);
+        }
     }
     playerLeave(user,io){
         if(this.players.find(player => player == user) != undefined){
@@ -26,7 +34,9 @@ export class Game {
             )
         }
     }
-    startGame(){
-
+    tryStartGame(){
+        if(this.players.length == this.gameInfo.maxPlayers){
+            this.buildings.push(new Core())
+        }
     }
 }
