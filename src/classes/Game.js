@@ -36,7 +36,7 @@ class Game {
         var energyGain = 5 + 1*numberOfWorkshops
         var maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
         console.log("testing",maxEnergyGain)
-        energyGain = min(energyGain,maxEnergyGain)
+        energyGain = Math.min(energyGain,maxEnergyGain)
         this.stats[this.teamPlaying][0] = this.stats[this.teamPlaying][0] + energyGain
 
         this.players.forEach(function(player){
