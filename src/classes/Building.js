@@ -8,17 +8,17 @@ class Building {
 class Core extends Building {
     constructor(maxPlayers,team){
         if(maxPlayers == 2 && team == 0){
-            this.x = 4
-            this.y = 1
+            var x = 4
+            var y = 1
         }else if(maxPlayers == 2 && team == 1){
-            this.x = 4
-            this.y = 7
+            var x = 4
+            var y = 7
         }else if(maxPlayers == 4 && team == 0){
-            this.x = 5
-            this.y = 1
+            var x = 5
+            var y = 1
         }else if(maxPlayers == 4 && team == 1){
-            this.x = 5
-            this.y = 9
+            var x = 5
+            var y = 9
         }
         super(x,y,true,team)
         if(maxPlayers == 2){
