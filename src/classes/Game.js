@@ -1,4 +1,4 @@
-import {Core} from '/Building.js'
+import Core from './Building.js'
 
 class Game {
     constructor(masterPseudo,maxPlayers){
