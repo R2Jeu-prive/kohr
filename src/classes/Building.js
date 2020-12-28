@@ -76,3 +76,9 @@ class HeavyArmory extends Building {
 
 exports.Building = Building
 exports.Core = Core
+exports.Extractor = Extractor
+exports.Workshop = Workshop
+exports.Wall = Wall
+exports.Battery = Battery
+exports.LightArmory = LightArmory
+exports.HeavyArmory = HeavyArmory
