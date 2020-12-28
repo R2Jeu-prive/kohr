@@ -1,6 +1,8 @@
 class Building {
     constructor(x,y,atMiddle,team){
-        this.position = [x,y,atMiddle]
+        this.x = x
+        this.y = y
+        this.atMiddle = atMiddle
         this.team = team
     }
 }
@@ -35,6 +37,15 @@ class Extractor extends Building {
         this.health = [20,20]
         this.level = 1
         this.inventory = [0,10,ressource]
+    }
+    countNeighbours(gameBuildings){
+        var neighbours = 0
+        gameBuildings.forEach(function(building){
+            if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                neighbours = neighbours + 1
+            }
+        },this)
+        return neighbours
     }
 }
 

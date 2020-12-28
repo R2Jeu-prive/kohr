@@ -10,6 +10,7 @@ class Game {
         this.gameInfo.masterPseudo = masterPseudo
         this.gameInfo.teamNames = ["Equipe A", "Equipe B"]
         this.gameInfo.teamPlaying = -1
+        this.gameInfo.turn = 0
         this.pieces = []
         this.buildings = []
         this.players = []
@@ -29,15 +30,32 @@ class Game {
     processTurn(io){
         this.teamPlaying = -1*this.teamPlaying+1 //switch from 0 to 1 or 1 to 0
 
+        //COUNTS TURN (1,-1,2,-2,3,-3,etc...)
+        this.gameInfo.turn = -this.gameInfo.turn
+        if(this.gameInfo.turn > 0){
+            this.gameInfo.turn = this.gameInfo.turn + 1
+        }
+
         //ENERGY
         var numberOfBatteries = this.countBuildings("Battery",this.teamPlaying)
         var numberOfWorkshops = this.countBuildings("Workshop",this.teamPlaying)
         var energyCapacity = 10 + 2*numberOfBatteries
         var energyGain = 5 + 1*numberOfWorkshops
         var maxEnergyGain = energyCapacity - this.stats[this.teamPlaying][0]
-        console.log("testing",maxEnergyGain)
         energyGain = Math.min(energyGain,maxEnergyGain)
         this.stats[this.teamPlaying][0] = this.stats[this.teamPlaying][0] + energyGain
+
+        //EXTRACTOR
+        this.buildings.forEach(function(building){
+            if(building.constructor.name == "Extractor"){
+                var initialProduction = (2.5*building.level*building.level)-(2.5*building.level)+10 // 1 => 10 | 2 => 15 | 3 => 25
+                var proximityBonus = building.countNeighbours(this.buildings)*5
+                var maxProduction = building.inventory[1] - building.inventory[0]
+                var production = initialProduction + proximityBonus
+                production = Math.min(production, maxProduction)
+                building.inventory[0] = building.inventory[0] + production
+            }
+        },this)
 
         this.players.forEach(function(player){
             if(player.team == this.teamPlaying){
@@ -46,7 +64,7 @@ class Game {
                 io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
             }
         },this)
-        this.skipId = setTimeout(this.processTurn.bind(this), 10000, io); //in 30 secs will recall itself
+        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
     tryStartGame(io){
         if(this.players.length != this.gameInfo.maxPlayers){
@@ -70,6 +88,8 @@ class Game {
         this.gameInfo.status = "game"
         this.buildings.push(new Core(this.gameInfo.maxPlayers,0))
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
+        this.buildings.push(new Extractor("copper",3,3,false,0))
+        this.gameInfo.turn = 1
         this.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
         this.processTurn(io)
     }
