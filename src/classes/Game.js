@@ -125,7 +125,7 @@ class Game {
             return false
         }
     }
-    positionPlaceable(type,x,y,atMiddle,team){
+    isPlaceable(type,x,y,atMiddle,team){
         //INVALID DATA
         if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) ==-1){
             return false //type invalid
