@@ -27,23 +27,6 @@
       <ul id="lobby-player-list"></ul>
     </div>
 
-    <div id="testing-frame">
-      <input id="comm" placeholder="comm"/>
-      <input id="arg-1" placeholder="arg-1"/>
-      <input id="val-1" placeholder="val-1"/>
-      <input id="arg-2" placeholder="arg-2"/>
-      <input id="val-2" placeholder="val-2"/>
-      <input id="arg-3" placeholder="arg-3"/>
-      <input id="val-3" placeholder="val-3"/>
-      <input id="arg-4" placeholder="arg-4"/>
-      <input id="val-4" placeholder="val-4"/>
-      <input id="arg-5" placeholder="arg-5"/>
-      <input id="val-5" placeholder="val-5"/>
-      <input id="arg-6" placeholder="arg-6"/>
-      <input id="val-6" placeholder="val-6"/>
-      <input id="testing-validate" value="Valider" type="button"/>
-    </div>
-
     <script>
       $(document).ready(function() {
         var socket = io();
@@ -114,20 +97,7 @@
         })
 
         $("#testing-validate").click(function(){
-          arg1 = $("#arg-1").val()
-          val1 = $("#val-1").val()
-          arg2 = $("#arg-2").val()
-          val2 = $("#val-2").val()
-          arg3 = $("#arg-3").val()
-          val3 = $("#val-3").val()
-          arg4 = $("#arg-4").val()
-          val4 = $("#val-4").val()
-          arg5 = $("#arg-5").val()
-          val5 = $("#val-5").val()
-          arg6 = $("#arg-6").val()
-          val6 = $("#val-6").val()
-          comm = $("#comm").val()
-          socket.emit(comm,{arg1:val1,arg2:val2,arg3:val3,arg4:val4,arg5:val5,arg6:val6})
+          socket.emit("buildingBuild",{lastTimeStamp:0,atMiddle:false,type:'Wall',x:2,y:2})
         })
 
       });
