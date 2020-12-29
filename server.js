@@ -61,10 +61,30 @@ io.on('connection', function(socket){
         games.forEach(function(game){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
-                    if(game.isPlaceable(data.type, data.x, data.y, data.atMiddle, user.team)){
+                    if(game.canBuildingBuild(data.type, data.x, data.y, data.atMiddle, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.buildingBuild(data.type, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
+                    }
+                }else{
+                    game.refreshPlayer(user, io)
+                }
+            }
+        })
+    })
+
+    socket.on('buildingEdit',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                    if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
+                        date = new Date()
+                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        game.buildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
                 }else{
                     game.refreshPlayer(user, io)

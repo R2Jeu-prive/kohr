@@ -47,6 +47,10 @@ class Extractor extends Building {
         },this)
         return neighbours
     }
+    upgrade(){
+        this.level += 1
+        this.inventory[1] = (75*this.level*this.level)-(205*this.level)+140
+    }
 }
 
 class Workshop extends Building {
@@ -61,6 +65,11 @@ class Wall extends Building {
         super(x,y,true,team)
         this.health = [50,50]
         this.level = 1
+    }
+    upgrade(){
+        this.level += 1
+        this.health[1] = (40*this.level) + 10
+        this.health[0] = this.health[1]
     }
 }
 
