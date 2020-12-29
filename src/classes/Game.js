@@ -1,5 +1,6 @@
-const {Building,Core,Extractor,Workshop,Wall,Battery,LightArmory,HeavyArmory} = require('./Building.js')
-const {Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
+const {buildingPrices,Building,Core,Extractor,Workshop,Wall,Battery,LightArmory,HeavyArmory} = require('./Building.js')
+const {piecePrices,Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
+
 
 class Game {
     constructor(masterPseudo,maxPlayers){
@@ -52,6 +53,9 @@ class Game {
                 var proximityBonus = building.countNeighbours(this.buildings)*5
                 var maxProduction = building.inventory[1] - building.inventory[0]
                 var production = initialProduction + proximityBonus
+                if(building.atMiddle){
+                    production = production * 2
+                }
                 production = Math.min(production, maxProduction)
                 building.inventory[0] = building.inventory[0] + production
             }
@@ -88,14 +92,13 @@ class Game {
         this.gameInfo.status = "game"
         this.buildings.push(new Core(this.gameInfo.maxPlayers,0))
         this.buildings.push(new Core(this.gameInfo.maxPlayers,1))
-        this.buildings.push(new Extractor("copper",3,3,false,0))
-        this.buildings.push(new Extractor("copper",3,4,false,0))
         this.gameInfo.turn = 0
         this.gameInfo.teamPlaying = Math.floor(Math.random() * 2) //choses random team to start (0 or 1)
         this.processTurn(io)
     }
     playerJoin(user,io){
         let self = this
+        user.setTeam(this.getSmallestTeam())
         this.players.push(user)
         this.players.forEach(player =>
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
@@ -113,6 +116,88 @@ class Game {
             this.players.forEach(player =>
                 io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
             )
+        }
+    }
+    isUserConnected(user){
+        if(this.players.find(player => player == user) != undefined){
+            return true
+        }else{
+            return false
+        }
+    }
+    positionPlaceable(type,x,y,atMiddle,team){
+        //INVALID DATA
+        if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) ==-1){
+            return false //type invalid
+        }
+        if(!(Number.isInteger(x) && Number.isInteger(y))){
+            return false //coords invalid
+        }
+        if(typeof atMiddle != "boolean"){
+            return false //atMiddle not bool
+        }
+        if(!(team == 0 || team == 1)){
+            return false //team has to 0 or 1
+        }
+        var maxBase = 4 + 1 
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxBase = 5 + 1 
+            maxMiddle = 9 + 1
+        }
+        if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
+            return false //out of range coords
+        }
+
+        //DOESN'T HAVE RESSOURCES
+        if(this.countBuildings("Extractor",team) < 3 && type == "Extractor"){
+            //It's FREE
+        }else{
+            if(!(buildingPrices[type][0] <= this.stats[team][1] && buildingPrices[type][1] <= this.stats[team][2] && buildingPrices[type][2] <= this.stats[team][3] && buildingPrices[type][3] <= this.stats[team][4])){
+                return false //doesn't have ressources to build
+            }
+        }
+
+        //MAX COUNT
+        if(type == "Workshop"){
+            if(this.countBuildings(type,team) == 1){
+                return false //on peut construire qu'un Atelier
+            }
+        }
+        if(type == "Battery"){
+            if(this.countBuildings(type,team) == 3){
+                return false //on peut construire que 3 Batteries
+            }
+        }
+        if(type == "LightArmory" || type == "HeavyArmory"){
+            if(this.countBuildings(type,team) == 2){
+                return false //on peut construire que 2 Armuries (de chaque)
+            }
+        }
+
+        //OVERLAPPING
+        if(atMiddle){
+            if(this.buildings.find(building => building.x == x && building.y == y && building.atMiddle) != undefined){
+                return false //un batiment éxiste déjà à cette position
+            }
+        }else{
+            if(this.buildings.find(building => building.x == x && building.y == y && building.team == team && !building.atMiddle) != undefined){
+                return false //un batiment éxiste déjà à cette position
+            }
+        }
+
+        //IF NOTHING WRONG
+        return true
+    }
+    getSmallestTeam(){
+        var total = 0.36
+        this.players.forEach(function(player){
+            total = total + (player.team*2) - 1
+        },this)
+        if(total > 0){
+            return 0
+        }else{
+            return 1
         }
     }
 }

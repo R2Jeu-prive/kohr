@@ -16,6 +16,10 @@ function addRoute(search,path){
     });
 }
 
+function getUserBySocket(socket){
+    return users.find(user => user.socket_id == socket.id)
+}
+
 addRoute("/","/index.html")
 addRoute("/css/index","/web/css/index.css")
 
@@ -48,6 +52,25 @@ io.on('connection', function(socket){
         }
         game.playerJoin(user,io)
     });
+
+    socket.on('buildingBuild',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                console.log(1)
+                if(data.timeStamp == game.lastTimeStamp){
+                    console.log(2)
+                    if(game.isPlaceable(data.type, data.x, data.y, data.atMiddle, user.team)){
+                        console.log("testing")
+                        //[todo] test turn
+                    }
+                }
+            }
+        })
+    })
 
     socket.on('disconnect', function() {
         leavingUser = users.find(user => user.socket_id === socket.id)

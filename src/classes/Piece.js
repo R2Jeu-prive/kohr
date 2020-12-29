@@ -1,6 +1,7 @@
 class Piece {
     constructor(x,y,team){
-        this.position = [x,y]
+        this.x = x
+        this.y = y
         this.team = team
     }
 }
@@ -53,10 +54,13 @@ class Pawn extends Piece{
     }
 }
 
-module.exports = Piece
-module.exports = Queen
-module.exports = Bishop
-module.exports = Knight
-module.exports = Rook
-module.exports = Enchanter
-module.exports = Pawn
+var piecePrices = {}
+
+exports.piecePrices = piecePrices
+exports.Piece = Piece
+exports.Queen = Queen
+exports.Bishop = Bishop
+exports.Knight = Knight
+exports.Rook = Rook
+exports.Enchanter = Enchanter
+exports.Pawn = Pawn

@@ -36,7 +36,7 @@ class Extractor extends Building {
         super(x,y,atMiddle,team)
         this.health = [20,20]
         this.level = 1
-        this.inventory = [0,250,ressource]
+        this.inventory = [0,10,ressource]
     }
     countNeighbours(gameBuildings){
         var neighbours = 0
@@ -85,6 +85,15 @@ class HeavyArmory extends Building {
     }
 }
 
+var buildingPrices = {}
+buildingPrices["Extractor"] = [30,50,10,0]
+buildingPrices["Wall"] = [0,20,0,0]
+buildingPrices["Workshop"] = [0,120,0,30]
+buildingPrices["Battery"] = [50,0,0,0]
+buildingPrices["LightArmory"] = [70,0,30,0]
+buildingPrices["HeavyArmory"] = [0,70,20,50]
+
+exports.buildingPrices = buildingPrices
 exports.Building = Building
 exports.Core = Core
 exports.Extractor = Extractor
