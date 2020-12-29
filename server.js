@@ -60,13 +60,14 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                console.log(1)
-                if(data.lastTimeStamp == game.lastTimeStamp){
-                    console.log(2)
+                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.isPlaceable(data.type, data.x, data.y, data.atMiddle, user.team)){
-                        console.log("testing")
-                        //[todo] test turn
+                        date = new Date()
+                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        game.buildingBuild(data.type, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
+                }else{
+                    game.refreshPlayer(user, io)
                 }
             }
         })

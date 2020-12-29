@@ -60,7 +60,10 @@ class Game {
                 building.inventory[0] = building.inventory[0] + production
             }
         },this)
-
+        this.refreshAll(io)
+        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
+    }
+    refreshAll(io){
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
                 io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
@@ -68,7 +71,13 @@ class Game {
                 io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
             }
         },this)
-        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
+    }
+    refreshPlayer(player,io){
+        if(player.team == this.gameInfo.teamPlaying){
+            io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+        }else{
+            io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+        }
     }
     tryStartGame(io){
         if(this.players.length != this.gameInfo.maxPlayers){
@@ -127,13 +136,13 @@ class Game {
     }
     isPlaceable(type,x,y,atMiddle,team){
         //INVALID DATA
-        if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) ==-1){
+        if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) == -1){
             return false //type invalid
         }
         if(!(Number.isInteger(x) && Number.isInteger(y))){
             return false //coords invalid
         }
-        if(typeof atMiddle != "boolean"){
+        if(typeof atMiddle != "boolean" || atMiddle == undefined){
             return false //atMiddle not bool
         }
         if(!(team == 0 || team == 1)){
@@ -147,6 +156,14 @@ class Game {
         }
         if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
             return false //out of range coords
+        }
+
+        //INVALID WORLD
+        if(["Wall","Battery"].indexOf(type) != -1 && atMiddle != undefined){
+            return false //atMiddle not needed
+        }
+        if(["Wall","Battery"].indexOf(type) == -1 && atMiddle == undefined){
+            return false //atMiddle needed
         }
 
         //DOESN'T HAVE RESSOURCES
@@ -199,6 +216,23 @@ class Game {
         }else{
             return 1
         }
+    }
+    buildingBuild(type,x,y,atMiddle,team,timeStamp,io){
+        if(["Workshop","LightArmory","HeavyArmory"].indexOf(type) != -1){
+            building = new window[type](x,y,atMiddle,team)
+        }
+        else if(["Wall","Battery"].indexOf(type) != -1){
+            building = new window[type](x,y,team)
+        }
+        else if(type == "Extractor"){
+            building = new Extractor("copper", x, y, atMiddle, team)
+        }
+        this.stats[team][1] = this.stats[team][1] - buildingPrices[type][0]
+        this.stats[team][2] = this.stats[team][2] - buildingPrices[type][1]
+        this.stats[team][3] = this.stats[team][3] - buildingPrices[type][2]
+        this.stats[team][4] = this.stats[team][4] - buildingPrices[type][3]
+        this.lastTimeStamp = timeStamp
+        this.refreshAll(io)
     }
 }
 
