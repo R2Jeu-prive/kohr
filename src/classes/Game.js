@@ -16,7 +16,7 @@ class Game {
         this.buildings = []
         this.players = []
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
-        this.lastTimestamp = 0;
+        this.lastTimeStamp = 0;
         this.skipId = undefined
     }
     countBuildings(buildingName,team){
@@ -63,9 +63,9 @@ class Game {
 
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
-                io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
+                io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
             }else{
-                io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timestamp : this.lastTimestamp})
+                io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
             }
         },this)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself

@@ -61,7 +61,7 @@ io.on('connection', function(socket){
         games.forEach(function(game){
             if(game.isUserConnected(user)){
                 console.log(1)
-                if(data.timeStamp == game.lastTimeStamp){
+                if(data.lastTimeStamp == game.lastTimeStamp){
                     console.log(2)
                     if(game.isPlaceable(data.type, data.x, data.y, data.atMiddle, user.team)){
                         console.log("testing")
