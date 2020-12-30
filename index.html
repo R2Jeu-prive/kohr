@@ -118,8 +118,9 @@
         var baseCanvas = document.getElementById("game-base-canvas")
         var height = 200
         var width = 400
-        baseCanvas.height = height
-        baseCanvas.width = width
+        var m = 5
+        baseCanvas.height = height + (2*m)
+        baseCanvas.width = width + (2*m)
         var baseCtx = baseCanvas.getContext("2d");
         grid = 4
         heightGrid = height / 2 / grid
@@ -129,8 +130,8 @@
         var xE = width
         var yE = height / 2
         for(let i = 0; i <= grid; i++){
-          baseCtx.moveTo(xS,yS)
-          baseCtx.lineTo(xE,yE)
+          baseCtx.moveTo(xS+m,yS+m)
+          baseCtx.lineTo(xE+m,yE+m)
           baseCtx.stroke()
           xS -= widthGrid
           yS += heightGrid
@@ -142,8 +143,8 @@
         var xE = width / 2
         var yE = 0
         for(let i = 0; i <= grid; i++){
-          baseCtx.moveTo(xS,yS)
-          baseCtx.lineTo(xE,yE)
+          baseCtx.moveTo(xS+m,yS+m)
+          baseCtx.lineTo(xE+m,yE+m)
           baseCtx.stroke()
           xS += widthGrid
           yS += heightGrid
