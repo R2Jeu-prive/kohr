@@ -123,6 +123,7 @@
         baseCanvas.width = width + (2*m)
         var baseCtx = baseCanvas.getContext("2d");
         baseCtx.strokeStyle = "#dddddd"
+        baseCtx.lineCap = "round";
         baseCtx.lineWidth = 6;
         grid = 4
         heightGrid = height / 2 / grid
