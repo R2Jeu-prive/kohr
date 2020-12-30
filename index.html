@@ -27,6 +27,17 @@
       <ul id="lobby-player-list"></ul>
     </div>
 
+    <div id="game-frame">
+      <div id="game-base-grid">
+        <canvas id="game-base-canvas" style="min-height: 210; min-width: 410;"></canvas>
+        <ul id="game-base-entities">
+
+        </ul>
+      </div>
+      <div id="game-middle-grid">
+      </div>
+    </div>
+
     <div id="testing-frame">
       <input id="testing-validate" value="Valider" type="button"/>
     </div>
@@ -104,6 +115,11 @@
           socket.emit("buildingBuild",{lastTimeStamp:0,atMiddle:false,type:'Wall',x:2,y:2})
         })
 
+        var baseCanvas = document.getElementById("game-base-canvas")
+        var baseCtx = baseCanvas.getContext("2d");
+        ctx.moveTo(205,5)
+        ctx.lineTo(405,105)
+        ctx.stroke()
       });
 
     </script>
