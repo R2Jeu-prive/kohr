@@ -117,7 +117,6 @@ class Game {
                 self.tryStartGame(io)
             }, 3000);
         }
-        return user
     }
     playerLeave(user,io){
         if(this.players.find(player => player == user) != undefined){
