@@ -137,6 +137,19 @@
           xE -= widthGrid
           yE += heightGrid
         }
+        var xS = 0
+        var yS = height / 2
+        var xE = width / 2
+        var yE = 0
+        for(let i = 0; i <= grid; i++){
+          baseCtx.moveTo(xS,yS)
+          baseCtx.lineTo(xE,yE)
+          baseCtx.stroke()
+          xS += widthGrid
+          yS += heightGrid
+          xE += widthGrid
+          yE += heightGrid
+        }
       });
 
     </script>
