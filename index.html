@@ -118,16 +118,25 @@
         var baseCanvas = document.getElementById("game-base-canvas")
         var height = 200
         var width = 400
-        baseCanvas.height = height + 10
-        baseCanvas.width = width + 10
+        baseCanvas.height = height
+        baseCanvas.width = width
         var baseCtx = baseCanvas.getContext("2d");
-        var m = 5
-        baseCtx.moveTo(width/2+m,m)
-        baseCtx.lineTo(width+m,height/2+m)
-        baseCtx.lineTo(width/2+m,height+m)
-        baseCtx.lineTo(m,height/2+m)
-        baseCtx.lineTo(width/2+m,m)
-        baseCtx.stroke()
+        grid = 4
+        heightGrid = height / 2 / grid
+        widthGrid = width / 2 / grid
+        var xS = width / 2
+        var yS = 0
+        var xE = width
+        var yE = height / 2
+        for(let i = 0; i <= grid; i++){
+          baseCtx.moveTo(xS,yS)
+          baseCtx.lineTo(xE,yE)
+          baseCtx.stroke()
+          xS -= widthGrid
+          yS += heightGrid
+          xE -= widthGrid
+          yE += heightGrid
+        }
       });
 
     </script>
