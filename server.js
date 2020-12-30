@@ -50,6 +50,7 @@ io.on('connection', function(socket){
             game = new Game(user.pseudo,2)
             games.push(game)
         }
+        user.setTeam(game.getSmallestTeam())
         game.playerJoin(user,io)
     });
 

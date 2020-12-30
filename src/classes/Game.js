@@ -107,7 +107,6 @@ class Game {
     }
     playerJoin(user,io){
         let self = this
-        user.setTeam(this.getSmallestTeam())
         this.players.push(user)
         this.players.forEach(player =>
             io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
@@ -118,6 +117,7 @@ class Game {
                 self.tryStartGame(io)
             }, 3000);
         }
+        return user
     }
     playerLeave(user,io){
         if(this.players.find(player => player == user) != undefined){
