@@ -29,7 +29,7 @@
 
     <div id="game-frame">
       <div id="game-base-grid">
-        <canvas id="game-base-canvas" style="min-height: 210; min-width: 410;"></canvas>
+        <canvas id="game-base-canvas" height="210" width="410"></canvas>
         <ul id="game-base-entities">
 
         </ul>
@@ -119,6 +119,9 @@
         var baseCtx = baseCanvas.getContext("2d");
         baseCtx.moveTo(205,5)
         baseCtx.lineTo(405,105)
+        baseCtx.lineTo(205,205)
+        baseCtx.lineTo(5,105)
+        baseCtx.lineTo(205,5)
         baseCtx.stroke()
       });
 
