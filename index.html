@@ -116,12 +116,17 @@
         })
 
         var baseCanvas = document.getElementById("game-base-canvas")
+        var height = 200
+        var width = 400
+        baseCanvas.height = height + 10
+        baseCanvas.width = width + 10
         var baseCtx = baseCanvas.getContext("2d");
-        baseCtx.moveTo(205,5)
-        baseCtx.lineTo(405,105)
-        baseCtx.lineTo(205,205)
-        baseCtx.lineTo(5,105)
-        baseCtx.lineTo(205,5)
+        var m = 5
+        baseCtx.moveTo(width/2+m,m)
+        baseCtx.lineTo(width+m,height/2+m)
+        baseCtx.lineTo(width/2+m,height+m)
+        baseCtx.lineTo(m,height/2+m)
+        baseCtx.lineTo(width/2+m,m)
         baseCtx.stroke()
       });
 
