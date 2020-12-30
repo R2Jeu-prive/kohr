@@ -122,6 +122,8 @@
         baseCanvas.height = height + (2*m)
         baseCanvas.width = width + (2*m)
         var baseCtx = baseCanvas.getContext("2d");
+        baseCtx.strokeStyle("#dddddd")
+        baseCtx.lineWidth = 6;
         grid = 4
         heightGrid = height / 2 / grid
         widthGrid = width / 2 / grid
