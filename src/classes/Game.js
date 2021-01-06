@@ -28,6 +28,16 @@ class Game {
         },this)
         return count
     }
+    collectIfExtractor(x,y,atMiddle,team){
+        building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
+        if(building == undefined){
+            return //no building found
+        }
+        if(building.constructor.name == "Extractor"){
+            this.stats[team][["energy","copper","titanium","gold","ruby"].indexOf(building.inventory[2])] += building.inventory[0]
+            building.inventory[0] = 0
+        }
+    }
     processTurn(io){
         this.gameInfo.teamPlaying = (-1*this.gameInfo.teamPlaying)+1 //switch from 0 to 1 or 1 to 0
 
@@ -144,6 +154,8 @@ class Game {
             return 1
         }
     }
+
+    // BUILDING BUILD
     canBuildingBuild(type,x,y,atMiddle,team){
         //INVALID DATA
         if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) == -1){
@@ -182,6 +194,19 @@ class Game {
         }else{
             if(!(buildingPrices[type][0] <= this.stats[team][1] && buildingPrices[type][1] <= this.stats[team][2] && buildingPrices[type][2] <= this.stats[team][3] && buildingPrices[type][3] <= this.stats[team][4])){
                 return false //doesn't have ressources to build
+            }
+        }
+
+        //ALLOWED BUILD
+        if(atMiddle){
+            var neighbours = 0
+            this.buildings.forEach(function(building){
+                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                    neighbours = neighbours + 1
+                }
+            },this)
+            if(neighbours == 0){
+                return false //can't place solo at middle
             }
         }
 
@@ -234,6 +259,7 @@ class Game {
         this.refreshAll(io)
     }
 
+    // BUILDING EDIT
     canBuildingEdit(edit,x,y,atMiddle,team){
         //INVALID DATA
         if(["copper","titanium","gold","ruby","upgrade","empty"].indexOf(edit) == -1){
@@ -298,6 +324,95 @@ class Game {
             }
         }else{
             building.upgrade()
+        }
+        this.lastTimeStamp = timeStamp
+        this.refreshAll(io)
+    }
+
+    // BUILDING DELETE
+    canBuildingDelete(x,y,atMiddle,team){
+        //INVALID DATA
+        if(!(Number.isInteger(x) && Number.isInteger(y))){
+            return false //coords invalid
+        }
+        if(typeof atMiddle != "boolean"){
+            return false //atMiddle not bool
+        }
+        if(!(team == 0 || team == 1)){
+            return false //team has to 0 or 1
+        }
+        var maxBase = 4 + 1 
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxBase = 5 + 1 
+            maxMiddle = 9 + 1
+        }
+        if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
+            return false //out of range coords
+        }
+
+        //NOT DELETABLE
+        building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
+        if(building == undefined){
+            return false //no building to delete 
+        }
+        else{
+            numberOfBatteries = this.countBuildings("Battery",team)
+            if(building.constructor.name == "Battery" && numberOfBatteries == 3){
+                return false // batteries not deletable
+            }
+        }
+        
+        //IF NOTHING WRONG
+        return true
+    }
+    buildingForceDelete(x,y,atMiddle,team){
+        this.collectIfExtractor(x,y,atMiddle,team)
+        building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
+        if(building == undefined){
+            return //no building found
+        }
+        this.buildings.splice(this.buildings.findIndex(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team)),1);
+    }
+    buildingDelete(x,y,atMiddle,team,timeStamp,io){
+        this.buildingForceDelete(x,y,atMiddle,team)
+        
+        //if the building is at middle we check for "floating buildings" not retached to the team core 
+        if(atMiddle){
+            core = this.building.find(building => (building.constructor.name == "Core", building.team == team))
+            var validCoords = [{x : core.x, y : core.y}]
+            var validCoordsNew = []
+            var deltas = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
+            //gets all valid coords
+            while(validCoordsNew.length != validCoordsNew.length){
+                validCoords = validCoordsNew
+                for (coords of validCoords) {
+                    for (delta of deltas){
+                        let x = coords.x + delta.x
+                        let y = coords.y + delta.y
+                        buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
+                        if(buildingAtCoords){
+                            validCoordsNew.push({x:x,y:y})
+                        }
+                    }
+                }
+            }
+            //removes all building that don't have valid coords
+            for (buildingAtCoords of this.buildings){
+                for(coords of validCoords){
+                    deleteBuilding == true
+                    if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y && buildingAtCoords.atMiddle && buildingAtCoords.team == team){
+                        deleteBuilding == false
+                    }else if(!buildingAtCoords.atMiddle){
+                        deleteBuilding == false
+                    }else if(buildingAtCoords.atMiddle && buildingAtCoords.team != team){
+                        deleteBuilding = false
+                    }
+                }
+                if(deleteBuilding){
+                    this.buildingForceDelete(buildingAtCoords.x,buildingAtCoords.y,buildingAtCoords.atMiddle,team)
+                }
+            }
         }
         this.lastTimeStamp = timeStamp
         this.refreshAll(io)

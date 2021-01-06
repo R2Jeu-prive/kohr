@@ -94,6 +94,26 @@ io.on('connection', function(socket){
         })
     })
 
+    socket.on('buildingDelete',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                    if(game.canBuildingDelete(data.x, data.y, data.atMiddle, user.team)){
+                        date = new Date()
+                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        game.buildingDelete(data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
+                    }
+                }else{
+                    game.refreshPlayer(user, io)
+                }
+            }
+        })
+    })
+
     socket.on('disconnect', function() {
         leavingUser = users.find(user => user.socket_id === socket.id)
 
