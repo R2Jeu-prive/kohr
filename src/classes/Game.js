@@ -317,8 +317,7 @@ class Game {
     buildingEdit(edit,x,y,atMiddle,team,timeStamp,io){
         building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(["copper","titanium","gold","ruby","empty"].indexOf(edit) != -1){
-            this.stats[team][["energy","copper","titanium","gold","ruby"].indexOf(building.inventory[2])] += building.inventory[0]
-            building.inventory[0] = 0
+            this.collectIfExtractor(x,y,atMiddle,team)
             if(["copper","titanium","gold","ruby"].indexOf(edit) != -1){
                 building.inventory[2] = edit
             }
