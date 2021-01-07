@@ -56,6 +56,13 @@ class Game {
         energyGain = Math.min(energyGain,maxEnergyGain)
         this.stats[this.gameInfo.teamPlaying][0] = this.stats[this.gameInfo.teamPlaying][0] + energyGain
 
+        //CONTINUE PIECE BUILDING
+        this.pieces.forEach(function(piece){
+            if(piece.buildingTimeLeft > 0 && piece.team == this.gameInfo.teamPlaying){
+                piece.buildingTimeLeft = piece.buildingTimeLeft - 1
+            }
+        },this)
+
         //EXTRACTOR
         this.buildings.forEach(function(building){
             if(building.constructor.name == "Extractor" && building.team == this.gameInfo.teamPlaying){
