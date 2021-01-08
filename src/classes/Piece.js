@@ -55,6 +55,12 @@ class Pawn extends Piece{
 }
 
 var piecePrices = {}
+piecePrices["Queen"] = [20,0,100,20]
+piecePrices["Rook"] = [0,60,0,30]
+piecePrices["Bishop"] = [65,0,10,0]
+piecePrices["Enchanter"] = [0,0,50,50]
+piecePrices["Knight"] = [70,0,30,0]
+piecePrices["Pawn"] = [0,20,0,0]
 
 exports.piecePrices = piecePrices
 exports.Piece = Piece

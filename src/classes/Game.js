@@ -239,6 +239,9 @@ class Game {
             if(this.buildings.find(building => building.x == x && building.y == y && building.atMiddle) != undefined){
                 return false //un batiment éxiste déjà à cette position
             }
+            if(this.pieces.find(piece => piece.x == x && piece.y == y) != undefined){
+                return false //une pièce éxiste déjà à cette position
+            }
         }else{
             if(this.buildings.find(building => building.x == x && building.y == y && building.team == team && !building.atMiddle) != undefined){
                 return false //un batiment éxiste déjà à cette position
@@ -258,6 +261,7 @@ class Game {
         else if(type == "Extractor"){
             building = new Extractor("copper", x, y, atMiddle, team)
         }
+        this.buildings.push(building)
         this.stats[team][1] = this.stats[team][1] - buildingPrices[type][0]
         this.stats[team][2] = this.stats[team][2] - buildingPrices[type][1]
         this.stats[team][3] = this.stats[team][3] - buildingPrices[type][2]
@@ -420,6 +424,88 @@ class Game {
                 }
             }
         }
+        this.lastTimeStamp = timeStamp
+        this.refreshAll(io)
+    }
+
+    // PIECE BUILD
+    canPieceBuild(type,x,y,team){
+        //INVALID DATA
+        if(["Queen","Bishop","Knight","Rook","Enchanter","Pawn"].indexOf(type) == -1){
+            return false //type invalid
+        }
+        if(!(Number.isInteger(x) && Number.isInteger(y))){
+            return false //coords invalid
+        }
+        if(!(team == 0 || team == 1)){
+            return false //team has to 0 or 1
+        }
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxMiddle = 9 + 1
+        }
+        if(!(x>0 && x<maxBase && y>0 && y<maxBase)){
+            return false //out of range coords
+        }
+
+        //DOESN'T HAVE RESSOURCES
+        if(!(piecePrices[type][0] <= this.stats[team][1] && piecePrices[type][1] <= this.stats[team][2] && piecePrices[type][2] <= this.stats[team][3] && piecePrices[type][3] <= this.stats[team][4])){
+            return false //doesn't have ressources to build
+        }
+
+        //ALLOWED BUILD
+        if(atMiddle){
+            var neighbours = 0
+            this.buildings.forEach(function(building){
+                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                    neighbours = neighbours + 1
+                }
+            },this)
+            if(neighbours == 0){
+                return false //can't place solo at middle
+            }
+        }
+
+        //MAX COUNT
+        if(["Bishop","Knight","Pawn"].indexOf(type) != -1){
+            var lightPieces = 0
+            lightPieces += this.countPieces("Pawn",team)
+            lightPieces += this.countPieces("Knight",team)
+            lightPieces += this.countPieces("Bishop",team)
+            var lightCapacity = this.getCapacity("LIGHT")
+            if(lightCapacity == lightPieces){
+                return false //capacité max atteinte pour les pieces légères
+            }
+        }
+        if(["Queen","Rook","Enchanter"].indexOf(type) != -1){
+            var heavyPieces = 0
+            heavyPieces += this.countPieces("Queen",team)
+            heavyPieces += this.countPieces("Rook",team)
+            heavyPieces += this.countPieces("Enchanter",team)
+            var heavyCapacity = this.getCapacity("HEAVY")
+            if(heavyCapacity == heavyPieces){
+                return false //capacité max atteinte pour les pieces lourdes
+            }
+        }
+
+        //OVERLAPPING
+        if(this.buildings.find(building => building.x == x && building.y == y && building.atMiddle) != undefined){
+            return false //un batiment éxiste déjà à cette position
+        }
+        if(this.pieces.find(piece => piece.x == x && piece.y == y) != undefined){
+            return false //une pièce éxiste déjà à cette position
+        }
+
+        //IF NOTHING WRONG
+        return true
+    }
+    pieceBuild(type,x,y,team,timeStamp,io){
+        piece = new window[type](x,y,team)
+        this.pieces.push(piece)
+        this.stats[team][1] = this.stats[team][1] - piecePrices[type][0]
+        this.stats[team][2] = this.stats[team][2] - piecePrices[type][1]
+        this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
+        this.stats[team][4] = this.stats[team][4] - piecePrices[type][3]
         this.lastTimeStamp = timeStamp
         this.refreshAll(io)
     }
