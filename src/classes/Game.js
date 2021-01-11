@@ -19,14 +19,32 @@ class Game {
         this.lastTimeStamp = 0;
         this.skipId = undefined
     }
-    countBuildings(buildingName,team){
+    countBuildings(buildingName,team,onlyAtMiddle){
+        onlyAtMiddle = onlyAtMiddle || false
         var count = 0
         this.buildings.forEach(function(building){
-            if(building.constructor.name == buildingName && building.team == team){
+            if(building.constructor.name == buildingName && building.team == team && !(onlyAtMiddle && !building.atMiddle)){
                 count = count + 1
             }
         },this)
         return count
+    }
+    countPieces(pieceName,team){
+        var count = 0
+        this.pieces.forEach(function(piece){
+            if(piece.constructor.name == pieceName && piece.team == team){
+                count = count + 1
+            }
+        },this)
+        return count
+    }
+    getCapacity(type,team){
+        var armoryName = type.toLowerCase() + "Armory"
+        var armoryAtMiddleCount = this.countBuildings(armoryName, team, true)
+        var allArmoryCount = this.countBuildings(armoryName, team)
+        var armoryAtBaseCount = allArmoryCount - armoryAtMiddleCount
+        var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
+        return capacity
     }
     collectIfExtractor(x,y,atMiddle,team){
         building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
@@ -472,7 +490,7 @@ class Game {
             lightPieces += this.countPieces("Pawn",team)
             lightPieces += this.countPieces("Knight",team)
             lightPieces += this.countPieces("Bishop",team)
-            var lightCapacity = this.getCapacity("LIGHT")
+            var lightCapacity = this.getCapacity("LIGHT",team)
             if(lightCapacity == lightPieces){
                 return false //capacité max atteinte pour les pieces légères
             }
@@ -482,7 +500,7 @@ class Game {
             heavyPieces += this.countPieces("Queen",team)
             heavyPieces += this.countPieces("Rook",team)
             heavyPieces += this.countPieces("Enchanter",team)
-            var heavyCapacity = this.getCapacity("HEAVY")
+            var heavyCapacity = this.getCapacity("HEAVY",team)
             if(heavyCapacity == heavyPieces){
                 return false //capacité max atteinte pour les pieces lourdes
             }
