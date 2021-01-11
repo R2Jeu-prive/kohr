@@ -1,5 +1,5 @@
 const {buildingPrices,Building,Core,Extractor,Workshop,Wall,Battery,LightArmory,HeavyArmory} = require('./Building.js')
-const {piecePrices,Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
+const {piecePrices,pieceMovePrices,piecePossibleMoves,Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
 
 
 class Game {
@@ -18,6 +18,16 @@ class Game {
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
+    }
+    intMiddle(a,b,c){
+        //returns true is a,b,c are in this order or inversed order (c,b,a)
+        if(a>=b && b>=c){
+            return true
+        }else if(a<=b && b<=c){
+            return true
+        }else{
+            return false
+        }
     }
     countBuildings(buildingName,team,onlyAtMiddle){
         onlyAtMiddle = onlyAtMiddle || false
@@ -524,6 +534,89 @@ class Game {
         this.stats[team][2] = this.stats[team][2] - piecePrices[type][1]
         this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
         this.stats[team][4] = this.stats[team][4] - piecePrices[type][3]
+        this.lastTimeStamp = timeStamp
+        this.refreshAll(io)
+    }
+
+    // PIECE MOVE
+    canPieceMove(startX,startY,endX,endY,team){
+        //INVALID DATA
+        if(!(Number.isInteger(startX) && Number.isInteger(startY) && Number.isInteger(endX) && Number.isInteger(endY))){
+            return false //coords invalid
+        }
+        if(!(team == 0 || team == 1)){
+            return false //team has to 0 or 1
+        }
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxMiddle = 9 + 1
+        }
+        if(!(startX>0 && startX<maxBase && startY>0 && startY<maxBase && endX>0 && endX<maxBase && endY>0 && endY<maxBase)){
+            return false //out of range coords
+        }
+
+        //GET PIECE
+        movingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
+
+        //UNVALID PIECE
+        if(movingPiece == undefined){
+            return false //no piece at these chords
+        }
+        if(movingPiece.team != team){
+            return false //piece not the team of the player
+        }
+        if(movingPiece.buildingTimeLeft > 0){
+            return false //piece not finished building
+        }
+
+        //DOESN'T HAVE ENERGY
+        if(this.stats[team][0] < pieceMovePrices[movingPiece.constructor.name]){
+            return false //doesn't have energy to move
+        }
+
+        //UNVALID MOVE
+        var deltaX = endX - startX
+        var deltaY = endY - startY
+        if(team == 1){
+            deltaX = -deltaX
+            deltaY = -deltaY
+        }
+        if(!piecePossibleMoves[movingPiece.constructor.name].includes([deltaX, deltaY])){
+            return false //move is not possible for this piece
+        }else{
+            for(building in this.buildings){
+                if(!building.atMiddle){
+                    continue
+                    //si le batiment n'est pas au milieu on le skip
+                }
+                var buildingDeltaX = building.x - startX
+                var buildingDeltaY = building.y - startY
+                if(piecePossibleMoves[movingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
+                    //le batiment pourrait se trouver sur le chemin de la pièce
+                    if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY)){
+                        return false // le batiment bloque le chemin !
+                    }
+                }
+            }
+            for(piece in this.pieces){
+                var pieceDeltaX = piece.x - startX
+                var pieceDeltaY = piece.y - startY
+                if(piecePossibleMoves[movingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
+                    //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
+                    if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY)){
+                        return false // une pièce bloque le chemin !
+                    }
+                }
+            }
+        }
+
+        //IF NOTHING WRONG
+        return true
+    }
+    pieceMove(startX,startY,endX,endY,timeStamp,io){
+        movingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
+        movingPiece.changeCoords(endX,endY)
+        this.stats[team][0] = this.stats[team][0] - pieceMovePrices[movingPiece.constructor.name]
         this.lastTimeStamp = timeStamp
         this.refreshAll(io)
     }
