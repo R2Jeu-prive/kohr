@@ -281,13 +281,13 @@ class Game {
     }
     buildingBuild(type,x,y,atMiddle,team,timeStamp,io){
         if(["Workshop","LightArmory","HeavyArmory"].indexOf(type) != -1){
-            building = new window[type](x,y,atMiddle,team)
+            var building = new window[type](x,y,atMiddle,team)
         }
         else if(["Wall","Battery"].indexOf(type) != -1){
-            building = new window[type](x,y,team)
+            var building = new window[type](x,y,team)
         }
         else if(type == "Extractor"){
-            building = new Extractor("copper", x, y, atMiddle, team)
+            var building = new Extractor("copper", x, y, atMiddle, team)
         }
         this.buildings.push(building)
         this.stats[team][1] = this.stats[team][1] - buildingPrices[type][0]
