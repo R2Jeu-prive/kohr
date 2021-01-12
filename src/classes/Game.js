@@ -30,7 +30,7 @@ class Game {
         }
     }
     countBuildings(buildingName,team,onlyAtMiddle){
-        onlyAtMiddle = onlyAtMiddle || false
+        var onlyAtMiddle = onlyAtMiddle || false
         var count = 0
         this.buildings.forEach(function(building){
             if(building.constructor.name == buildingName && building.team == team && !(onlyAtMiddle && !building.atMiddle)){
@@ -57,7 +57,7 @@ class Game {
         return capacity
     }
     collectIfExtractor(x,y,atMiddle,team,collectTeam){
-        building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
+        var building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(building == undefined){
             return //no building found
         }
@@ -344,7 +344,7 @@ class Game {
         }
 
         //NOT EDITABLE OR MISSING RESSOURCES
-        building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
+        var building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
         if(building == undefined){
             console.log("21")
             return false //no building to edit 
@@ -380,7 +380,7 @@ class Game {
         return true
     }
     buildingEdit(edit,x,y,atMiddle,team,timeStamp,io){
-        building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
+        var building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(["copper","titanium","gold","ruby","empty"].indexOf(edit) != -1){
             this.collectIfExtractor(x,y,atMiddle,team,team)
             if(["copper","titanium","gold","ruby"].indexOf(edit) != -1){
@@ -420,13 +420,13 @@ class Game {
         }
 
         //NOT DELETABLE
-        building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
+        var building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
         if(building == undefined){
             console.log("31")
             return false //no building to delete 
         }
         else{
-            numberOfBatteries = this.countBuildings("Battery",team)
+            var numberOfBatteries = this.countBuildings("Battery",team)
             if(building.constructor.name == "Battery" && numberOfBatteries == 3){
                 console.log("32")
                 return false // batteries not deletable
@@ -438,7 +438,7 @@ class Game {
     }
     buildingForceDelete(x,y,atMiddle,team,destroyingTeam){
         this.collectIfExtractor(x,y,atMiddle,team,destroyingTeam)
-        building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
+        var building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(building == undefined){
             return //no building found
         }
@@ -449,7 +449,7 @@ class Game {
         
         //if the building is at middle we check for "floating buildings" not retached to the team core 
         if(atMiddle){
-            core = this.building.find(building => (building.constructor.name == "Core", building.team == team))
+            var core = this.building.find(building => (building.constructor.name == "Core", building.team == team))
             var validCoords = [{x : core.x, y : core.y}]
             var validCoordsNew = []
             var deltas = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
@@ -460,7 +460,7 @@ class Game {
                     for (delta of deltas){
                         let x = coords.x + delta.x
                         let y = coords.y + delta.y
-                        buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
+                        var buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
                         if(buildingAtCoords){
                             validCoordsNew.push({x:x,y:y})
                         }
@@ -470,11 +470,11 @@ class Game {
             //removes all building that don't have valid coords
             for (buildingAtCoords of this.buildings){
                 for(coords of validCoords){
-                    deleteBuilding == true
+                    var deleteBuilding = true
                     if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y && buildingAtCoords.atMiddle && buildingAtCoords.team == team){
-                        deleteBuilding == false
+                        deleteBuilding = false
                     }else if(!buildingAtCoords.atMiddle){
-                        deleteBuilding == false
+                        deleteBuilding = false
                     }else if(buildingAtCoords.atMiddle && buildingAtCoords.team != team){
                         deleteBuilding = false
                     }
@@ -570,8 +570,7 @@ class Game {
         return true
     }
     pieceBuild(type,x,y,team,timeStamp,io){
-        piece = new window[type](x,y,team)
-        this.pieces.push(piece)
+        this.pieces.push(new window[type](x,y,team))
         this.stats[team][1] = this.stats[team][1] - piecePrices[type][0]
         this.stats[team][2] = this.stats[team][2] - piecePrices[type][1]
         this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
@@ -601,7 +600,7 @@ class Game {
         }
 
         //GET PIECE
-        movingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
+        var movingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
 
         //UNVALID PIECE
         if(movingPiece == undefined){
@@ -666,7 +665,7 @@ class Game {
         return true
     }
     pieceMove(startX,startY,endX,endY,timeStamp,io){
-        movingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
+        var movingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
         movingPiece.changeCoords(endX,endY)
         this.stats[team][0] = this.stats[team][0] - pieceMovePrices[movingPiece.constructor.name]
         this.lastTimeStamp = timeStamp
@@ -694,7 +693,7 @@ class Game {
         }
 
         //GET PIECE
-        attackingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
+        var attackingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
 
         //UNVALID PIECE
         if(attackingPiece == undefined){
@@ -771,7 +770,7 @@ class Game {
 
         //ENCHANTER MAX PIECES
         if(attackType == "enchant"){
-            attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
+            var attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
             if(attackedPiece == undefined){
                 console.log("66")
                 return false //can't enchant building
@@ -804,7 +803,7 @@ class Game {
         return true
     }
     pieceForceDelete(x,y){
-        piece = this.pieces.find(piece => (piece.x == x && piece.y == y))
+        var piece = this.pieces.find(piece => (piece.x == x && piece.y == y))
         if(piece == undefined){
             return //no building found
         }
@@ -812,21 +811,21 @@ class Game {
     }
     pieceAttack(startX,startY,endX,endY,attackType,team,timeStamp,io){
         //GET REFS
-        attackingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
-        attackedPiece = this.pieces.find(piece => (piece.x == endX && piece.y == endY))
-        attackedBuilding = this.buildings.find(building => (building.x == endX && building.y == endY))
+        var attackingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
+        var attackedPiece = this.pieces.find(piece => (piece.x == endX && piece.y == endY))
+        var attackedBuilding = this.buildings.find(building => (building.x == endX && building.y == endY))
 
         //GET ENTITY
         if(attackedPiece == undefined){
-            attackedEntity = attackedBuilding
+            var attackedEntity = attackedBuilding
         }else{
-            attackedEntity = attackedPiece
+            var attackedEntity = attackedPiece
         }
 
         //HIT
-        entityDead = attackedEntity.hit(pieceAttacks[attackType][0])
+        var entityDead = attackedEntity.hit(pieceAttacks[attackType][0])
         this.stats[team][0] = this.stats[team][0] - pieceAttacks[attackType][1]
-        attackingDead = false
+        var attackingDead = false
 
         //SUICIDE
         if(attackType == "diagonalSuicide"){
