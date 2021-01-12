@@ -63,8 +63,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingBuild(data.type, data.x, data.y, data.atMiddle, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.buildingBuild(data.type, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
                 }else{
@@ -83,8 +83,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.buildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
                 }else{
@@ -103,8 +103,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingDelete(data.x, data.y, data.atMiddle, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.buildingDelete(data.x, data.y, data.atMiddle, user.team, user.team, newTimeStamp, io)
                     }
                 }else{
@@ -123,8 +123,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceBuild(data.type, data.x, data.y, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.pieceBuild(data.type, data.x, data.y, user.team, newTimeStamp, io)
                     }
                 }else{
@@ -142,8 +142,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceMove(data.startX, data.startY, data.endX, data.endY, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.pieceMove(data.startX, data.startY, data.endX, data.endY, newTimeStamp, io)
                     }
                 }else{
@@ -161,8 +161,8 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team)){
-                        date = new Date()
-                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        var date = new Date()
+                        var newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.pieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team, newTimeStamp, io)
                     }
                 }else{
