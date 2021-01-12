@@ -1,9 +1,14 @@
 class Building {
-    constructor(x,y,atMiddle,team){
+    constructor(x,y,atMiddle,team,health){
         this.x = x
         this.y = y
         this.atMiddle = atMiddle
         this.team = team
+        this.health = [health,health]
+    }
+    hit(damage){
+        this.health = this.health - damage
+        return this.health <= 0 //building is destroyed from attack
     }
 }
 
@@ -22,19 +27,18 @@ class Core extends Building {
             var x = 5
             var y = 9
         }
-        super(x,y,true,team)
         if(maxPlayers == 2){
-            this.health = [500,500]
+            coreHealth = 500
         }else if(maxPlayers == 4){
-            this.health = [1000,1000]
+            coreHealth = 1000
         }
+        super(x,y,true,team,coreHealth)
     }
 }
 
 class Extractor extends Building {
     constructor(ressource,x,y,atMiddle,team){
-        super(x,y,atMiddle,team)
-        this.health = [20,20]
+        super(x,y,atMiddle,team,20)
         this.level = 1
         this.inventory = [0,10,ressource]
     }
@@ -55,15 +59,13 @@ class Extractor extends Building {
 
 class Workshop extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team)
-        this.health = [10,10]
+        super(x,y,atMiddle,team,10)
     }
 }
 
 class Wall extends Building {
     constructor(x,y,team){
-        super(x,y,true,team)
-        this.health = [50,50]
+        super(x,y,true,team,50)
         this.level = 1
     }
     upgrade(){
@@ -75,22 +77,19 @@ class Wall extends Building {
 
 class Battery extends Building {
     constructor(x,y,team){
-        super(x,y,false,team)
-        this.health = [10,10]
+        super(x,y,false,team,10)
     }
 }
 
 class LightArmory extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team)
-        this.health = [40,40]
+        super(x,y,atMiddle,team,40)
     }
 }
 
 class HeavyArmory extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team)
-        this.health = [50,50]
+        super(x,y,atMiddle,team,50)
     }
 }
 

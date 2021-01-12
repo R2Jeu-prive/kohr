@@ -105,7 +105,7 @@ io.on('connection', function(socket){
                     if(game.canBuildingDelete(data.x, data.y, data.atMiddle, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
-                        game.buildingDelete(data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
+                        game.buildingDelete(data.x, data.y, data.atMiddle, user.team, user.team, newTimeStamp, io)
                     }
                 }else{
                     game.refreshPlayer(user, io)
@@ -145,6 +145,25 @@ io.on('connection', function(socket){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
                         game.pieceMove(data.startX, data.startY, data.endX, data.endY, newTimeStamp, io)
+                    }
+                }else{
+                    game.refreshPlayer(user, io)
+                }
+            }
+        })
+    })
+    socket.on('pieceAttack',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                    if(game.canPieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team)){
+                        date = new Date()
+                        newTimeStamp = date.getDate() //returns miliseconds since 1970
+                        game.pieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team, newTimeStamp, io)
                     }
                 }else{
                     game.refreshPlayer(user, io)

@@ -1,5 +1,5 @@
 const {buildingPrices,Building,Core,Extractor,Workshop,Wall,Battery,LightArmory,HeavyArmory} = require('./Building.js')
-const {piecePrices,pieceMovePrices,piecePossibleMoves,Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
+const {piecePrices,pieceMovePrices,piecePossibleMoves,piecePossibleAttacks,pieceAttacks,Piece,Queen,Bishop,Knight,Rook,Enchanter,Pawn} = require('./Piece.js')
 
 
 class Game {
@@ -56,13 +56,13 @@ class Game {
         var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
         return capacity
     }
-    collectIfExtractor(x,y,atMiddle,team){
+    collectIfExtractor(x,y,atMiddle,team,collectTeam){
         building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(building == undefined){
             return //no building found
         }
         if(building.constructor.name == "Extractor"){
-            this.stats[team][["energy","copper","titanium","gold","ruby"].indexOf(building.inventory[2])] += building.inventory[0]
+            this.stats[collectTeam][["energy","copper","titanium","gold","ruby"].indexOf(building.inventory[2])] += building.inventory[0]
             building.inventory[0] = 0
         }
     }
@@ -356,7 +356,7 @@ class Game {
     buildingEdit(edit,x,y,atMiddle,team,timeStamp,io){
         building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(["copper","titanium","gold","ruby","empty"].indexOf(edit) != -1){
-            this.collectIfExtractor(x,y,atMiddle,team)
+            this.collectIfExtractor(x,y,atMiddle,team,team)
             if(["copper","titanium","gold","ruby"].indexOf(edit) != -1){
                 building.inventory[2] = edit
             }
@@ -404,16 +404,16 @@ class Game {
         //IF NOTHING WRONG
         return true
     }
-    buildingForceDelete(x,y,atMiddle,team){
-        this.collectIfExtractor(x,y,atMiddle,team)
+    buildingForceDelete(x,y,atMiddle,team,destroyingTeam){
+        this.collectIfExtractor(x,y,atMiddle,team,destroyingTeam)
         building = this.buildings.find(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team))
         if(building == undefined){
             return //no building found
         }
         this.buildings.splice(this.buildings.findIndex(building => (building.x == x && building.y == y && building.atMiddle == atMiddle && building.team == team)),1);
     }
-    buildingDelete(x,y,atMiddle,team,timeStamp,io){
-        this.buildingForceDelete(x,y,atMiddle,team)
+    buildingDelete(x,y,atMiddle,team,destroyingTeam,timeStamp,io){
+        this.buildingForceDelete(x,y,atMiddle,team,destroyingTeam)
         
         //if the building is at middle we check for "floating buildings" not retached to the team core 
         if(atMiddle){
@@ -448,7 +448,7 @@ class Game {
                     }
                 }
                 if(deleteBuilding){
-                    this.buildingForceDelete(buildingAtCoords.x,buildingAtCoords.y,buildingAtCoords.atMiddle,team)
+                    this.buildingForceDelete(buildingAtCoords.x,buildingAtCoords.y,buildingAtCoords.atMiddle,team,destroyingTeam)
                 }
             }
         }
@@ -617,6 +617,186 @@ class Game {
         movingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
         movingPiece.changeCoords(endX,endY)
         this.stats[team][0] = this.stats[team][0] - pieceMovePrices[movingPiece.constructor.name]
+        this.lastTimeStamp = timeStamp
+        this.refreshAll(io)
+    }
+
+    // PIECE ATTACK
+    canPieceAttack(startX,startY,endX,endY,attackType,team){
+        //INVALID DATA
+        if(!(Number.isInteger(startX) && Number.isInteger(startY) && Number.isInteger(endX) && Number.isInteger(endY))){
+            return false //coords invalid
+        }
+        if(!(team == 0 || team == 1)){
+            return false //team has to 0 or 1
+        }
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxMiddle = 9 + 1
+        }
+        if(!(startX>0 && startX<maxBase && startY>0 && startY<maxBase && endX>0 && endX<maxBase && endY>0 && endY<maxBase)){
+            return false //out of range coords
+        }
+
+        //GET PIECE
+        attackingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
+
+        //UNVALID PIECE
+        if(attackingPiece == undefined){
+            return false //no piece at these chords
+        }
+        if(attackingPiece.team != team){
+            return false //piece not the team of the player
+        }
+        if(attackingPiece.buildingTimeLeft > 0){
+            return false //piece not finished building
+        }
+
+        //DOESN'T HAVE ENERGY
+        if(this.stats[team][0] < pieceAttacks[attackType][1]){
+            return false //doesn't have energy to attack
+        }
+
+        //ATTACK TYPE NOT AVAILABLE FOR PIECE
+        if(!attackingPiece.attacks.includes(attackType)){
+            return false //doesn't have access to this attack
+        }
+
+        //UNVALID ATTACK
+        var deltaX = endX - startX
+        var deltaY = endY - startY
+        if(team == 1){
+            deltaX = -deltaX
+            deltaY = -deltaY
+        }
+        if(!piecePossibleAttacks[attackingPiece.constructor.name].includes([deltaX, deltaY])){
+            return false //attack moving is not possible for this piece
+        }else{
+            for(building in this.buildings){
+                if(!building.atMiddle){
+                    continue
+                    //si le batiment n'est pas au milieu on le skip
+                }
+                var buildingDeltaX = building.x - startX
+                var buildingDeltaY = building.y - startY
+                if(piecePossibleAttacks[attackingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
+                    //le batiment pourrait se trouver sur le chemin de la pièce
+                    if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY) && (building.x != endX || building.y != endY)){
+                        return false // le batiment bloque le chemin !
+                    }
+                    if(building.x == endX && building.y == endY && building.team == team && attackType != "healing"){
+                        return false //no friendly fire
+                    }
+                }
+            }
+            for(piece in this.pieces){
+                var pieceDeltaX = piece.x - startX
+                var pieceDeltaY = piece.y - startY
+                if(piecePossibleAttacks[attackingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
+                    //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
+                    if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY) && (piece.x != endX || piece.y != endY)){
+                        return false // une pièce bloque le chemin !
+                    }
+                    if(piece.x == endX && piece.y == endY && piece.team == team && attackType != "healing"){
+                        return false //no friendly fire
+                    }
+                }
+            }
+        }
+
+        //ENCHANTER MAX PIECES
+        if(attackType == "enchant"){
+            attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
+            if(attackedPiece == undefined){
+                //skip
+            }
+            else if(["Bishop","Knight","Pawn"].indexOf(attackedPiece.constructor.name) != -1){
+                var lightPieces = 0
+                lightPieces += this.countPieces("Pawn",team)
+                lightPieces += this.countPieces("Knight",team)
+                lightPieces += this.countPieces("Bishop",team)
+                var lightCapacity = this.getCapacity("LIGHT",team)
+                if(lightCapacity == lightPieces){
+                    return false //capacité max atteinte pour les pieces légères
+                }
+            }
+            else if(["Queen","Rook","Enchanter"].indexOf(attackedPiece.constructor.name) != -1){
+                var heavyPieces = 0
+                heavyPieces += this.countPieces("Queen",team)
+                heavyPieces += this.countPieces("Rook",team)
+                heavyPieces += this.countPieces("Enchanter",team)
+                var heavyCapacity = this.getCapacity("HEAVY",team)
+                if(heavyCapacity == heavyPieces){
+                    return false //capacité max atteinte pour les pieces lourdes
+                }
+            }
+        }
+
+        //IF NOTHING WRONG
+        return true
+    }
+    pieceForceDelete(x,y){
+        piece = this.pieces.find(piece => (piece.x == x && piece.y == y))
+        if(piece == undefined){
+            return //no building found
+        }
+        this.pieces.splice(this.pieces.findIndex(piece => (piece.x == x && piece.y == y)),1);
+    }
+    pieceAttack(startX,startY,endX,endY,attackType,team,timeStamp,io){
+        //GET REFS
+        attackingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
+        attackedPiece = this.pieces.find(piece => (piece.x == endX && piece.y == endY))
+        attackedBuilding = this.buildings.find(building => (building.x == endX && building.y == endY))
+
+        //GET ENTITY
+        if(attackedPiece == undefined){
+            attackedEntity = attackedBuilding
+        }else{
+            attackedEntity = attackedPiece
+        }
+
+        //HIT
+        entityDead = attackedEntity.hit(pieceAttacks[attackType][0])
+        this.stats[team][0] = this.stats[team][0] - pieceAttacks[attackType][1]
+        attackingDead = false
+
+        //SUICIDE
+        if(attackType == "diagonalSuicide"){
+            entityDead = attackedEntity.hit(attackingPiece.health)
+            attackingDead = true
+        }
+
+        //ENCHANT
+        if(attackType == "enchant"){
+            attackedEntity.switchTeam()
+        }
+
+        //HEALING
+        if(attackType == "healing"){
+            for(building of this.buildings){
+                if(Math.abs(building.x - startX) <= 1 && Math.abs(building.y - startY) <= 1 && building.team == team){
+                    building.hit(-50)
+                }
+            }
+            for(piece of this.pieces){
+                if(piece.x == startX && piece.y == startY){
+                    continue
+                    //piece is rook doing the attack, skip so he doesn't heal himself
+                }
+                if(Math.abs(piece.x - startX) <= 1 && Math.abs(piece.y - startY) <= 1 && piece.team == team){
+                    piece.hit(-50)
+                }
+            }
+        }
+        if(entityDead){
+            this.pieceForceDelete(endX,endY)
+            this.buildingForceDelete(endX,endY,true,attackedEntity.team,team)
+            if(attackingDead){
+                this.pieceForceDelete(startX,startY)
+            }else{
+                attackingPiece.changeCoords(endX,endY)
+            }
+        }
         this.lastTimeStamp = timeStamp
         this.refreshAll(io)
     }
