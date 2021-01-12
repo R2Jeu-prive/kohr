@@ -28,9 +28,9 @@ class Core extends Building {
             var y = 9
         }
         if(maxPlayers == 2){
-            coreHealth = 500
+            var coreHealth = 500
         }else if(maxPlayers == 4){
-            coreHealth = 1000
+            var coreHealth = 1000
         }
         super(x,y,true,team,coreHealth)
     }
