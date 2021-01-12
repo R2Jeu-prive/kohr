@@ -39,6 +39,7 @@
     </div>
 
     <div id="testing-frame">
+      <input id="testing" value='socket.emit("buildingBuild",{lastTimeStamp:0,atMiddle:false,type:"Wall",x:2,y:2})'/>
       <input id="testing-validate" value="Valider" type="button"/>
     </div>
 
@@ -112,7 +113,7 @@
         })
 
         $("#testing-validate").click(function(){
-          socket.emit("buildingBuild",{lastTimeStamp:0,atMiddle:false,type:'Wall',x:2,y:2})
+          eval($("#testing").val())
         })
 
         /*var baseCanvas = document.getElementById("game-base-canvas")
