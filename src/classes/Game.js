@@ -194,15 +194,19 @@ class Game {
     canBuildingBuild(type,x,y,atMiddle,team){
         //INVALID DATA
         if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(type) == -1){
+            console.log("1")
             return false //type invalid
         }
         if(!(Number.isInteger(x) && Number.isInteger(y))){
+            console.log("2")
             return false //coords invalid
         }
         if(typeof atMiddle != "boolean" || atMiddle == undefined){
+            console.log("3")
             return false //atMiddle not bool
         }
         if(!(team == 0 || team == 1)){
+            console.log("4")
             return false //team has to 0 or 1
         }
         var maxBase = 4 + 1 
@@ -212,14 +216,17 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
+            console.log("5")
             return false //out of range coords
         }
 
         //INVALID WORLD
         if(["Wall","Battery"].indexOf(type) != -1 && atMiddle != undefined){
+            console.log("6")
             return false //atMiddle not needed
         }
         if(["Wall","Battery"].indexOf(type) == -1 && atMiddle == undefined){
+            console.log("7")
             return false //atMiddle needed
         }
 
@@ -228,6 +235,7 @@ class Game {
             //It's FREE
         }else{
             if(!(buildingPrices[type][0] <= this.stats[team][1] && buildingPrices[type][1] <= this.stats[team][2] && buildingPrices[type][2] <= this.stats[team][3] && buildingPrices[type][3] <= this.stats[team][4])){
+                console.log("8")
                 return false //doesn't have ressources to build
             }
         }
@@ -241,6 +249,7 @@ class Game {
                 }
             },this)
             if(neighbours == 0){
+                console.log("9")
                 return false //can't place solo at middle
             }
         }
@@ -248,16 +257,19 @@ class Game {
         //MAX COUNT
         if(type == "Workshop"){
             if(this.countBuildings(type,team) == 1){
+                console.log("10")
                 return false //on peut construire qu'un Atelier
             }
         }
         if(type == "Battery"){
             if(this.countBuildings(type,team) == 3){
+                console.log("11")
                 return false //on peut construire que 3 Batteries
             }
         }
         if(type == "LightArmory" || type == "HeavyArmory"){
             if(this.countBuildings(type,team) == 2){
+                console.log("12")
                 return false //on peut construire que 2 Armuries (de chaque)
             }
         }
@@ -265,13 +277,16 @@ class Game {
         //OVERLAPPING
         if(atMiddle){
             if(this.buildings.find(building => building.x == x && building.y == y && building.atMiddle) != undefined){
+                console.log("13")
                 return false //un batiment éxiste déjà à cette position
             }
             if(this.pieces.find(piece => piece.x == x && piece.y == y) != undefined){
+                console.log("14")
                 return false //une pièce éxiste déjà à cette position
             }
         }else{
             if(this.buildings.find(building => building.x == x && building.y == y && building.team == team && !building.atMiddle) != undefined){
+                console.log("15")
                 return false //un batiment éxiste déjà à cette position
             }
         }
@@ -302,15 +317,19 @@ class Game {
     canBuildingEdit(edit,x,y,atMiddle,team){
         //INVALID DATA
         if(["copper","titanium","gold","ruby","upgrade","empty"].indexOf(edit) == -1){
+            console.log("16")
             return false //edit invalid
         }
         if(!(Number.isInteger(x) && Number.isInteger(y))){
+            console.log("17")
             return false //coords invalid
         }
         if(typeof atMiddle != "boolean"){
+            console.log("18")
             return false //atMiddle not bool
         }
         if(!(team == 0 || team == 1)){
+            console.log("19")
             return false //team has to 0 or 1
         }
         var maxBase = 4 + 1 
@@ -320,33 +339,40 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
+            console.log("20")
             return false //out of range coords
         }
 
         //NOT EDITABLE OR MISSING RESSOURCES
         building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
         if(building == undefined){
+            console.log("21")
             return false //no building to edit 
         }
         else if(building.constructor.name == "Extractor" && edit == "upgrade"){
             if(building.level < 3){
                 if(this.stats[team][4] < 50){
+                    console.log("22")
                     return false //team doesn't have 50 ruby
                 }
             }else{
+                console.log("23")
                 return false //extractor at max level
             }
         }else if(building.constructor.name == "Wall" && edit == "upgrade"){
             if(building.level < 2){
                 if(this.stats[team][2] < 20){
+                    console.log("24")
                     return false //team doesn't have 20 titanium
                 }
             }else{
+                console.log("25")
                 return false //wall at max level
             }
         }else if(building.constructor.name == "Extractor" && ["copper","titanium","gold","ruby","empty"].indexOf(edit) != -1){
             //skip you can change ressource
         }else{
+            console.log("26")
             return false //building not upgradeable
         }
         
@@ -371,12 +397,15 @@ class Game {
     canBuildingDelete(x,y,atMiddle,team){
         //INVALID DATA
         if(!(Number.isInteger(x) && Number.isInteger(y))){
+            console.log("27")
             return false //coords invalid
         }
         if(typeof atMiddle != "boolean"){
+            console.log("28")
             return false //atMiddle not bool
         }
         if(!(team == 0 || team == 1)){
+            console.log("29")
             return false //team has to 0 or 1
         }
         var maxBase = 4 + 1 
@@ -386,17 +415,20 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(atMiddle && x>0 && x<maxMiddle && y>0 && y<maxMiddle) && !(!atMiddle && x>0 && x<maxBase && y>0 && y<maxBase)){
+            console.log("30")
             return false //out of range coords
         }
 
         //NOT DELETABLE
         building = this.buildings.find(building => (building.x == x && building.y == y && building.team == team && building.atMiddle == atMiddle))
         if(building == undefined){
+            console.log("31")
             return false //no building to delete 
         }
         else{
             numberOfBatteries = this.countBuildings("Battery",team)
             if(building.constructor.name == "Battery" && numberOfBatteries == 3){
+                console.log("32")
                 return false // batteries not deletable
             }
         }
@@ -460,12 +492,15 @@ class Game {
     canPieceBuild(type,x,y,team){
         //INVALID DATA
         if(["Queen","Bishop","Knight","Rook","Enchanter","Pawn"].indexOf(type) == -1){
+            console.log("33")
             return false //type invalid
         }
         if(!(Number.isInteger(x) && Number.isInteger(y))){
+            console.log("34")
             return false //coords invalid
         }
         if(!(team == 0 || team == 1)){
+            console.log("35")
             return false //team has to 0 or 1
         }
         var maxMiddle = 7 + 1
@@ -473,11 +508,13 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(x>0 && x<maxBase && y>0 && y<maxBase)){
+            console.log("36")
             return false //out of range coords
         }
 
         //DOESN'T HAVE RESSOURCES
         if(!(piecePrices[type][0] <= this.stats[team][1] && piecePrices[type][1] <= this.stats[team][2] && piecePrices[type][2] <= this.stats[team][3] && piecePrices[type][3] <= this.stats[team][4])){
+            console.log("37")
             return false //doesn't have ressources to build
         }
 
@@ -490,6 +527,7 @@ class Game {
                 }
             },this)
             if(neighbours == 0){
+                console.log("38")
                 return false //can't place solo at middle
             }
         }
@@ -502,6 +540,7 @@ class Game {
             lightPieces += this.countPieces("Bishop",team)
             var lightCapacity = this.getCapacity("LIGHT",team)
             if(lightCapacity == lightPieces){
+                console.log("39")
                 return false //capacité max atteinte pour les pieces légères
             }
         }
@@ -512,15 +551,18 @@ class Game {
             heavyPieces += this.countPieces("Enchanter",team)
             var heavyCapacity = this.getCapacity("HEAVY",team)
             if(heavyCapacity == heavyPieces){
+                console.log("40")
                 return false //capacité max atteinte pour les pieces lourdes
             }
         }
 
         //OVERLAPPING
         if(this.buildings.find(building => building.x == x && building.y == y && building.atMiddle) != undefined){
+            console.log("41")
             return false //un batiment éxiste déjà à cette position
         }
         if(this.pieces.find(piece => piece.x == x && piece.y == y) != undefined){
+            console.log("42")
             return false //une pièce éxiste déjà à cette position
         }
 
@@ -542,9 +584,11 @@ class Game {
     canPieceMove(startX,startY,endX,endY,team){
         //INVALID DATA
         if(!(Number.isInteger(startX) && Number.isInteger(startY) && Number.isInteger(endX) && Number.isInteger(endY))){
+            console.log("43")
             return false //coords invalid
         }
         if(!(team == 0 || team == 1)){
+            console.log("44")
             return false //team has to 0 or 1
         }
         var maxMiddle = 7 + 1
@@ -552,6 +596,7 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(startX>0 && startX<maxBase && startY>0 && startY<maxBase && endX>0 && endX<maxBase && endY>0 && endY<maxBase)){
+            console.log("45")
             return false //out of range coords
         }
 
@@ -560,17 +605,21 @@ class Game {
 
         //UNVALID PIECE
         if(movingPiece == undefined){
+            console.log("46")
             return false //no piece at these chords
         }
         if(movingPiece.team != team){
+            console.log("47")
             return false //piece not the team of the player
         }
         if(movingPiece.buildingTimeLeft > 0){
+            console.log("48")
             return false //piece not finished building
         }
 
         //DOESN'T HAVE ENERGY
         if(this.stats[team][0] < pieceMovePrices[movingPiece.constructor.name]){
+            console.log("49")
             return false //doesn't have energy to move
         }
 
@@ -582,6 +631,7 @@ class Game {
             deltaY = -deltaY
         }
         if(!piecePossibleMoves[movingPiece.constructor.name].includes([deltaX, deltaY])){
+            console.log("50")
             return false //move is not possible for this piece
         }else{
             for(building in this.buildings){
@@ -594,6 +644,7 @@ class Game {
                 if(piecePossibleMoves[movingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
                     //le batiment pourrait se trouver sur le chemin de la pièce
                     if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY)){
+                        console.log("51")
                         return false // le batiment bloque le chemin !
                     }
                 }
@@ -604,6 +655,7 @@ class Game {
                 if(piecePossibleMoves[movingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
                     //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                     if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY)){
+                        console.log("52")
                         return false // une pièce bloque le chemin !
                     }
                 }
@@ -625,9 +677,11 @@ class Game {
     canPieceAttack(startX,startY,endX,endY,attackType,team){
         //INVALID DATA
         if(!(Number.isInteger(startX) && Number.isInteger(startY) && Number.isInteger(endX) && Number.isInteger(endY))){
+            console.log("53")
             return false //coords invalid
         }
         if(!(team == 0 || team == 1)){
+            console.log("54")
             return false //team has to 0 or 1
         }
         var maxMiddle = 7 + 1
@@ -635,6 +689,7 @@ class Game {
             maxMiddle = 9 + 1
         }
         if(!(startX>0 && startX<maxBase && startY>0 && startY<maxBase && endX>0 && endX<maxBase && endY>0 && endY<maxBase)){
+            console.log("55")
             return false //out of range coords
         }
 
@@ -643,22 +698,27 @@ class Game {
 
         //UNVALID PIECE
         if(attackingPiece == undefined){
+            console.log("56")
             return false //no piece at these chords
         }
         if(attackingPiece.team != team){
+            console.log("57")
             return false //piece not the team of the player
         }
         if(attackingPiece.buildingTimeLeft > 0){
+            console.log("58")
             return false //piece not finished building
         }
 
         //DOESN'T HAVE ENERGY
         if(this.stats[team][0] < pieceAttacks[attackType][1]){
+            console.log("59")
             return false //doesn't have energy to attack
         }
 
         //ATTACK TYPE NOT AVAILABLE FOR PIECE
         if(!attackingPiece.attacks.includes(attackType)){
+            console.log("60")
             return false //doesn't have access to this attack
         }
 
@@ -670,6 +730,7 @@ class Game {
             deltaY = -deltaY
         }
         if(!piecePossibleAttacks[attackingPiece.constructor.name].includes([deltaX, deltaY])){
+            console.log("61")
             return false //attack moving is not possible for this piece
         }else{
             for(building in this.buildings){
@@ -682,9 +743,11 @@ class Game {
                 if(piecePossibleAttacks[attackingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
                     //le batiment pourrait se trouver sur le chemin de la pièce
                     if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY) && (building.x != endX || building.y != endY)){
+                        console.log("62")
                         return false // le batiment bloque le chemin !
                     }
                     if(building.x == endX && building.y == endY && building.team == team && attackType != "healing"){
+                        console.log("63")
                         return false //no friendly fire
                     }
                 }
@@ -695,9 +758,11 @@ class Game {
                 if(piecePossibleAttacks[attackingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
                     //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                     if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY) && (piece.x != endX || piece.y != endY)){
+                        console.log("64")
                         return false // une pièce bloque le chemin !
                     }
                     if(piece.x == endX && piece.y == endY && piece.team == team && attackType != "healing"){
+                        console.log("65")
                         return false //no friendly fire
                     }
                 }
@@ -708,6 +773,7 @@ class Game {
         if(attackType == "enchant"){
             attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
             if(attackedPiece == undefined){
+                console.log("66")
                 return false //can't enchant building
             }
             else if(["Bishop","Knight","Pawn"].indexOf(attackedPiece.constructor.name) != -1){
@@ -717,6 +783,7 @@ class Game {
                 lightPieces += this.countPieces("Bishop",team)
                 var lightCapacity = this.getCapacity("LIGHT",team)
                 if(lightCapacity == lightPieces){
+                    console.log("67")
                     return false //capacité max atteinte pour les pieces légères
                 }
             }
@@ -727,6 +794,7 @@ class Game {
                 heavyPieces += this.countPieces("Enchanter",team)
                 var heavyCapacity = this.getCapacity("HEAVY",team)
                 if(heavyCapacity == heavyPieces){
+                    console.log("68")
                     return false //capacité max atteinte pour les pieces lourdes
                 }
             }
