@@ -61,7 +61,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingBuild(data.type, data.x, data.y, data.atMiddle, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
@@ -81,7 +81,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
@@ -101,7 +101,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingDelete(data.x, data.y, data.atMiddle, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
@@ -121,7 +121,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceBuild(data.type, data.x, data.y, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
@@ -140,7 +140,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceMove(data.startX, data.startY, data.endX, data.endY, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
@@ -159,7 +159,7 @@ io.on('connection', function(socket){
         }
         games.forEach(function(game){
             if(game.isUserConnected(user)){
-                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                if(data.lastTimeStamp == game.timeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team)){
                         date = new Date()
                         newTimeStamp = date.getDate() //returns miliseconds since 1970
