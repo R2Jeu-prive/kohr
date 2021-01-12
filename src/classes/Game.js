@@ -708,7 +708,7 @@ class Game {
         if(attackType == "enchant"){
             attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
             if(attackedPiece == undefined){
-                //skip
+                return false //can't enchant building
             }
             else if(["Bishop","Knight","Pawn"].indexOf(attackedPiece.constructor.name) != -1){
                 var lightPieces = 0
