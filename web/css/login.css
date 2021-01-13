@@ -11,6 +11,7 @@
     padding: 0px;
     height : 100%;
     width : 100%;
+    background-color:rgb(60,60,80)
 }
 
 #login-background{
@@ -20,15 +21,19 @@
     transform: translate(-50%,-50%);
     height : 300px;
     width : 270px;
-    min-width: 50%;
-    background-color: rgba(230,230,230,0.1);
+    min-width: 65%;
+    background-color: rgba(230,230,235,0.1);
     clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
     padding : 10px;
 }
 
 #login-title{
     font-family: "Yusei";
-    font-size: 25px;
+    font-size: 50px;
+    letter-spacing: 2px;
     text-align: center;
-    color:rgb(30,30,30);
+    position : relative;
+    top: calc(calc(100% - 300px) / 4);
+    transform: translateY(-50%);
+    color:rgb(230,230,235);
 }
