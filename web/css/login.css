@@ -4,6 +4,24 @@
     outline : none
 }
 
+@media screen and (max-height : 550px){
+    #login-title{
+        display: none;
+    }
+    #login-background{
+        height : 250px;
+    }
+    #login-label{
+        top: 40px;
+    }
+    #login-submit-fullscreen{
+        top: 285px;
+    }
+    #login-submit-normal{
+        top: 240px;
+    }
+}
+
 #login-frame{
     position : fixed;
     top: 0px;
@@ -38,23 +56,6 @@
     top: calc(calc(100% - 300px) / 4);
     transform: translateY(-50%);
     color:rgb(230,230,235);
-}
-@media screen and (max-height : 550px){
-    #login-title{
-        display: none;
-    }
-    #login-background{
-        height : 250px;
-    }
-    #login-label{
-        top: 40px;
-    }
-    #login-submit-fullscreen{
-        top: 285px;
-    }
-    #login-submit-normal{
-        top: 240px;
-    }
 }
 
 #login-label{
