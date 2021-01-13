@@ -104,13 +104,13 @@
     }
     #login-background{
         height : 250px;
-        top : 50%;
+        top : 58%;
     }
     #login-label{
         top: 40px;
     }
     #login-submit-fullscreen{
-        top: 285px;
+        top: 185px;
     }
     #login-submit-normal{
         top: 240px;
