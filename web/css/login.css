@@ -27,7 +27,7 @@
 #login-title{
     font-family: "Comfortaa";
     font-size: 50px;
-    letter-spacing: 2px;
+    margin: 0px 20px;
     text-align: center;
     position : relative;
     margin : 0px;
@@ -39,7 +39,6 @@
 #login-label{
     font-family: "Comfortaa";
     font-size : 30px;
-    letter-spacing: 2px;
     text-align: center;
     padding: 0px;
     margin: 0px;
@@ -48,8 +47,15 @@
 #login-pseudo-input{
     background-color: rgba(0,0,0,0);
     border-bottom: 2px solid rgb(230,230,240);
+    border-left: none;
+    border-right: none;
+    border-top: none;
     font-family: "Comfortaa";
-    letter-spacing: 2px;
     font-size: 30px;
     text-align: center;
+    max-width: 95%;
+}
+
+#login-pseudo-input:focus{
+    outline : none
 }
