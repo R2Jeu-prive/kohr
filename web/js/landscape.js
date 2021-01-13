@@ -1,6 +1,10 @@
 $( window ).on( "orientationchange", function( event ) {
-
+    landscape()
 });
-function double(x){
-    return 2*x
+function landscape(){
+    if(window.innerHeight > window.innerWidth){
+        $("#landscape-frame").attr("hidden",false);
+    }else{
+        $("#landscape-frame").attr("hidden",true);
+    }
 }

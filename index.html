@@ -54,7 +54,6 @@
 
     <script>
       $(document).ready(function() {
-        double(27)
         var socket = io();
         pseudo = "#-1";
 
@@ -103,7 +102,7 @@
 
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
-          $( window ).orientationchange();
+          setLandscape()
           if(pseudo == "#-1"){
             document.location.reload(false);
           }
