@@ -48,7 +48,7 @@
     display: block;
     text-align : center;
     position: relative;
-    top:80px;    
+    top: 55px;    
 }
 
 #login-pseudo-input{
@@ -85,5 +85,13 @@
 #login-submit-normal{
     background-color: rgba(0,0,0,0);
     position: relative;
-    top : 200px;
+    top : 155px;
+    margin: 0px;
+    text-align:center;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0px;
+    font-family: "Comfortaa";
+    font-size: 14px;
+    color: rgb(230,230,240);
 }
