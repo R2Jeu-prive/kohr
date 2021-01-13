@@ -24,7 +24,7 @@
     min-width: 65%;
     background-color: rgba(230,230,235,0.1);
     clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
-    padding : 10px;
+    padding : 20px;
 }
 
 #login-title{
@@ -33,7 +33,26 @@
     letter-spacing: 2px;
     text-align: center;
     position : relative;
+    margin : 0px;
     top: calc(calc(100% - 300px) / 4);
     transform: translateY(-50%);
     color:rgb(230,230,235);
+}
+
+#login-label{
+    font-family: "Yusei";
+    font-size : 30px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+#login-pseudo-input{
+    background-color: rgba(0,0,0,0);
+    border-bottom: 2px solid rgb(230,230,240);
+    font-family: "Yusei";
+    letter-spacing: 2px;
+    font-size: 30px;
+    text-align: center;
 }
