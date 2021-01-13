@@ -45,7 +45,15 @@
     }
     #login-background{
         height : 250px;
-        clip-path: polygon(0 0%, 100% 5%, 100% 100%, 0% 95%);
+    }
+    #login-label{
+        top: 40px;
+    }
+    #login-submit-fullscreen{
+        top: 285px;
+    }
+    #login-submit-normal{
+        top: 240px;
     }
 }
 
