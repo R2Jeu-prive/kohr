@@ -41,7 +41,7 @@
     height : 300px;
     min-width : 200px;
     width: 65%;
-    max-width: 750px;
+    max-width: 400px;
     background-color: rgba(230,230,235,0.1);
     clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
     padding : 20px;
@@ -53,6 +53,7 @@
     margin: 0px 30px;
     text-align: center;
     position : fixed;
+    width: calc(100% - 60px);
     top: calc(calc(100% - 300px) / 4);
     transform: translateY(-50%);
     color:rgb(230,230,235);
