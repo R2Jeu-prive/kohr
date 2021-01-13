@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Lato&display=swap');
 
+:focus{
+    outline : none
+}
+
 #login-frame{
     position : fixed;
     top: 0px;
@@ -65,10 +69,6 @@
     text-align: center;
 }
 
-#login-pseudo-input:focus{
-    outline : none
-}
-
 #login-submit-fullscreen{
     background-color: rgba(0,0,0,0);
     border : 2px solid rgb(230,230,240);
@@ -80,4 +80,10 @@
     color: rgb(230,230,240);
     font-size: 24px;
     left: calc(calc(100% - 200px) / 2);
+}
+
+#login-submit-normal{
+    background-color: rgba(0,0,0,0);
+    position: relative;
+    top : 200px;
 }
