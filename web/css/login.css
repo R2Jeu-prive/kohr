@@ -75,8 +75,8 @@
     font-family : "Comfortaa";
     height : 50px;
     width : 200px;
-    position: relative;
-    top: 145px;
+    position: absolute;
+    top: 200px;
     color: rgb(230,230,240);
     font-size: 24px;
     left: calc(calc(100% - 200px) / 2);
@@ -84,8 +84,8 @@
 
 #login-submit-normal{
     background-color: rgba(0,0,0,0);
-    position: relative;
-    top : 155px;
+    position: absolute;
+    top : 255px;
     margin: 0px;
     text-align:center;
     left: 50%;
