@@ -39,3 +39,25 @@
     transform: translateY(-50%);
     color:rgb(230,230,240);
 }
+
+#landscape-frame{
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    margin : none;
+    padding: 0px;
+    height : 100%;
+    width : 100%;
+    background-color:rgb(60,60,80)
+}
+
+#landscape-title{
+    font-size: 60px;
+    margin: 0px 30px;
+    text-align: center;
+    position : fixed;
+    width: calc(100% - 60px);
+    top : 50%;
+    transform: translateY(-50%);
+    color:rgb(230,230,240);
+}
