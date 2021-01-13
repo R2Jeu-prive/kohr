@@ -20,6 +20,7 @@ function getUserBySocket(socket){
 }
 
 addRoute("/","/index.html")
+addRoute("/css/utility","/web/css/utility.css")
 addRoute("/css/login","/web/css/login.css")
 addRoute("/css/lobby","/web/css/lobby.css")
 addRoute("/css/game","/web/css/game.css")
