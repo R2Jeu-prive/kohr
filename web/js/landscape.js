@@ -1,3 +1,6 @@
 $( window ).on( "orientationchange", function( event ) {
-    alert( "This device is in " + event.orientation + " mode!" );
-});  
+
+});
+function double(x){
+    return 2*x
+}
