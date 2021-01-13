@@ -101,6 +101,7 @@
 
         $(".login-submit").click(function() {
           enteredPseudo = $("#login-pseudo-input").val()
+          $( window ).orientationchange();
           if(pseudo == "#-1"){
             document.location.reload(false);
           }
