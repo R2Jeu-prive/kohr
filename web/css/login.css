@@ -43,7 +43,9 @@
     padding: 0px;
     margin: 0px;
     color : rgb(230,230,240);
-    text-align : center
+    text-align : center;
+    position: relative;
+    top:90px;
 }
 
 #login-pseudo-input{
@@ -62,3 +64,5 @@
 #login-pseudo-input:focus{
     outline : none
 }
+
+
