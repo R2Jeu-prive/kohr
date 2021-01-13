@@ -692,8 +692,16 @@ class Game {
             return false //out of range coords
         }
 
-        //GET PIECE
+        //GET ELEMENTS
         var attackingPiece = this.pieces.find(piece => piece.x == startX && piece.y == startY)
+        var attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
+        var attackedBuilding = this.buildings.find(building => building.x == endX && building.y == endY && building.atMiddle)
+
+        //NOTHING TO ATTACK
+        if(attackedPiece === attackedBuilding){
+            console.log("55b")
+            return false //no entity at attack coords
+        }
 
         //UNVALID PIECE
         if(attackingPiece == undefined){
@@ -770,7 +778,6 @@ class Game {
 
         //ENCHANTER MAX PIECES
         if(attackType == "enchant"){
-            var attackedPiece = this.pieces.find(piece => piece.x == endX && piece.y == endY)
             if(attackedPiece == undefined){
                 console.log("66")
                 return false //can't enchant building
