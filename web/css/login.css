@@ -4,25 +4,6 @@
     outline : none
 }
 
-@media screen and (max-height : 550px){
-    #login-title{
-        display: none;
-    }
-    #login-background{
-        height : 250px;
-        top : 50%;
-    }
-    #login-label{
-        top: 40px;
-    }
-    #login-submit-fullscreen{
-        top: 285px;
-    }
-    #login-submit-normal{
-        top: 240px;
-    }
-}
-
 #login-frame{
     position : fixed;
     top: 0px;
@@ -36,10 +17,8 @@
 
 #login-background{
     position : fixed;
-    top : 58%;
     left: 50%;
     transform: translate(-50%,-50%);
-    height : 300px;
     min-width : 200px;
     width: 65%;
     max-width: 400px;
@@ -115,4 +94,23 @@
     font-family: "Comfortaa";
     font-size: 14px;
     color: rgb(230,230,240);
+}
+
+@media screen and (max-height : 550px){
+    #login-title{
+        display: none;
+    }
+    #login-background{
+        height : 250px;
+        top : 50%;
+    }
+    #login-label{
+        top: 40px;
+    }
+    #login-submit-fullscreen{
+        top: 285px;
+    }
+    #login-submit-normal{
+        top: 240px;
+    }
 }
