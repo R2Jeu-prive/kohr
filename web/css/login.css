@@ -31,7 +31,7 @@
 
 #login-title{
     font-family: "Comfortaa";
-    font-size: 50px;
+    font-size: 40px;
     margin: 0px 30px;
     text-align: center;
     position : fixed;
@@ -98,7 +98,7 @@
     color: rgb(230,230,240);
 }
 
-@media screen and (max-height : 550px){
+@media screen and (max-height : 500px){
     #login-title{
         display: none;
     }
