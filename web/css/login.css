@@ -65,4 +65,10 @@
     outline : none
 }
 
-
+#login-submit-fullscreen{
+    background-color: none;
+    border : 2px solid rgb(2320,230,240);
+    font-family : "Comfortaa";
+    height : 50px;
+    width : 200px;
+}
