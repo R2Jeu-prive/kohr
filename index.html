@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap&subset=latin-ext" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/login">
   </head>
   <body id="body">
 
@@ -14,10 +15,12 @@
     </div>
 
     <div id="login-frame" hidden>
-      <h1 id="login-title">Bienvenue sur Kohr !<h1>
-      <label id="login-label">Pseudo :<input id="login-pseudo-input" placeholder="Jean-Kévin"/></label>
-      <input id="login-submit-fullscreen" class="login-submit" value="C'est parti !" type="button"/>
-      <input id="login-submit-normal" class="login-submit" value="Jouer sans plein écran" type="button"/>
+      <h1 id="login-title">Bienvenue sur Kohr !</h1>
+      <div id="login-background">
+        <label id="login-label">Pseudo :<input id="login-pseudo-input" placeholder="Jean-Kévin"/></label>
+        <input id="login-submit-fullscreen" class="login-submit" value="C'est parti !" type="button"/>
+        <input id="login-submit-normal" class="login-submit" value="Jouer sans plein écran" type="button"/>
+      </div>
     </div>
     
     <div id="lobby-frame" hidden>
