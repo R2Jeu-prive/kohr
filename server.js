@@ -23,7 +23,6 @@ addRoute("/","/index.html")
 addRoute("/css/login","/web/css/login.css")
 addRoute("/css/lobby","/web/css/lobby.css")
 addRoute("/css/game","/web/css/game.css")
-addRoute("/fonts/yusei","/web/fonts/Yusei/YuseiMagic-Regular.ttf")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
