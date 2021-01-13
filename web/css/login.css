@@ -21,8 +21,9 @@
     left: 50%;
     transform: translate(-50%,-50%);
     height : 300px;
-    width : 270px;
-    min-width: 65%;
+    min-width : 270px;
+    width: 65%;
+    max-width: 750px;
     background-color: rgba(230,230,235,0.1);
     clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
     padding : 20px;
