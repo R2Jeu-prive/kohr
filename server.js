@@ -8,7 +8,6 @@ users = [];
 
 const Game = require('./src/classes/Game.js')
 games = [];
-//users[socket.id] = pseudo;
 
 function addRoute(search,path){
     app.get(search , function(req, res){
@@ -21,7 +20,9 @@ function getUserBySocket(socket){
 }
 
 addRoute("/","/index.html")
-addRoute("/css/index","/web/css/index.css")
+addRoute("/css/login","/web/css/login.css")
+addRoute("/css/lobby","/web/css/lobby.css")
+addRoute("/css/game","/web/css/game.css")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
