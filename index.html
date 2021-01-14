@@ -103,13 +103,14 @@
           console.log(data)
         })
 
-        $(".login-submit").click(function() {
+        $('#login-background').on('submit', function(e){
+          e.preventDefault();
           enteredPseudo = $("#login-pseudo-input").val()
           setLandscape(false)
           if(pseudo == "#-1"){
             document.location.reload(false);
           }
-          if(/^[a-z0-9]*$/.test(enteredPseudo)){
+          if(/^[a-z0-9A-Z\-äâàéèëêïîôöùûüç_,]*$/.test(enteredPseudo)){
             socket.emit("joinSession",{pseudo : enteredPseudo, tempName : pseudo});
             pseudo = enteredPseudo
             if(this.id == "login-submit-fullscreen"){
@@ -122,6 +123,9 @@
                 body.msRequestFullscreen();
               }
             }
+          }
+          else{
+            alert("Pseudo invalid !")
           }
         })
 
