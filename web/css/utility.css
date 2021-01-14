@@ -19,6 +19,7 @@
 }
 
 #disconnected-frame{
+    z-index: 15;
     position : fixed;
     top: 0px;
     left: 0px;
@@ -30,6 +31,7 @@
 }
 
 #disconnected-title{
+    z-index: 16;
     font-size: 120px;
     margin: 0px 30px;
     text-align: center;
@@ -41,6 +43,7 @@
 }
 
 #landscape-frame{
+    z-index : 5;
     position : fixed;
     top: 0px;
     left: 0px;
@@ -52,6 +55,7 @@
 }
 
 #landscape-title{
+    z-index: 6;
     font-family : "Comfortaa";
     font-size: 60px;
     margin: 0px 30px;
