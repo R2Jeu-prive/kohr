@@ -32,7 +32,7 @@ io.on('connection', function(socket){
     socket.emit("setTempName",{tempName : tempName});
   
     socket.on('joinSession', function(data){
-        if(!/^[a-z0-9]*$/.test(data.pseudo)){
+        if(!/^[a-z0-9àäâéèëêïîôûùç\-_]*/i.test(data.pseudo)){
             socket.emit("showError",{text : "Pseudo Invalid"})
             return
         }

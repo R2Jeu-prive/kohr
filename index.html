@@ -108,12 +108,12 @@
         });
 
         $('.login-submit').on('click', function(){
-          enteredPseudo = $("#login-pseudo-input").val()
+          var enteredPseudo = $("#login-pseudo-input").val().trim()
           setLandscape(false)
           if(pseudo == "#-1"){
             document.location.reload(false);
           }
-          if(/^[a-z0-9A-Z\-äâàéèëêïîôöùûüç_,]*$/.test(enteredPseudo)){
+          if(/^[a-z0-9àäâéèëêïîôûùç\-_]*/i.test(enteredPseudo)){
             socket.emit("joinSession",{pseudo : enteredPseudo, tempName : pseudo});
             pseudo = enteredPseudo
             if(this.id == "login-submit-fullscreen"){
