@@ -91,9 +91,9 @@
           $("#lobby-player-list").empty()
           for(var player of data.players){
             if(player.pseudo == pseudo){
-              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")    <button class='lobby-player-kick-buttons' id='lobby-kick-" + player.pseudo + "'>Quitter</button>    <button class='lobby-player-team-buttons' id='lobby-team-" + player.pseudo + "'>Changer d'équipe</button></li>")
+              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Quitter' type='button' class='lobby-player-kick-buttons' id='lobby-kick-" + player.pseudo + "'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' id='lobby-team-" + player.pseudo + "'/></li>")
             }else if(data.asMaster){
-              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")    <button class='lobby-player-kick-buttons' id='lobby-kick-" + player.pseudo + "'>Kick</button>    <button class='lobby-player-team-buttons' id='lobby-team-" + player.pseudo + "'>Changer d'équipe</button></li>")
+              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Kick' type='button' class='lobby-player-kick-buttons' id='lobby-kick-" + player.pseudo + "'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' id='lobby-team-" + player.pseudo + "'/></li>")
             }else{
               $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")</li>")
             }
@@ -141,6 +141,7 @@
 
         $(".lobby-player-kick-buttons").click(function(){
           var kickPlayer = $(this).attr('id').splice(0,11)
+          alert("lol")
           alert(kickPlayer)
         })
 
