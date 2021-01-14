@@ -99,11 +99,11 @@
             }
           }
           $(".lobby-player-kick-buttons").click(function(){
-            var actionOnPseudo = $(this).attr("id").splice(0,14)
+            var actionOnPseudo = $(this).attr("id").slice(14)
             alert(actionOnPseudo)
           })
           $(".lobby-player-kick-buttons").click(function(){
-            var actionOnPseudo = $(this).attr("id").splice(0,14)
+            var actionOnPseudo = $(this).attr("id").slice(14)
             alert(actionOnPseudo+actionOnPseudo)
           })
           $("#login-frame").attr("hidden",true);
