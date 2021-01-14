@@ -32,7 +32,6 @@
     text-align: center;
     position : fixed;
     width: calc(100% - 60px);
-    top: calc(calc(100% - 300px) / 4);
-    transform: translateY(-50%);
+    top: 0px;
     color:rgb(230,230,235);
 }
