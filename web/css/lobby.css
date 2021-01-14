@@ -30,8 +30,40 @@
     font-size: 40px;
     margin: 10px 30px 0px;
     text-align: center;
-    position : fixed;
+    position : static;
     width: calc(100% - 60px);
-    top: 0px;
     color:rgb(230,230,235);
+}
+
+#lobby-gamemode{
+    padding: 10px 20px;
+    font-family: 'Comfortaa';
+    font-size:25px;
+    margin: 0;
+    width: calc(50% - 40px);
+    position: fixed;
+    color: rgb(230,230,240);
+}
+
+#lobby-player-list-label{
+    padding: 10px 20px 10px calc(50% + 20px);
+    margin: 0;
+    font-size:25px;
+    text-align: center;
+    font-family: "Comfortaa";
+    color: rgb(230,230,240);
+}
+
+#lobby-player-list{
+    height: calc(100% - 102px);
+    margin: 0;
+    padding: 0px 0px 0px 50%;
+    width: 50%;
+    list-style: "- ";
+    list-style-position: inside;
+}
+
+.lobby-players{
+    color: rgb(230,230,240);
+    font-family: "Comfortaa";
 }
