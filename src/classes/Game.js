@@ -153,9 +153,13 @@ class Game {
     playerJoin(user,io){
         let self = this
         this.players.push(user)
-        this.players.forEach(player =>
-            io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
-        )
+        for(player of this.players){
+            var asMaster = false
+            if(player.pseudo == this.gameInfo.masterPseudo){
+                asMaster = true
+            }
+            io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players, asMaster : asMaster})
+        }
         if(this.players.length == this.gameInfo.maxPlayers){
             console.log("game is full")
             setTimeout(function(){

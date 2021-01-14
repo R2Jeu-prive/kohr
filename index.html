@@ -87,11 +87,13 @@
         socket.on("showLobby",function(data){
           $("#lobby-title").text(data.gameInfo.name)
           $("#lobby-gamemode").text("Mode : " + data.gameInfo.maxPlayers/2 + "vs" + data.gameInfo.maxPlayers/2)
-          $("#lobby-player-list-label").text("Joueurs (" + data.players.length + "/" + data.gameInfo.maxPlayers + ")")
+          $("#lobby-player-list-label").text("Joueurs " + data.players.length + "/" + data.gameInfo.maxPlayers)
           $("#lobby-player-list").empty()
-          data.players.forEach(player =>
-            $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")</li>")
-          )
+          for(player of data.players){
+            if(player.pseudo == pseudo){
+              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<button class='lobby-player-kick-buttons'>Kick</button><button class='lobby-player-team-buttons'>Changer d'équipe</button></li>")
+            }
+          }
           $("#login-frame").attr("hidden",true);
           $("#lobby-frame").attr("hidden",false);
         });
