@@ -153,7 +153,7 @@ class Game {
     playerJoin(user,io){
         let self = this
         this.players.push(user)
-        for(player of this.players){
+        for(var player of this.players){
             var asMaster = false
             if(player.pseudo == this.gameInfo.masterPseudo){
                 asMaster = true
@@ -460,8 +460,8 @@ class Game {
             //gets all valid coords
             while(validCoordsNew.length != validCoordsNew.length){
                 validCoords = validCoordsNew
-                for (coords of validCoords) {
-                    for (delta of deltas){
+                for (var coords of validCoords) {
+                    for (var delta of deltas){
                         let x = coords.x + delta.x
                         let y = coords.y + delta.y
                         var buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
@@ -472,8 +472,8 @@ class Game {
                 }
             }
             //removes all building that don't have valid coords
-            for (buildingAtCoords of this.buildings){
-                for(coords of validCoords){
+            for (var buildingAtCoords of this.buildings){
+                for(var coords of validCoords){
                     var deleteBuilding = true
                     if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y && buildingAtCoords.atMiddle && buildingAtCoords.team == team){
                         deleteBuilding = false
@@ -637,7 +637,7 @@ class Game {
             console.log("50")
             return false //move is not possible for this piece
         }else{
-            for(building in this.buildings){
+            for(var building in this.buildings){
                 if(!building.atMiddle){
                     continue
                     //si le batiment n'est pas au milieu on le skip
@@ -652,7 +652,7 @@ class Game {
                     }
                 }
             }
-            for(piece in this.pieces){
+            for(var piece in this.pieces){
                 var pieceDeltaX = piece.x - startX
                 var pieceDeltaY = piece.y - startY
                 if(piecePossibleMoves[movingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
@@ -744,7 +744,7 @@ class Game {
             console.log("61")
             return false //attack moving is not possible for this piece
         }else{
-            for(building in this.buildings){
+            for(var building in this.buildings){
                 if(!building.atMiddle){
                     continue
                     //si le batiment n'est pas au milieu on le skip
@@ -763,7 +763,7 @@ class Game {
                     }
                 }
             }
-            for(piece in this.pieces){
+            for(var piece in this.pieces){
                 var pieceDeltaX = piece.x - startX
                 var pieceDeltaY = piece.y - startY
                 if(piecePossibleAttacks[attackingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
@@ -851,12 +851,12 @@ class Game {
 
         //HEALING
         if(attackType == "healing"){
-            for(building of this.buildings){
+            for(var building of this.buildings){
                 if(Math.abs(building.x - startX) <= 1 && Math.abs(building.y - startY) <= 1 && building.team == team){
                     building.hit(-50)
                 }
             }
-            for(piece of this.pieces){
+            for(var piece of this.pieces){
                 if(piece.x == startX && piece.y == startY){
                     continue
                     //piece is rook doing the attack, skip so he doesn't heal himself
