@@ -105,6 +105,9 @@
 
         $('#login-background').on('submit', function(e){
           e.preventDefault();
+        });
+
+        $('.login-submit').on('click', function(){
           enteredPseudo = $("#login-pseudo-input").val()
           setLandscape(false)
           if(pseudo == "#-1"){
