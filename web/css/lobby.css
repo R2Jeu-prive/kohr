@@ -67,3 +67,19 @@
     color: rgb(230,230,240);
     font-family: "Comfortaa";
 }
+
+.lobby-player-kick-buttons{
+    background-color: rgba(0,0,0,0);
+    border: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.lobby-player-team-buttons{
+    background-color: rgba(0,0,0,0);
+    border: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    border-radius: 10px;
+    cursor: pointer;
+}
