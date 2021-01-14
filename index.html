@@ -91,13 +91,21 @@
           $("#lobby-player-list").empty()
           for(var player of data.players){
             if(player.pseudo == pseudo){
-              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Quitter' type='button' class='lobby-player-kick-buttons' onclick='sendKickRequest(" + player.pseudo + ")'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' onclick='sendTeamRequest(" + player.pseudo + ")'/></li>")
+              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Quitter' type='button' class='lobby-player-kick-buttons' id='lobby-actions-" + player.pseudo + "'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' id='lobby-actions-" + player.pseudo + "'/></li>")
             }else if(data.asMaster){
-              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Kick' type='button' class='lobby-player-kick-buttons' onclick='sendKickRequest(" + player.pseudo + ")'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' onclick='sendTeamRequest(" + player.pseudo + ")'/></li>")
+              $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Kick' type='button' class='lobby-player-kick-buttons' id='lobby-actions-" + player.pseudo + "'/><input value='Changer d\'équipe' type='button' class='lobby-player-team-buttons' id='lobby-actions-" + player.pseudo + "'/></li>")
             }else{
               $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")</li>")
             }
           }
+          $(".lobby-player-kick-buttons").click(function(){
+            var actionOnPseudo = $(this).attr("id").splice(0,14)
+            alert(actionOnPseudo)
+          })
+          $(".lobby-player-kick-buttons").click(function(){
+            var actionOnPseudo = $(this).attr("id").splice(0,14)
+            alert(actionOnPseudo+actionOnPseudo)
+          })
           $("#login-frame").attr("hidden",true);
           $("#lobby-frame").attr("hidden",false);
         });
@@ -138,15 +146,7 @@
             alert("Pseudo invalid !")
           }
         })
-
-        function sendKickRequest(kickPlayer){
-          alert(kickPlayer)
-        }
-
-        function sendTeamRequest(teamPlayer){
-          alert(teamPlayer + teamPlayer)
-        }
-
+        
         $("#testing-validate").click(function(){
           eval($("#testing").val())
         })
