@@ -67,6 +67,7 @@
 .lobby-players{
     color: rgb(230,230,240);
     font-family: "Comfortaa";
+    margin-bottom: "10px";
 }
 
 .lobby-player-kick-buttons{

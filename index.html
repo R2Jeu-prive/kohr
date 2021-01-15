@@ -68,7 +68,7 @@
 
         socket.on("fatalError",function(data){
           alert("Fatal error : " + data.text)
-          document.location.reload(false);
+          document.location.reload(true);
         })
         
         socket.on("logError",function(data){
@@ -77,6 +77,10 @@
 
         socket.on("showError",function(data){
           alert(data.text)
+        })
+
+        socket.on("sessionLeave",function(data){
+          document.location.reload(true);
         })
 
         socket.on("setTempName",function(data){

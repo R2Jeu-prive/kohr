@@ -164,15 +164,13 @@ class Game {
         this.players.push(user)
         this.refreshAllLobby(io)
     }
-    playerLeave(user,io){
+    playerLeave(user,disconnected,io){
         if(this.players.find(player => player == user) != undefined){
             this.players.splice(this.players.findIndex(player => player == user),1);
             this.refreshAllLobby(io)
         }
-    }
-    playerSwitchTeam(user,io){
-        var player = this.players.find(player => player == user)
-        if(player != undefined){
+        if(!disconnected){
+            io.to(user.socket_id).emit("fatalError",{text : "Vous avez été expulsé par le chef de la partie !"});
         }
     }
     isUserConnected(user){
