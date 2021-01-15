@@ -105,10 +105,10 @@ class Game {
                 building.inventory[0] = building.inventory[0] + production
             }
         },this)
-        this.refreshAll(io)
+        this.refreshAllGame(io)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000000, io); //in 30 secs will recall itself
     }
-    refreshAll(io){
+    refreshAllGame(io){
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
                 io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
@@ -117,11 +117,20 @@ class Game {
             }
         },this)
     }
-    refreshPlayer(player,io){
+    refreshPlayerGame(player,io){
         if(player.team == this.gameInfo.teamPlaying){
             io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
         }else{
             io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+        }
+    }
+    refreshAllLobby(io){
+        for(var player of this.players){
+            var asMaster = false
+            if(player.pseudo == this.gameInfo.masterPseudo){
+                asMaster = true
+            }
+            io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players, asMaster : asMaster})
         }
     }
     tryStartGame(io){
@@ -153,13 +162,7 @@ class Game {
     playerJoin(user,io){
         let self = this
         this.players.push(user)
-        for(var player of this.players){
-            var asMaster = false
-            if(player.pseudo == this.gameInfo.masterPseudo){
-                asMaster = true
-            }
-            io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players, asMaster : asMaster})
-        }
+        this.refreshAllLobby(io)
         if(this.players.length == this.gameInfo.maxPlayers){
             console.log("game is full")
             setTimeout(function(){
@@ -170,9 +173,7 @@ class Game {
     playerLeave(user,io){
         if(this.players.find(player => player == user) != undefined){
             this.players.splice(this.players.findIndex(player => player == user),1);
-            this.players.forEach(player =>
-                io.to(player.socket_id).emit("showLobby",{gameInfo : this.gameInfo, players : this.players})
-            )
+            this.refreshAllLobby(io)
         }
     }
     playerSwitchTeam(user,io){
@@ -319,7 +320,7 @@ class Game {
         this.stats[team][3] = this.stats[team][3] - buildingPrices[type][2]
         this.stats[team][4] = this.stats[team][4] - buildingPrices[type][3]
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 
     // BUILDING EDIT
@@ -399,7 +400,7 @@ class Game {
             building.upgrade()
         }
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 
     // BUILDING DELETE
@@ -494,7 +495,7 @@ class Game {
             }
         }
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 
     // PIECE BUILD
@@ -585,7 +586,7 @@ class Game {
         this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
         this.stats[team][4] = this.stats[team][4] - piecePrices[type][3]
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 
     // PIECE MOVE
@@ -678,7 +679,7 @@ class Game {
         movingPiece.changeCoords(endX,endY)
         this.stats[team][0] = this.stats[team][0] - pieceMovePrices[movingPiece.constructor.name]
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 
     // PIECE ATTACK
@@ -881,7 +882,7 @@ class Game {
             }
         }
         this.lastTimeStamp = timeStamp
-        this.refreshAll(io)
+        this.refreshAllGame(io)
     }
 }
 

@@ -69,6 +69,7 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(user.pseudo == data.pseudoToKick){
                     game.playerLeave(user, io)
+                    //refresh is sent from playerLeave function
                 }else if(user.pseudo == game.gameInfo.masterPseudo){
                     game.playerLeave(getUserByPseudo(pseudoToKick), io)
                 }else{
@@ -87,10 +88,12 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user)){
                 if(user.pseudo == data.pseudoToSwitch){
                     user.setTeam(Math.abs(user.team - 1))
+                    game.refreshAllLobby(io)
                 }else if(user.pseudo == game.gameInfo.masterPseudo){
                     user.setTeam(Math.abs(getUserByPseudo(data.pseudoToSwitch).team - 1))
+                    game.refreshAllLobby(io)
                 }else{
-                    socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
+                    socket.emit("fatalError",{text : "Error #003 | Vous ne pouvez pas faire changer d'équipe ce joueur !"});
                 }
                 console.log(game.players)
             }
