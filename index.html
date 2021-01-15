@@ -95,7 +95,6 @@
           var buttonId = $(this).attr("id")
           var buttonBoard = buttonId.slice(5,9) //kohr or base
           var buttonType = buttonId.slice(10)
-          alert(game)
           if(buttonType == "change-board"){
             if(buttonBoard == 'base'){
               $("#game-board").css("left", "-100%");
@@ -105,11 +104,53 @@
           }
         })
 
-        function showGame(game,canPlay){
+        function showGame(givenGame,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
-          console.log(game)
-          return game
+          var baseCanvas = document.getElementById("game-base-canvas")
+          var maxHeight = $("#game-frame").css("height")
+          var maxWidth = $("#game-frame").css("width")
+          ////////////
+          var height = 200
+          var width = 400
+          var m = 5
+          baseCanvas.height = height + (2*m)
+          baseCanvas.width = width + (2*m)
+          var baseCtx = baseCanvas.getContext("2d");
+          baseCtx.strokeStyle = "#dddddd"
+          baseCtx.lineCap = "round";
+          baseCtx.lineWidth = 4;
+          grid = 9
+          heightGrid = height / 2 / grid
+          widthGrid = width / 2 / grid
+          var xS = width / 2
+          var yS = 0
+          var xE = width
+          var yE = height / 2
+          for(let i = 0; i <= grid; i++){
+            baseCtx.moveTo(xS+m,yS+m)
+            baseCtx.lineTo(xE+m,yE+m)
+            baseCtx.stroke()
+            xS -= widthGrid
+            yS += heightGrid
+            xE -= widthGrid
+            yE += heightGrid
+          }
+          var xS = 0
+          var yS = height / 2
+          var xE = width / 2
+          var yE = 0
+          for(let i = 0; i <= grid; i++){
+            baseCtx.moveTo(xS+m,yS+m)
+            baseCtx.lineTo(xE+m,yE+m)
+            baseCtx.stroke()
+            xS += widthGrid
+            yS += heightGrid
+            xE += widthGrid
+            yE += heightGrid
+          }
+          console.log(givenGame)
+          return givenGame
         }
 
         socket.on("disconnect",function(){
@@ -182,52 +223,13 @@
         });
         
         socket.on("showGamePlay",function(data){
-          var game = showGame(data,true)
+          game = showGame(data,selected,true)
         })
         
         socket.on("showGameWait",function(data){
-          var game = showGame(data,false)
+          game = showGame(data,selected,false)
         })
         
-        /*var baseCanvas = document.getElementById("game-base-canvas")
-        var height = 200
-        var width = 400
-        var m = 5
-        baseCanvas.height = height + (2*m)
-        baseCanvas.width = width + (2*m)
-        var baseCtx = baseCanvas.getContext("2d");
-        baseCtx.strokeStyle = "#dddddd"
-        baseCtx.lineCap = "round";
-        baseCtx.lineWidth = 4;
-        grid = 9
-        heightGrid = height / 2 / grid
-        widthGrid = width / 2 / grid
-        var xS = width / 2
-        var yS = 0
-        var xE = width
-        var yE = height / 2
-        for(let i = 0; i <= grid; i++){
-          baseCtx.moveTo(xS+m,yS+m)
-          baseCtx.lineTo(xE+m,yE+m)
-          baseCtx.stroke()
-          xS -= widthGrid
-          yS += heightGrid
-          xE -= widthGrid
-          yE += heightGrid
-        }
-        var xS = 0
-        var yS = height / 2
-        var xE = width / 2
-        var yE = 0
-        for(let i = 0; i <= grid; i++){
-          baseCtx.moveTo(xS+m,yS+m)
-          baseCtx.lineTo(xE+m,yE+m)
-          baseCtx.stroke()
-          xS += widthGrid
-          yS += heightGrid
-          xE += widthGrid
-          yE += heightGrid
-        }*/
       });
 
     </script>
