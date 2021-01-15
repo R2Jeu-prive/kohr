@@ -173,7 +173,7 @@ class Game {
             return true
         }
         if(user.pseudo == this.gameInfo.masterPseudo){
-            this.gameInfo.masterPseudo = this.players.find(player => player.pseudo != this.gameInfo.masterPseudo)
+            this.gameInfo.masterPseudo = this.players.find(player => player.pseudo != this.gameInfo.masterPseudo).pseudo
         }
         if(this.players.find(player => player == user) != undefined){
             this.players.splice(this.players.findIndex(player => player == user),1);
