@@ -133,10 +133,14 @@
         });
         
         socket.on("showGamePlay",function(data){
+          $("#lobby-frame").attr("hidden",true);
+          $("#game-frame").attr("hidden",false);
           console.log(data)
         })
         
         socket.on("showGameWait",function(data){
+          $("#lobby-frame").attr("hidden",true);
+          $("#game-frame").attr("hidden",false);
           console.log(data)
         })
 
