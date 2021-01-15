@@ -106,4 +106,14 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+
+    background-color: rgba(230,230,240,0.1);
+    border-left: 2px solid rgb(230,230,240);
+    border-top: none;
+    border-bottom: none;
+    border-right: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    box-shadow: 0px 0px 10px rgba(230,230,240,0.2);
+    cursor: pointer;
+    font-family: "Comfortaa";
 }
