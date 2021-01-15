@@ -35,8 +35,8 @@
     <div id="lobby-frame" hidden>
       <h1 id="lobby-title" class="noSelect">Partie : </h1>
       <p id="lobby-gamemode" class="noSelect">Mode : </p>
-      <ul id="lobby-action-list"></ul>
       <p id="lobby-player-list-label" class="noSelect">Joueurs</p>
+      <ul id="lobby-action-list"></ul>
       <ul id="lobby-player-list"></ul>
     </div>
 
@@ -102,7 +102,9 @@
           }
           if(data.asMaster){
             $("#lobby-action-list").append("<input type='button' class='lobby-actions' id='lobby-action-change-mode' value='Changer de mode'/>")
+            $("#lobby-action-list").append("</br>")
             $("#lobby-action-list").append("<input type='button' class='lobby-actions' id='lobby-action-start-game' value='Lancer !'/>")
+            $("#lobby-action-list").append("</br>")
           }
           $(".lobby-player-kick-buttons").click(function(){
             var actionOnPseudo = $(this).attr("id").slice(14)

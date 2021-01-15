@@ -43,6 +43,7 @@
     width: calc(50% - 40px);
     position: fixed;
     color: rgb(230,230,240);
+    text-align: center;
 }
 
 #lobby-player-list-label{
@@ -92,4 +93,17 @@
     cursor: pointer;
     margin-left: 10px;
     font-family: "Comfortaa";
+}
+
+#lobby-action-list{
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    width: 50%;
+}
+
+.lobby-actions{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
