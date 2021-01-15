@@ -78,7 +78,7 @@ io.on('connection', function(socket){
         })
     })
 
-    socket.on('playerSwitch',function(data){
+    socket.on('playerSwitchTeam',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
             return //user WTF
