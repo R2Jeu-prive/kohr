@@ -112,9 +112,11 @@
             var actionOnPseudo = $(this).attr("id").slice(14)
             socket.emit("playerKick",{pseudoToKick : actionOnPseudo});
           })
-          $(".lobby-player-team-buttons").click(function(){
-            var actionOnPseudo = $(this).attr("id").slice(14)
-            socket.emit("playerSwitchTeam",{pseudoToSwitch : actionOnPseudo});
+          $("#lobby-action-change-mode").click(function(){
+            socket.emit("playerSwitchTeam");
+          })
+          $("#lobby-action-start-game").click(function(){
+            socket.emit("playerSwitchTeam");
           })
           $("#login-frame").attr("hidden",true);
           $("#lobby-frame").attr("hidden",false);

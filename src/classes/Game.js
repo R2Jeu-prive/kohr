@@ -175,6 +175,11 @@ class Game {
             )
         }
     }
+    playerSwitchTeam(user,io){
+        var player = this.players.find(player => player == user)
+        if(player != undefined){
+        }
+    }
     isUserConnected(user){
         if(this.players.find(player => player == user) != undefined){
             return true

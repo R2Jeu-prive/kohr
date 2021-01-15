@@ -18,6 +18,9 @@ function addRoute(search,path){
 function getUserBySocket(socket){
     return users.find(user => user.socket_id == socket.id)
 }
+function getUserByPseudo(pseudo){
+    return users.find(user => user.pseudo == pseudo)
+}
 
 addRoute("/","/index.html")
 addRoute("/css/utility","/web/css/utility.css")
@@ -57,6 +60,43 @@ io.on('connection', function(socket){
         game.playerJoin(user,io)
     });
 
+    socket.on('playerKick',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                if(user.pseudo == data.pseudoToKick){
+                    game.playerLeave(user, io)
+                }else if(user.pseudo == game.gameInfo.masterPseudo){
+                    game.playerLeave(getUserByPseudo(pseudoToKick), io)
+                }else{
+                    socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
+                }
+            }
+        })
+    })
+
+    socket.on('playerSwitch',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user)){
+                if(user.pseudo == data.pseudoToSwitch){
+                    user.setTeam(Math.abs(user.team - 1))
+                }else if(user.pseudo == game.gameInfo.masterPseudo){
+                    user.setTeam(Math.abs(getUserByPseudo(data.pseudoToSwitch).team - 1))
+                }else{
+                    socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
+                }
+                console.log(game.players)
+            }
+        })
+    })
+
     socket.on('buildingBuild',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
@@ -75,7 +115,6 @@ io.on('connection', function(socket){
             }
         })
     })
-
     socket.on('buildingEdit',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
@@ -94,7 +133,6 @@ io.on('connection', function(socket){
             }
         })
     })
-
     socket.on('buildingDelete',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
@@ -113,7 +151,6 @@ io.on('connection', function(socket){
             }
         })
     })
-
     socket.on('pieceBuild',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
