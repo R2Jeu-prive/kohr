@@ -122,7 +122,12 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
                 if(user.pseudo == game.gameInfo.masterPseudo){
                     game.gameInfo.maxPlayers = -1 * game.gameInfo.maxPlayers + 6 // 2->4 and 4->2
-                    game.refreshAllLobby(io)
+                    if(game.players.length > game.gameInfo.maxPlayers){
+                        game.gameInfo.maxPlayers = -1 * game.gameInfo.maxPlayers + 6 // 2->4 and 4->2
+                        socket.emit("showError",{text : "Il y a trop de joueurs dans la partie pour passer en 1vs1"})
+                    }else{
+                        game.refreshAllLobby(io)
+                    }
                 }else{
                     socket.emit("fatalError",{text : "Error #005 | Vous ne pouvez pas changer le mode de cette partie !"});
                 }
