@@ -165,6 +165,13 @@ class Game {
         this.refreshAllLobby(io)
     }
     playerLeave(user,disconnected,io){
+        //returns true if game has to be deleted
+        if(this.players.length <= 1){
+            return true
+        }
+        if(user.pseudo == this.gameInfo.masterPseudo){
+            this.gameInfo.masterPseudo = this.players.find(player => player.pseudo != this.gameInfo.masterPseudo)
+        }
         if(this.players.find(player => player == user) != undefined){
             this.players.splice(this.players.findIndex(player => player == user),1);
             this.refreshAllLobby(io)
@@ -172,6 +179,7 @@ class Game {
         if(!disconnected){
             io.to(user.socket_id).emit("fatalError",{text : "Vous avez été expulsé par le chef de la partie !"});
         }
+        return false
     }
     isUserConnected(user){
         if(this.players.find(player => player == user) != undefined){

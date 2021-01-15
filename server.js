@@ -21,6 +21,11 @@ function getUserBySocket(socket){
 function getUserByPseudo(pseudo){
     return users.find(user => user.pseudo == pseudo)
 }
+function deleteGame(gameToDelete,deleteConfirm){
+    if(deleteConfirm){
+        games.splice(games.findIndex(game => game == gameToDelete),1)
+    }
+}
 
 addRoute("/","/index.html")
 addRoute("/css/utility","/web/css/utility.css")
@@ -68,11 +73,11 @@ io.on('connection', function(socket){
         games.forEach(function(game){
             if(game.isUserConnected(user)){
                 if(user.pseudo == data.pseudoToKick){
-                    game.playerLeave(user, true, io)
+                    deleteGame(game,game.playerLeave(user, true, io))
                     socket.emit("leaveSession");
                     //refresh is sent from playerLeave function
                 }else if(user.pseudo == game.gameInfo.masterPseudo && game.gameInfo.status == "lobby"){
-                    game.playerLeave(getUserByPseudo(data.pseudoToKick), false, io)
+                    deleteGame(game,game.playerLeave(getUserByPseudo(data.pseudoToKick), false, io))
                 }else{
                     socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
                 }
@@ -248,7 +253,7 @@ io.on('connection', function(socket){
         leavingUser = users.find(user => user.socket_id === socket.id)
 
         //check games
-        games.forEach(game => game.playerLeave(leavingUser, true, io))
+        games.forEach(game => deleteGame(game,game.playerLeave(leavingUser, true, io)))
 
         //remove user
         console.log(leavingUser.pseudo + " lost !");
