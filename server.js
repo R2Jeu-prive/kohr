@@ -71,7 +71,7 @@ io.on('connection', function(socket){
                     game.playerLeave(user, io)
                     //refresh is sent from playerLeave function
                 }else if(user.pseudo == game.gameInfo.masterPseudo && game.gameInfo.status == "lobby"){
-                    game.playerLeave(getUserByPseudo(pseudoToKick), io)
+                    game.playerLeave(getUserByPseudo(data.pseudoToKick), io)
                 }else{
                     socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
                 }
