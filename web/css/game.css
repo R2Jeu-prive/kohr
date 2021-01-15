@@ -1,1 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Lato&display=swap');
+
+#game-frame{
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    margin : 0px;
+    padding: 0px;
+    height : 100%;
+    width : 100%;
+    background-color:rgb(60,60,80)
+}
+
+#game-board{
+    position: absolute;
+    top: 0px;
+    left : -100%;
+    height: 100%;
+    width: 200%;
+    background-color: rgba(0,0,0,0);
+    margin: 0px;
+    padding: 0px;
+    transition: left 0.3s;
+}
+
+#game-base-side{
+    position: absolute;
+    top: 0px;
+    left : 0%;
+    height: 100%;
+    width: 50%;
+    background-color: chartreuse;
+}
+
+#game-kohr-side{
+    position: absolute;
+    top: 0px;
+    left : 0%;
+    height: 100%;
+    width: 50%;
+    background-color: red;
+}
