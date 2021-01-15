@@ -35,6 +35,7 @@
     <div id="lobby-frame" hidden>
       <h1 id="lobby-title" class="noSelect">Partie : </h1>
       <p id="lobby-gamemode" class="noSelect">Mode : </p>
+      <ul id="lobby-action-list"></ul>
       <p id="lobby-player-list-label" class="noSelect">Joueurs</p>
       <ul id="lobby-player-list"></ul>
     </div>
@@ -89,6 +90,7 @@
           $("#lobby-gamemode").text("Mode : " + data.gameInfo.maxPlayers/2 + "vs" + data.gameInfo.maxPlayers/2)
           $("#lobby-player-list-label").text("Joueurs " + data.players.length + "/" + data.gameInfo.maxPlayers)
           $("#lobby-player-list").empty()
+          $("#lobby-action-list").empty()
           for(var player of data.players){
             if(player.pseudo == pseudo){
               $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")<input value='Quitter' type='button' class='lobby-player-kick-buttons' id='lobby-actions-" + player.pseudo + "'/><input value=\"Changer d'équipe\" type='button' class='lobby-player-team-buttons' id='lobby-actions-" + player.pseudo + "'/></li>")
@@ -98,13 +100,17 @@
               $("#lobby-player-list").append("<li class='lobby-players'>" + player.pseudo + " (" + data.gameInfo.teamNames[player.team] + ")</li>")
             }
           }
+          if(data.asMaster){
+            $("#lobby-action-list").append("<input type='button' class='lobby-actions' id='lobby-action-change-mode' value='Changer de mode'/>")
+            $("#lobby-action-list").append("<input type='button' class='lobby-actions' id='lobby-action-start-game' value='Lancer !'/>")
+          }
           $(".lobby-player-kick-buttons").click(function(){
             var actionOnPseudo = $(this).attr("id").slice(14)
-            alert(actionOnPseudo)
+            socket.emit("playerKick",{pseudoToKick : actionOnPseudo});
           })
           $(".lobby-player-team-buttons").click(function(){
             var actionOnPseudo = $(this).attr("id").slice(14)
-            alert(actionOnPseudo+actionOnPseudo)
+            socket.emit("playerSwitchTeam",{pseudoToSwitch : actionOnPseudo});
           })
           $("#login-frame").attr("hidden",true);
           $("#lobby-frame").attr("hidden",false);
