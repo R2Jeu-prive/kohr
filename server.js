@@ -89,7 +89,7 @@ io.on('connection', function(socket){
                     user.setTeam(Math.abs(user.team - 1))
                     game.refreshAllLobby(io)
                 }else if(user.pseudo == game.gameInfo.masterPseudo){
-                    user.setTeam(Math.abs(getUserByPseudo(data.pseudoToSwitch).team - 1))
+                    getUserByPseudo(data.pseudoToSwitch).setTeam(Math.abs(getUserByPseudo(data.pseudoToSwitch).team - 1))
                     game.refreshAllLobby(io)
                 }else{
                     socket.emit("fatalError",{text : "Error #003 | Vous ne pouvez pas faire changer d'équipe ce joueur !"});
