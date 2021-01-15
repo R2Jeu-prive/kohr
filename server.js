@@ -70,7 +70,7 @@ io.on('connection', function(socket){
                 if(user.pseudo == data.pseudoToKick){
                     game.playerLeave(user, io)
                     //refresh is sent from playerLeave function
-                }else if(user.pseudo == game.gameInfo.masterPseudo){
+                }else if(user.pseudo == game.gameInfo.masterPseudo && game.gameInfo.status == "lobby"){
                     game.playerLeave(getUserByPseudo(pseudoToKick), io)
                 }else{
                     socket.emit("fatalError",{text : "Error #002 | Vous ne pouvez pas kick ce joueur !"});
@@ -78,14 +78,13 @@ io.on('connection', function(socket){
             }
         })
     })
-
     socket.on('playerSwitchTeam',function(data){
         user = getUserBySocket(socket)
         if(user == undefined){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
                 if(user.pseudo == data.pseudoToSwitch){
                     user.setTeam(Math.abs(user.team - 1))
                     game.refreshAllLobby(io)
@@ -95,7 +94,37 @@ io.on('connection', function(socket){
                 }else{
                     socket.emit("fatalError",{text : "Error #003 | Vous ne pouvez pas faire changer d'équipe ce joueur !"});
                 }
-                console.log(game.players)
+            }
+        })
+    })
+    socket.on('gameStart',function(){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
+                if(user.pseudo == game.gameInfo.masterPseudo){
+                    game.tryStartGame(io)
+                }else{
+                    socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
+                }
+            }
+        })
+    })
+    socket.on('gameChangeMode',function(){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
+                if(user.pseudo == game.gameInfo.masterPseudo){
+                    game.gameInfo.maxPlayers = -1 * game.gameInfo.maxPlayers + 6 // 2->4 and 4->2
+                    game.refreshAllLobby(io)
+                }else{
+                    socket.emit("fatalError",{text : "Error #005 | Vous ne pouvez pas changer le mode de cette partie !"});
+                }
             }
         })
     })
@@ -106,14 +135,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingBuild(data.type, data.x, data.y, data.atMiddle, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.buildingBuild(data.type, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })
@@ -124,14 +153,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.buildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })
@@ -142,14 +171,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canBuildingDelete(data.x, data.y, data.atMiddle, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.buildingDelete(data.x, data.y, data.atMiddle, user.team, user.team, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })
@@ -160,14 +189,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceBuild(data.type, data.x, data.y, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.pieceBuild(data.type, data.x, data.y, user.team, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })
@@ -178,14 +207,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceMove(data.startX, data.startY, data.endX, data.endY, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.pieceMove(data.startX, data.startY, data.endX, data.endY, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })
@@ -196,14 +225,14 @@ io.on('connection', function(socket){
             return //user WTF
         }
         games.forEach(function(game){
-            if(game.isUserConnected(user)){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.pieceAttack(data.startX, data.startY, data.endX, data.endY, data.attackType, user.team, newTimeStamp, io)
                     }
                 }else{
-                    game.refreshPlayer(user, io)
+                    game.refreshPlayerGame(user, io)
                 }
             }
         })

@@ -134,8 +134,9 @@ class Game {
         }
     }
     tryStartGame(io){
+        var master = this.players.find(player => player.pseudo == this.gameInfo.masterPseudo)
         if(this.players.length != this.gameInfo.maxPlayers){
-            console.log("la partie n'es pas pleine")
+            io.to(master.socket_id).emit("showError",{text : "La partie n'est pas pleine !"})
             return
         }
         var countTeam0 = 0
@@ -149,7 +150,7 @@ class Game {
             }
         })
         if(countTeam0 != countTeam1){
-            console.log("les deux équipes ne sont pas équilibrées")
+            io.to(master.socket_id).emit("showError",{text : "Les équipes ne sont pas équilibrées !"})
             return
         }
         this.gameInfo.status = "game"
@@ -160,15 +161,8 @@ class Game {
         this.processTurn(io)
     }
     playerJoin(user,io){
-        let self = this
         this.players.push(user)
         this.refreshAllLobby(io)
-        if(this.players.length == this.gameInfo.maxPlayers){
-            console.log("game is full")
-            setTimeout(function(){
-                self.tryStartGame(io)
-            }, 3000);
-        }
     }
     playerLeave(user,io){
         if(this.players.find(player => player == user) != undefined){
