@@ -166,6 +166,9 @@ class Game {
     }
     playerLeave(user,disconnected,io){
         //returns true if game has to be deleted
+        if(!this.isUserConnected(user)){
+            return false
+        }
         if(this.players.length <= 1){
             return true
         }
