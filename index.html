@@ -53,15 +53,64 @@
       </div>
     </div>
 
-    <div id="testing-frame" hidden>
-      <input id="testing" value='socket.emit("buildingBuild",{lastTimeStamp:0,atMiddle:false,type:"Wall",x:2,y:2})'/>
-      <input id="testing-validate" value="Valider" type="button"/>
-    </div>
-
     <script>
       $(document).ready(function() {
         var socket = io();
-        pseudo = "#-1";
+        var pseudo = "#-1";
+        var selected = {x:0,y:0,atMiddle:true}
+        var showPlayButtons = false
+        var game = {}
+
+        
+        $('#login-background').on('submit', function(e){
+          e.preventDefault();
+        });
+
+        $('.login-submit').on('click', function(){
+          var enteredPseudo = $("#login-pseudo-input").val().trim()
+          setLandscape(false)
+          if(pseudo == "#-1"){
+            document.location.reload(false);
+          }
+          if(/^[a-z0-9àäâéèëêïîôûùç\-_]*/i.test(enteredPseudo)){
+            socket.emit("joinSession",{pseudo : enteredPseudo, tempName : pseudo});
+            pseudo = enteredPseudo
+            if(this.id == "login-submit-fullscreen"){
+              var body = document.getElementById("body")
+              if (body.requestFullscreen) {
+                body.requestFullscreen();
+              } else if (body.webkitRequestFullscreen) { /* Safari */
+                body.webkitRequestFullscreen();
+              } else if (body.msRequestFullscreen) { /* IE11 */
+                body.msRequestFullscreen();
+              }
+            }
+          }
+          else{
+            alert("Pseudo invalid !")
+          }
+        })
+
+        $(".game-buttons").on("click",function(){
+          var buttonId = $(this).attr("id")
+          var buttonBoard = buttonId.slice(5,9) //kohr or base
+          var buttonType = buttonId.slice(10)
+          alert(game)
+          if(buttonType == "change-board"){
+            if(buttonBoard == 'base'){
+              $("#game-board").css("left", "-100%");
+            }else{
+              $("#game-board").css("left", "0%");
+            }
+          }
+        })
+
+        function showGame(game,canPlay){
+          $("#lobby-frame").attr("hidden",true);
+          $("#game-frame").attr("hidden",false);
+          console.log(game)
+          return game
+        }
 
         socket.on("disconnect",function(){
           $("#disconnected-frame").attr("hidden",false);
@@ -133,61 +182,11 @@
         });
         
         socket.on("showGamePlay",function(data){
-          $("#lobby-frame").attr("hidden",true);
-          $("#game-frame").attr("hidden",false);
-          console.log(data)
+          var game = showGame(data,true)
         })
         
         socket.on("showGameWait",function(data){
-          $("#lobby-frame").attr("hidden",true);
-          $("#game-frame").attr("hidden",false);
-          console.log(data)
-        })
-
-        $('#login-background').on('submit', function(e){
-          e.preventDefault();
-        });
-
-        $('.login-submit').on('click', function(){
-          var enteredPseudo = $("#login-pseudo-input").val().trim()
-          setLandscape(false)
-          if(pseudo == "#-1"){
-            document.location.reload(false);
-          }
-          if(/^[a-z0-9àäâéèëêïîôûùç\-_]*/i.test(enteredPseudo)){
-            socket.emit("joinSession",{pseudo : enteredPseudo, tempName : pseudo});
-            pseudo = enteredPseudo
-            if(this.id == "login-submit-fullscreen"){
-              var body = document.getElementById("body")
-              if (body.requestFullscreen) {
-                body.requestFullscreen();
-              } else if (body.webkitRequestFullscreen) { /* Safari */
-                body.webkitRequestFullscreen();
-              } else if (body.msRequestFullscreen) { /* IE11 */
-                body.msRequestFullscreen();
-              }
-            }
-          }
-          else{
-            alert("Pseudo invalid !")
-          }
-        })
-        
-        $("#testing-validate").click(function(){
-          eval($("#testing").val())
-        })
-
-        $(".game-buttons").on("click",function(){
-          var buttonId = $(this).attr("id")
-          var buttonBoard = buttonId.slice(5,9) //kohr or base
-          var buttonType = buttonId.slice(10)
-          if(buttonType == "change-board"){
-            if(buttonBoard == 'base'){
-              $("#game-board").css("left", "-100%");
-            }else{
-              $("#game-board").css("left", "0%");
-            }
-          }
+          var game = showGame(data,false)
         })
         
         /*var baseCanvas = document.getElementById("game-base-canvas")
