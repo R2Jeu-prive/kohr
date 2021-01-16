@@ -33,6 +33,8 @@ addRoute("/css/login","/web/css/login.css")
 addRoute("/css/lobby","/web/css/lobby.css")
 addRoute("/css/game","/web/css/game.css")
 addRoute("/js/landscape","/web/js/landscape.js")
+addRoute("/img/energybar_under","/web/img/energy_bar_under.png")
+addRoute("/img/energybar_above","/web/img/energy_bar_upper.png")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
