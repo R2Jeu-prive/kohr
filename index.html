@@ -107,21 +107,26 @@
         function showGame(givenGame,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
+
+          //DRAW CANVAS
           var baseCanvas = document.getElementById("game-base-canvas")
           var kohrCanvas = document.getElementById("game-kohr-canvas")
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
-          var m = 5
-          console.log(maxHeight,maxWidth,gridHeight,gridWidth)
+          var m = 10
           baseCanvas.height = gridHeight
           baseCanvas.width = gridWidth
+          kohrCanvas.height = gridHeight
+          kohrCanvas.width = gridWidth
+
+          //BASE CANVAS
           var baseCtx = baseCanvas.getContext("2d");
-          baseCtx.strokeStyle = "#dddddd"
+          baseCtx.strokeStyle = "#e6e6f0"
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
-          grid = 9
+          grid = 5
           heightCell = ((gridHeight - (2*m)) / 2) / grid
           widthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = (gridWidth - (2*m)) / 2
@@ -145,6 +150,41 @@
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
             baseCtx.stroke()
+            xS += widthCell
+            yS += heightCell
+            xE += widthCell
+            yE += heightCell
+          }
+
+          //KOHR CANVAS
+          var kohrCtx = kohrCanvas.getContext("2d");
+          kohrCtx.strokeStyle = "#e6e6f0"
+          kohrCtx.lineCap = "round";
+          kohrCtx.lineWidth = 4;
+          grid = 9
+          heightCell = ((gridHeight - (2*m)) / 2) / grid
+          widthCell = ((gridWidth - (2*m)) / 2) / grid
+          var xS = (gridWidth - (2*m)) / 2
+          var yS = 0
+          var xE = (gridWidth - (2*m))
+          var yE = (gridHeight - (2*m)) / 2
+          for(let i = 0; i <= grid; i++){
+            kohrCtx.moveTo(xS+m,yS+m)
+            kohrCtx.lineTo(xE+m,yE+m)
+            kohrCtx.stroke()
+            xS -= widthCell
+            yS += heightCell
+            xE -= widthCell
+            yE += heightCell
+          }
+          var xS = 0
+          var yS = (gridHeight - (2*m)) / 2
+          var xE = (gridWidth - (2*m)) / 2
+          var yE = 0
+          for(let i = 0; i <= grid; i++){
+            kohrCtx.moveTo(xS+m,yS+m)
+            kohrCtx.lineTo(xE+m,yE+m)
+            kohrCtx.stroke()
             xS += widthCell
             yS += heightCell
             xE += widthCell
