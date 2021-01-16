@@ -112,10 +112,11 @@
           var maxHeight = $("#game-frame").css("height")
           var maxWidth = $("#game-frame").css("width")
           var gridHeight = Math.min(maxHeight, maxWidth/2)
-          var gridWidth = gridHeight / 2
+          var gridWidth = gridHeight * 2
           var m = 5
-          $("#game-base-canvas").css("height",gridHeight+"px")
-          $("#game-base-canvas").css("width",gridWidth+"px")
+          console.log(gridHeight,gridWidth)
+          baseCanvas.height = gridHeight
+          baseCanvas.width = gridWidth
           var baseCtx = baseCanvas.getContext("2d");
           baseCtx.strokeStyle = "#dddddd"
           baseCtx.lineCap = "round";
