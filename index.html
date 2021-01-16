@@ -109,12 +109,12 @@
           $("#game-frame").attr("hidden",false);
           var baseCanvas = document.getElementById("game-base-canvas")
           var kohrCanvas = document.getElementById("game-kohr-canvas")
-          var maxHeight = $("#game-frame").css("height")
-          var maxWidth = $("#game-frame").css("width")
+          var maxHeight = parseInt($("#game-frame").css("height"))
+          var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
           var m = 5
-          console.log(gridHeight,gridWidth)
+          console.log(maxHeight,maxWidth,gridHeight,gridWidth)
           baseCanvas.height = gridHeight
           baseCanvas.width = gridWidth
           var baseCtx = baseCanvas.getContext("2d");
