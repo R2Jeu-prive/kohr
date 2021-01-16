@@ -54,14 +54,16 @@
 
 .game-energybar{
     position: absolute;
+    width: 40%;
 }
 
 .game-energybar-under{
-    position: static;
-    top:0px;
+    position: absolute;
+    top: 0px;
     left: 0px;
     margin: 0px;
     padding: 0px;
+    width: 100%;
 }
 
 .game-energybar-energy{
@@ -71,5 +73,10 @@
 }
 
 .game-energybar-above{
-    position:absolute;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 }

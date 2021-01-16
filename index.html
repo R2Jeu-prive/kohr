@@ -47,7 +47,7 @@
           <canvas class="game-canvas" id="game-base-canvas"></canvas>
           <div class="game-energybar" id="game-base-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
-            <div class="game-enrgybar-energy"></div>
+            <div class="game-energybar-energy"></div>
             <img class="game-energybar-above" src="/img/energybar_above"/>
           </div>
         </div>
@@ -56,7 +56,7 @@
           <canvas class="game-canvas" id="game-kohr-canvas"></canvas>
           <div class="game-energybar" id="game-kohr-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
-            <div class="game-enrgybar-energy"></div>
+            <div class="game-energybar-energy"></div>
             <img class="game-energybar-above" src="/img/energybar_above"/>
           </div>
         </div>
@@ -117,6 +117,8 @@
         function showGame(givenGame,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
+
+          $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
 
           //DRAW CANVAS
           var baseCanvas = document.getElementById("game-base-canvas")
