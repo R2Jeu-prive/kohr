@@ -44,3 +44,9 @@
 .game-buttons{
     position: absolute;
 }
+
+.game-canvas{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
