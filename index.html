@@ -123,10 +123,10 @@
           grid = 9
           heightCell = ((gridHeight - (2*m)) / 2) / grid
           widthCell = ((gridWidth - (2*m)) / 2) / grid
-          var xS = width / 2
+          var xS = (gridWidth - (2*m)) / 2
           var yS = 0
-          var xE = width
-          var yE = height / 2
+          var xE = (gridWidth - (2*m))
+          var yE = (gridHeight - (2*m)) / 2
           for(let i = 0; i <= grid; i++){
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
@@ -137,8 +137,8 @@
             yE += heightCell
           }
           var xS = 0
-          var yS = height / 2
-          var xE = width / 2
+          var yS = (gridHeight - (2*m)) / 2
+          var xE = (gridWidth - (2*m)) / 2
           var yE = 0
           for(let i = 0; i <= grid; i++){
             baseCtx.moveTo(xS+m,yS+m)
