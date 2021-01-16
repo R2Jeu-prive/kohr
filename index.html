@@ -108,21 +108,21 @@
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
           var baseCanvas = document.getElementById("game-base-canvas")
+          var kohrCanvas = document.getElementById("game-kohr-canvas")
           var maxHeight = $("#game-frame").css("height")
           var maxWidth = $("#game-frame").css("width")
-          ////////////
-          var height = 200
-          var width = 400
+          var gridHeight = Math.min(maxHeight, maxWidth/2)
+          var gridWidth = gridHeight / 2
           var m = 5
-          baseCanvas.height = height + (2*m)
-          baseCanvas.width = width + (2*m)
+          baseCanvas.height = gridHeight
+          baseCanvas.width = gridWidth
           var baseCtx = baseCanvas.getContext("2d");
           baseCtx.strokeStyle = "#dddddd"
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
           grid = 9
-          heightGrid = height / 2 / grid
-          widthGrid = width / 2 / grid
+          heightCell = ((gridHeight - (2*m)) / 2) / grid
+          widthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = width / 2
           var yS = 0
           var xE = width
@@ -131,10 +131,10 @@
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
             baseCtx.stroke()
-            xS -= widthGrid
-            yS += heightGrid
-            xE -= widthGrid
-            yE += heightGrid
+            xS -= widthCell
+            yS += heightCell
+            xE -= widthCell
+            yE += heightCell
           }
           var xS = 0
           var yS = height / 2
@@ -144,10 +144,10 @@
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
             baseCtx.stroke()
-            xS += widthGrid
-            yS += heightGrid
-            xE += widthGrid
-            yE += heightGrid
+            xS += widthCell
+            yS += heightCell
+            xE += widthCell
+            yE += heightCell
           }
           console.log(givenGame)
           return givenGame
