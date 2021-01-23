@@ -106,7 +106,7 @@ class Game {
             }
         },this)
         this.refreshAllGame(io)
-        this.skipId = setTimeout(this.processTurn.bind(this), 30000000, io); //in 30 secs will recall itself
+        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
     refreshAllGame(io){
         this.players.forEach(function(player){
