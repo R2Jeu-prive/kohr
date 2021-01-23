@@ -71,9 +71,19 @@
         var showPlayButtons = false
         var game = {}
         var imageOffsets = {}
-        imageOffsets["Pawn"] = [0,20]
+        imageOffsets["Pawn"] = [0,25]
+        imageOffsets["Enchanter"] = [0,25]
+        imageOffsets["Knight"] = [0,25]
+        imageOffsets["Rook"] = [0,25]
+        imageOffsets["Bishop"] = [0,25]
+        imageOffsets["Queen"] = [0,25]
         var imageScales = {}
         imageScales["Pawn"] = 2
+        imageScales["Enchanter"] = 2
+        imageScales["Knight"] = 2
+        imageScales["Rook"] = 2
+        imageScales["Bishop"] = 2
+        imageScales["Queen"] = 2
 
         
         $('#login-background').on('submit', function(e){
@@ -130,6 +140,23 @@
             return givenGame
           }
           var userTeam = tempMe.team
+
+          //SET ENERGY BAR
+          var energy = givenGame.stats[userTeam][0]
+          var allWidth = parseInt($(".game-energybar-under").css("width"))
+          var roundSize = parseInt($(".game-energybar-energy").css("height"))/2
+          if(energy == 0){
+            var energyWidth = 0
+            $(".game-energybar-energy").css("border-radius","0px")
+          }else if(energy < 16){
+            var energyWidth = (8*allWidth/100) + energy*(6*allWidth/100)
+            $(".game-energybar-energy").css("border-radius",roundSize + " 0px 0px " + roundSize)
+          }else{
+            var energyWidth = allWidth
+            $(".game-energybar-energy").css("border-radius",roundSize)
+          }
+          $(".game-energybar-energy").css("width",energyWidth + "px")
+
           //DRAW CANVAS
           var baseCanvas = document.getElementById("game-base-canvas")
           var kohrCanvas = document.getElementById("game-kohr-canvas")
@@ -148,7 +175,7 @@
           baseCtx.strokeStyle = "#6e6e91"
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
-          grid = 4
+          grid = 0.5*givenGame.gameInfo.maxPlayers + 3
           baseHeightCell = ((gridHeight - (2*m)) / 2) / grid
           baseWidthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = (gridWidth - (2*m)) / 2
@@ -183,7 +210,7 @@
           kohrCtx.strokeStyle = "#6e6e91"
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
-          grid = 9
+          grid = givenGame.gameInfo.maxPlayers + 5
           kohrHeightCell = ((gridHeight - (2*m)) / 2) / grid
           kohrWidthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = (gridWidth - (2*m)) / 2
@@ -214,19 +241,26 @@
           }
           for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
-            if(true){ //piece.team == userTeam
-              pieceImage = new Image()
-              pieceImage.src = "piece/blue_" + piece.type.toLowerCase()
-              console.log(pieceImage.src)
-              pieceImage.onload = function(){
-                console.log("yes")
-                let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
-                let x = (m + kohrWidthCell) + ((piece.x-1)*kohrWidthCell) + ((piece.y-1)*kohrWidthCell)
-                let y = (gridHeight/2) - ((piece.x-1)*kohrHeightCell) + ((piece.y-1)*kohrHeightCell)
-                console.log(x,y)
-                kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
-                //kohrCtx.fillRect(x,y,5,5)
+            pieceImage = new Image()
+            if(piece.team == userTeam){
+              let color = "blue"
+            }else{
+              let color = "red"
+            }
+            pieceImage.src = "piece/" + color + "_" + piece.type.toLowerCase()
+            pieceImage.onload = function(){
+              if(userTeam == 0){
+                let pieceX = piece.x - 1
+                let pieceY = piece.y - 1
+              }else{
+                let pieceX = -piece.x + 9
+                let pieceY = -piece.y + 9
               }
+              let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
+              let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
+              let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
+              kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+              //kohrCtx.fillRect(x,y,5,5)
             }
           }
           console.log(givenGame)
