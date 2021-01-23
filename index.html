@@ -249,12 +249,11 @@
             }
             pieceImage.src = "piece/" + color + "_" + piece.type.toLowerCase()
             pieceImage.onload = function(){
-              if(userTeam == 0){
-                var pieceX = piece.x - 1
-                var pieceY = piece.y - 1
-              }else{
-                var pieceX = -piece.x + 9
-                var pieceY = -piece.y + 9
+              var pieceX = piece.x - 1
+              var pieceY = piece.y - 1
+              if(userTeam == 1){
+                var pieceX = -pieceX + givenGame.gameInfo.maxPlayers + 4
+                var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
               }
               let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
               let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
