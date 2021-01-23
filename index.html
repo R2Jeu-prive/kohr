@@ -114,12 +114,18 @@
           }
         })
 
-        function showGame(givenGame,userSelected,canPlay){
+        function showGame(givenGame,userPseudo,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
 
           $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
-
+          //GET PLAYER TEAM
+          var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
+          if(tempMe == undefined){
+            console.log("oula")
+            return givenGame
+          }
+          var userTeam = tempMe.team
           //DRAW CANVAS
           var baseCanvas = document.getElementById("game-base-canvas")
           var kohrCanvas = document.getElementById("game-kohr-canvas")
@@ -139,8 +145,8 @@
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
           grid = 4
-          heightCell = ((gridHeight - (2*m)) / 2) / grid
-          widthCell = ((gridWidth - (2*m)) / 2) / grid
+          baseHeightCell = ((gridHeight - (2*m)) / 2) / grid
+          baseWidthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = (gridWidth - (2*m)) / 2
           var yS = 0
           var xE = (gridWidth - (2*m))
@@ -149,10 +155,10 @@
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
             baseCtx.stroke()
-            xS -= widthCell
-            yS += heightCell
-            xE -= widthCell
-            yE += heightCell
+            xS -= baseWidthCell
+            yS += baseHeightCell
+            xE -= baseWidthCell
+            yE += baseHeightCell
           }
           var xS = 0
           var yS = (gridHeight - (2*m)) / 2
@@ -162,10 +168,10 @@
             baseCtx.moveTo(xS+m,yS+m)
             baseCtx.lineTo(xE+m,yE+m)
             baseCtx.stroke()
-            xS += widthCell
-            yS += heightCell
-            xE += widthCell
-            yE += heightCell
+            xS += baseWidthCell
+            yS += baseHeightCell
+            xE += baseWidthCell
+            yE += baseHeightCell
           }
 
           //KOHR CANVAS
@@ -174,8 +180,8 @@
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
           grid = 9
-          heightCell = ((gridHeight - (2*m)) / 2) / grid
-          widthCell = ((gridWidth - (2*m)) / 2) / grid
+          kohrHeightCell = ((gridHeight - (2*m)) / 2) / grid
+          kohrWidthCell = ((gridWidth - (2*m)) / 2) / grid
           var xS = (gridWidth - (2*m)) / 2
           var yS = 0
           var xE = (gridWidth - (2*m))
@@ -184,10 +190,10 @@
             kohrCtx.moveTo(xS+m,yS+m)
             kohrCtx.lineTo(xE+m,yE+m)
             kohrCtx.stroke()
-            xS -= widthCell
-            yS += heightCell
-            xE -= widthCell
-            yE += heightCell
+            xS -= kohrWidthCell
+            yS += kohrHeightCell
+            xE -= kohrWidthCell
+            yE += kohrHeightCell
           }
           var xS = 0
           var yS = (gridHeight - (2*m)) / 2
@@ -197,10 +203,24 @@
             kohrCtx.moveTo(xS+m,yS+m)
             kohrCtx.lineTo(xE+m,yE+m)
             kohrCtx.stroke()
-            xS += widthCell
-            yS += heightCell
-            xE += widthCell
-            yE += heightCell
+            xS += kohrWidthCell
+            yS += kohrHeightCell
+            xE += kohrWidthCell
+            yE += kohrHeightCell
+          }
+          for (piece in givenGame.pieces){
+            consol.log(piece)
+            if(true){ //piece.team == userTeam
+              pieceImage = new Image()
+              pieceImage.src = "piece/blue_" + piece.constructor.name.toLowerCase()
+              console.log(pieceImage.src)
+              pieceImage.onload = function(){
+                let x = kohrWidthCell + piece.x*kohrWidthCell + piece.y*kohrWidthCell
+                let y = ((gridHeight - (2*m))/2) - (piece.x*kohrHeightCell) + (piece.y*kohrHeightCell)
+                //kohrCtx.drawImage(pieceImage, x, y);
+                kohrCtx.fillRect(x,y,5,5)
+              }
+            }
           }
           console.log(givenGame)
           return givenGame
@@ -276,11 +296,11 @@
         });
         
         socket.on("showGamePlay",function(data){
-          game = showGame(data,selected,true)
+          game = showGame(data,pseudo,selected,true)
         })
         
         socket.on("showGameWait",function(data){
-          game = showGame(data,selected,false)
+          game = showGame(data,pseudo,selected,false)
         })
         
       });
