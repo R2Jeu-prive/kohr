@@ -14,6 +14,21 @@
   </head>
   <body id="body">
 
+    <div id="cache-frame" hidden>
+      <img id="cache-blue_pawn" width="500" height="500" src="/piece/blue_pawn">
+      <img id="cache-blue_enchanter" width="500" height="500" src="/piece/blue_enchanter">
+      <img id="cache-blue_rook" width="500" height="500" src="/piece/blue_rook">
+      <img id="cache-blue_knight" width="500" height="500" src="/piece/blue_knight">
+      <img id="cache-blue_bishop" width="500" height="500" src="/piece/blue_bishop">
+      <img id="cache-blue_queen" width="500" height="500" src="/piece/blue_queen">
+      <img id="cache-red_pawn" width="500" height="500" src="/piece/red_pawn">
+      <img id="cache-red_enchanter" width="500" height="500" src="/piece/red_enchanter">
+      <img id="cache-red_rook" width="500" height="500" src="/piece/red_rook">
+      <img id="cache-red_knight" width="500" height="500" src="/piece/red_knight">
+      <img id="cache-red_bishop" width="500" height="500" src="/piece/red_bishop">
+      <img id="cache-red_queen" width="500" height="500" src="/piece/red_queen">
+    </div>
+
     <div id="disconnected-frame">
       <h1 id="disconnected-title" class="noSelect">._.</h1>
       <p id="load-font" class="noSelect">loading</p>
@@ -247,20 +262,18 @@
             }else{
               var color = "red"
             }
-            pieceImage.src = "piece/" + color + "_" + piece.type.toLowerCase()
-            pieceImage.onload = function(piece){
-              var pieceX = piece.x - 1
-              var pieceY = piece.y - 1
-              if(userTeam == 1){
-                var pieceX = -pieceX + givenGame.gameInfo.maxPlayers + 4
-                var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
-              }
-              let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
-              let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
-              let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
-              kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
-              //kohrCtx.fillRect(x,y,5,5)
+            var pieceImage = document.getElementById("cache-" + color + "_" + piece.type.toLowerCase())
+            var pieceX = piece.x - 1
+            var pieceY = piece.y - 1
+            if(userTeam == 1){
+              var pieceX = -pieceX + givenGame.gameInfo.maxPlayers + 4
+              var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
             }
+            let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
+            let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
+            let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
+            kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+            //kohrCtx.fillRect(x,y,5,5)
           }
           console.log(givenGame)
           return givenGame
