@@ -239,7 +239,7 @@
             xE += kohrWidthCell
             yE += kohrHeightCell
           }
-          pieceImages = []
+          var pieceImages = []
           for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
             pieceImages[index] = new Image()
@@ -263,7 +263,7 @@
               //kohrCtx.fillRect(x,y,5,5)
             }
           }
-          console.log(givenGame)
+          console.log(pieceImages)
           return givenGame
         }
 
