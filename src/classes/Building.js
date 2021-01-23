@@ -1,10 +1,11 @@
 class Building {
-    constructor(x,y,atMiddle,team,health){
+    constructor(x,y,atMiddle,team,health,type){
         this.x = x
         this.y = y
         this.atMiddle = atMiddle
         this.team = team
         this.health = [health,health]
+        this.type = type
     }
     hit(damage){
         this.health = this.health - damage
@@ -32,13 +33,13 @@ class Core extends Building {
         }else if(maxPlayers == 4){
             var coreHealth = 1000
         }
-        super(x,y,true,team,coreHealth)
+        super(x,y,true,team,coreHealth,"Core")
     }
 }
 
 class Extractor extends Building {
     constructor(ressource,x,y,atMiddle,team){
-        super(x,y,atMiddle,team,20)
+        super(x,y,atMiddle,team,20,"Extractor")
         this.level = 1
         this.inventory = [0,10,ressource]
     }
@@ -59,13 +60,13 @@ class Extractor extends Building {
 
 class Workshop extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team,10)
+        super(x,y,atMiddle,team,10,"Worshop")
     }
 }
 
 class Wall extends Building {
     constructor(x,y,team){
-        super(x,y,true,team,50)
+        super(x,y,true,team,50,"Wall")
         this.level = 1
     }
     upgrade(){
@@ -77,19 +78,19 @@ class Wall extends Building {
 
 class Battery extends Building {
     constructor(x,y,team){
-        super(x,y,false,team,10)
+        super(x,y,false,team,10,"Battery")
     }
 }
 
 class LightArmory extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team,40)
+        super(x,y,atMiddle,team,40,"LightArmory")
     }
 }
 
 class HeavyArmory extends Building {
     constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team,50)
+        super(x,y,atMiddle,team,50,"HeavyArmory")
     }
 }
 

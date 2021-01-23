@@ -36,11 +36,12 @@ pieceAttacks["simpleAttack"] = [25,1]
 pieceAttacks["enchant"] = [0,2]
 
 class Piece {
-    constructor(x,y,team,health){
+    constructor(x,y,team,health,type){
         this.x = x
         this.y = y
         this.team = team
         this.health = health
+        this.type = type
     }
     changeCoords(x,y){
         this.x = x
@@ -54,7 +55,7 @@ class Piece {
 
 class Queen extends Piece{
     constructor(x,y,team){
-        super(x,y,team,150)
+        super(x,y,team,150,"Queen")
         this.buildingTimeLeft = 3
         this.attacks = ["queenSoft","queenHard"]
     }
@@ -62,7 +63,7 @@ class Queen extends Piece{
 
 class Bishop extends Piece{
     constructor(x,y,team){
-        super(x,y,team,95)
+        super(x,y,team,95,"Bishop")
         this.buildingTimeLeft = 5
         this.attacks = ["diagonalSuicide"]
     }
@@ -70,7 +71,7 @@ class Bishop extends Piece{
 
 class Knight extends Piece{
     constructor(x,y,team){
-        super(x,y,team,60)
+        super(x,y,team,60,"Knight")
         this.buildingTimeLeft = 1
         this.attacks = ["jumping"]
     }
@@ -78,7 +79,7 @@ class Knight extends Piece{
 
 class Rook extends Piece{
     constructor(x,y,team){
-        super(x,y,team,200)
+        super(x,y,team,200,"Rook")
         this.buildingTimeLeft = 4
         this.attacks = ["healing"]
     }
@@ -86,7 +87,7 @@ class Rook extends Piece{
 
 class Enchanter extends Piece{
     constructor(x,y,team){
-        super(x,y,team,25)
+        super(x,y,team,25,"Enchanter")
         this.buildingTimeLeft = 3
         this.attacks = ["enchant"]
     }
@@ -94,7 +95,7 @@ class Enchanter extends Piece{
 
 class Pawn extends Piece{
     constructor(x,y,team){
-        super(x,y,team,50)
+        super(x,y,team,50,"Pawn")
         this.buildingTimeLeft = 1
         this.attacks = ["simpleAttack"]
     }

@@ -308,13 +308,17 @@ class Game {
         return true
     }
     buildingBuild(type,x,y,atMiddle,team,timeStamp,io){
-        if(["Workshop","LightArmory","HeavyArmory"].indexOf(type) != -1){
-            var building = new window[type](x,y,atMiddle,team)
-        }
-        else if(["Wall","Battery"].indexOf(type) != -1){
-            var building = new window[type](x,y,team)
-        }
-        else if(type == "Extractor"){
+        if(type == "Workshop"){
+            var building = new Workshop(x,y,atMiddle,team)
+        }else if(type == "LightArmory"){
+            var building = new LightArmory(x,y,atMiddle,team)
+        }else if(type == "HeavyArmory"){
+            var building = new HeavyArmory(x,y,atMiddle,team)
+        }else if(type == "Battery"){
+            var building = new Battery(x,y,team)
+        }else if(type == "Wall"){
+            var building = new Wall(x,y,team)
+        }else if(type == "Extractor"){
             var building = new Extractor("copper", x, y, atMiddle, team)
         }
         this.buildings.push(building)
@@ -583,7 +587,20 @@ class Game {
         return true
     }
     pieceBuild(type,x,y,team,timeStamp,io){
-        this.pieces.push(new window[type](x,y,team))
+        if(type == "Pawn"){
+            var piece = new Pawn(x,y,team)
+        }else if(type == "Enchanter"){
+            var piece = new Enchanter(x,y,team)
+        }else if(type == "Rook"){
+            var piece = new Rook(x,y,team)
+        }else if(type == "Knight"){
+            var piece = new Knight(x,y,team)
+        }else if(type == "Queen"){
+            var piece = new Queen(x,y,team)
+        }else if(type == "Bishop"){
+            var piece = new Bishop(x,y,team)
+        }
+        this.pieces.push(piece)
         this.stats[team][1] = this.stats[team][1] - piecePrices[type][0]
         this.stats[team][2] = this.stats[team][2] - piecePrices[type][1]
         this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
