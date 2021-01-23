@@ -215,9 +215,10 @@
               pieceImage.src = "piece/blue_" + piece.type.toLowerCase()
               console.log(pieceImage.src)
               pieceImage.onload = function(){
-                let x = (m - kohrWidthCell) + (piece.x*kohrWidthCell) + (piece.y*kohrWidthCell)
-                let y = (gridHeight/2) - (piece.x*kohrHeightCell) + (piece.y*kohrHeightCell)
-                //kohrCtx.drawImage(pieceImage, x, y);
+                let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
+                let x = (m - kohrWidthCell) - (piece.x*kohrWidthCell) + (piece.y*kohrWidthCell)
+                let y = (gridHeight/2) + (piece.x*kohrHeightCell) + (piece.y*kohrHeightCell)
+                kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize/2, imageSize, imageSize);
                 kohrCtx.fillRect(x,y,5,5)
               }
             }
