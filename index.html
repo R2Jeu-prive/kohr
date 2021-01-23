@@ -239,17 +239,16 @@
             xE += kohrWidthCell
             yE += kohrHeightCell
           }
-          var pieceImages = []
           for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
-            pieceImages[index] = new Image()
+            pieceImage = new Image()
             if(piece.team == userTeam){
               var color = "blue"
             }else{
               var color = "red"
             }
-            pieceImages[index].src = "piece/" + color + "_" + piece.type.toLowerCase()
-            pieceImages[index].onload = function(){
+            pieceImage.src = "piece/" + color + "_" + piece.type.toLowerCase()
+            pieceImage.onload = function(piece){
               var pieceX = piece.x - 1
               var pieceY = piece.y - 1
               if(userTeam == 1){
@@ -259,11 +258,11 @@
               let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
               let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
               let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
-              kohrCtx.drawImage(pieceImages[index], x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+              kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
               //kohrCtx.fillRect(x,y,5,5)
             }
           }
-          console.log(pieceImages)
+          console.log(givenGame)
           return givenGame
         }
 
