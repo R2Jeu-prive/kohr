@@ -243,18 +243,18 @@
             piece = givenGame.pieces[index]
             pieceImage = new Image()
             if(piece.team == userTeam){
-              let color = "blue"
+              var color = "blue"
             }else{
-              let color = "red"
+              var color = "red"
             }
             pieceImage.src = "piece/" + color + "_" + piece.type.toLowerCase()
             pieceImage.onload = function(){
               if(userTeam == 0){
-                let pieceX = piece.x - 1
-                let pieceY = piece.y - 1
+                var pieceX = piece.x - 1
+                var pieceY = piece.y - 1
               }else{
-                let pieceX = -piece.x + 9
-                let pieceY = -piece.y + 9
+                var pieceX = -piece.x + 9
+                var pieceY = -piece.y + 9
               }
               let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
               let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
