@@ -35,12 +35,12 @@ addRoute("/css/game","/web/css/game.css")
 addRoute("/js/landscape","/web/js/landscape.js")
 addRoute("/img/energybar_under","/web/img/energy_bar_under.png")
 addRoute("/img/energybar_above","/web/img/energy_bar_upper.png")
-addRoute("/piece/blue_pawn", "/web/img/piece/blue_pawn")
-addRoute("/piece/blue_enchanter", "/web/img/piece/blue_enchanter")
-addRoute("/piece/blue_knight", "/web/img/piece/blue_knight")
-addRoute("/piece/blue_rook", "/web/img/piece/blue_rook")
-addRoute("/piece/blue_bishop", "/web/img/piece/blue_bishop")
-addRoute("/piece/blue_queen", "/web/img/piece/blue_queen")
+addRoute("/piece/blue_pawn", "/web/img/piece/blue_pawn.png")
+addRoute("/piece/blue_enchanter", "/web/img/piece/blue_enchanter.png")
+addRoute("/piece/blue_knight", "/web/img/piece/blue_knight.png")
+addRoute("/piece/blue_rook", "/web/img/piece/blue_rook.png")
+addRoute("/piece/blue_bishop", "/web/img/piece/blue_bishop.png")
+addRoute("/piece/blue_queen", "/web/img/piece/blue_queen.png")
 
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
