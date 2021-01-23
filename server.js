@@ -120,6 +120,7 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
                 if(user.pseudo == game.gameInfo.masterPseudo){
                     game.tryStartGame(io)
+                    game.pieceBuild("Pawn",2,2,0,456456,io)
                 }else{
                     socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
                 }
