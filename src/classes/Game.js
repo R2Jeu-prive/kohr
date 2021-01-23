@@ -18,6 +18,12 @@ class Game {
         this.stats = [[100000,100000,100000,100000,100000],[100000,100000,100000,100000,100000]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
+
+        //testing
+        this.pieces.push(new Pawn(2,2,0))
+        this.pieces.push(new Pawn(3,0))
+        this.pieces.push(new Pawn(3,3,0))
+        this.pieces.push(new Pawn(5,3,0))
     }
     intMiddle(a,b,c){
         //returns true is a,b,c are in this order or inversed order (c,b,a)
