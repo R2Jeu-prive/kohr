@@ -144,7 +144,7 @@
           //SET ENERGY BAR
           var energy = givenGame.stats[userTeam][0]
           var allWidth = parseInt($(".game-energybar-under").css("width"))
-          var roundSize = parseInt($(".game-energybar-energy").css("height"))/2
+          var roundSize = parseInt($(".game-energybar-energy").css("height"))/2 + "px"
           if(energy == 0){
             var energyWidth = 0
             $(".game-energybar-energy").css("border-radius","0px")
