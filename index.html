@@ -215,8 +215,8 @@
               pieceImage.src = "piece/blue_" + piece.type.toLowerCase()
               console.log(pieceImage.src)
               pieceImage.onload = function(){
-                let x = m + kohrWidthCell
-                let y = ((gridHeight - (2*m))/2) - (piece.x*kohrHeightCell) + (piece.y*kohrHeightCell)
+                let x = (m - kohrWidthCell) + (piece.x*kohrWidthCell) + (piece.y*kohrWidthCell)
+                let y = (gridHeight/2) - (piece.x*kohrHeightCell) + (piece.y*kohrHeightCell)
                 //kohrCtx.drawImage(pieceImage, x, y);
                 kohrCtx.fillRect(x,y,5,5)
               }
