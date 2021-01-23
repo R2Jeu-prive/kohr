@@ -224,7 +224,7 @@
                 let x = (m + kohrWidthCell) + ((piece.x-1)*kohrWidthCell) + ((piece.y-1)*kohrWidthCell)
                 let y = (gridHeight/2) - ((piece.x-1)*kohrHeightCell) + ((piece.y-1)*kohrHeightCell)
                 console.log(x,y)
-                //kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize/2, imageSize, imageSize);
+                kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize/2, imageSize, imageSize);
                 kohrCtx.fillRect(x,y,5,5)
               }
             }
