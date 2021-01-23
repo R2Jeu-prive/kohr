@@ -208,8 +208,9 @@
             xE += kohrWidthCell
             yE += kohrHeightCell
           }
-          for (piece in givenGame.pieces){
-            consol.log(piece)
+          for (index in givenGame.pieces){
+            piece = givenGame.pieces[index]
+            console.log(piece)
             if(true){ //piece.team == userTeam
               pieceImage = new Image()
               pieceImage.src = "piece/blue_" + piece.constructor.name.toLowerCase()
