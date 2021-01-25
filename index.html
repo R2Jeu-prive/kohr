@@ -82,7 +82,7 @@
       $(document).ready(function() {
         var socket = io();
         var pseudo = "#-1";
-        var selected = {x:0,y:0,atMiddle:true}
+        selected = {unselect:true,x:1,y:1,atMiddle:true}
         var showPlayButtons = false
         var game = {}
         var imageOffsets = {}
@@ -155,8 +155,10 @@
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           if($(this).attr("id") == "game-base-canvas"){
             grid = 0.5*game.gameInfo.maxPlayers + 3
+            selected.atMiddle = false
           }else{
             grid = game.gameInfo.maxPlayers + 5
+            selected.atMiddle = true
           }
           var m = gridHeight / (1.3*grid)
           var clickX = clickX - 2*m
@@ -167,10 +169,26 @@
           var isoY = 1 - (relY - relX + 0.5)
           var coordX = Math.floor(isoX*grid+1)
           var coordY = Math.floor(isoY*grid+1)
+          if(coordX > 0 && coordX <= grid && coordY > 0 && coordY <= grid){
+            selected.unselect = false
+            selected.x = coordX
+            selected.y = coordY
+          }else{
+            selected.unselect = true
+          }
+          let tempMe = game.players.find(player => player.pseudo == pseudo)
+          if(tempMe == undefined){
+            console.log("oula4")
+            return
+          }
+          let play = (tempMe.team == game.gameInfo.teamPlaying)
           console.log(coordX,coordY)
+          showGame(game,pseudo,selected,play)
         });
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
+          console.log(userSelected)
+
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
 
