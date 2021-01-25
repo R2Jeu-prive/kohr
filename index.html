@@ -144,7 +144,7 @@
         })
 
         $(".game-canvas").click(function(e){
-          var parentOffset = $(this).parent().offset(); 
+          var parentOffset = $(this).offset(); 
           //or $(this).offset(); if you really just want the current element's offset
           var clickX = e.pageX - parentOffset.left;
           var clickY = e.pageY - parentOffset.top;
