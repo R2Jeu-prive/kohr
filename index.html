@@ -163,7 +163,9 @@
           var clickY = clickY - m
           var relX = clickX / (canvasWidth - 4*m)
           var relY = clickY / (canvasHeight - 2*m)
-          console.log(relX,relY,game)
+          var isoX = relY + relX - 0.5
+          var isoY = relY - relX + 0.5
+          console.log(isoX,isoY)
         });
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
