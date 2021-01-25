@@ -148,7 +148,15 @@
           //or $(this).offset(); if you really just want the current element's offset
           var clickX = e.pageX - parentOffset.left;
           var clickY = e.pageY - parentOffset.top;
-          var m = 0
+          var maxHeight = parseInt($("#game-frame").css("height"))
+          var maxWidth = parseInt($("#game-frame").css("width"))
+          var gridHeight = Math.min(maxHeight, maxWidth/2)
+          if($(this).attr("id") == "game-base-canvas"){
+            grid = 0.5*game.gameInfo.maxPlayers + 3
+          }else{
+            grid = givenGame.gameInfo.maxPlayers + 5
+          }
+          var m = gridHeight / (1.3*grid)
           var clickX = clickX - 2*m
           var clickY = clickY - m
           console.log(clickX,clickY,game)
