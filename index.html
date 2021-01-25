@@ -329,8 +329,8 @@
             if(userSelected.atMiddle){
               kohrCtx.fillStyle = '#3c503c';
               kohrCtx.beginPath();
-              let leftPointX = (2*kohrM) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
-              let leftPointY = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
+              let leftPointX = (2*kohrM) + (userSelected.x*kohrWidthCell) + (serSelected.y*kohrWidthCell)
+              let leftPointY = (gridHeight/2) - (serSelected.x*kohrHeightCell) + (serSelected.y*kohrHeightCell)
               kohrCtx.moveTo(leftPointX,leftPointY);
               kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
               kohrCtx.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
