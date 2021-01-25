@@ -148,8 +148,12 @@
           //or $(this).offset(); if you really just want the current element's offset
           var clickX = e.pageX - parentOffset.left;
           var clickY = e.pageY - parentOffset.top;
-          console.log(clickX,clickY)
+          var m = 0
+          var clickX = clickX - 2*m
+          var clickY = clickY - m
+          console.log(clickX,clickY,game)
         });
+
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
