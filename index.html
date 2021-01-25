@@ -146,9 +146,9 @@
         $(".game-canvas").click(function(e){
           var parentOffset = $(this).parent().offset(); 
           //or $(this).offset(); if you really just want the current element's offset
-          var relX = e.pageX - parentOffset.left;
-          var relY = e.pageY - parentOffset.top;
-          console.log(relX,relY)
+          var clickX = e.pageX - parentOffset.left;
+          var clickY = e.pageY - parentOffset.top;
+          console.log(clickX,clickY)
         });
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
@@ -197,7 +197,7 @@
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
           grid = 0.5*givenGame.gameInfo.maxPlayers + 3
-          var m = gridHeight / (1.5*grid)
+          var m = gridHeight / (1.3*grid)
           baseHeightCell = ((gridHeight - (2*m)) / 2) / grid
           baseWidthCell = ((gridWidth - (4*m)) / 2) / grid
           var xS = (gridWidth - (4*m)) / 2
@@ -233,7 +233,7 @@
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
           grid = givenGame.gameInfo.maxPlayers + 5
-          m = gridHeight / (1.5*grid)
+          m = gridHeight / (1.3*grid)
           kohrHeightCell = ((gridHeight - (2*m)) / 2) / grid
           kohrWidthCell = ((gridWidth - (4*m)) / 2) / grid
           var xS = (gridWidth - (4*m)) / 2
