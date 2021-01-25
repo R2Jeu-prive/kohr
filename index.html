@@ -231,6 +231,8 @@
           //CALCULATE GRID, M AND CELL FOR BASE AND KOHR
           var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
           var baseM = gridHeight / (1.3*baseGrid)
+          var kohrGrid = givenGame.gameInfo.maxPlayers + 5
+          var kohrM = gridHeight / (1.3*kohrGrid)
           var baseHeightCell = ((gridHeight - (2*baseM)) / 2) / baseGrid
           var baseWidthCell = ((gridWidth - (4*baseM)) / 2) / baseGrid
           var kohrHeightCell = ((gridHeight - (2*kohrM)) / 2) / kohrGrid
@@ -289,8 +291,6 @@
           kohrCtx.strokeStyle = "#6e6e91"
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
-          kohrGrid = givenGame.gameInfo.maxPlayers + 5
-          kohrM = gridHeight / (1.3*kohrGrid)
           var xS = (gridWidth - (4*kohrM)) / 2
           var yS = 0
           var xE = (gridWidth - (4*kohrM))
