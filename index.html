@@ -143,6 +143,13 @@
           }
         })
 
+        $(".game-canvas").click(function(e){
+          var parentOffset = $(this).parent().offset(); 
+          //or $(this).offset(); if you really just want the current element's offset
+          var relX = e.pageX - parentOffset.left;
+          var relY = e.pageY - parentOffset.top;
+          console.log(relX,relY)
+        });
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
@@ -179,7 +186,6 @@
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
-          var m = 10
           baseCanvas.height = gridHeight
           baseCanvas.width = gridWidth
           kohrCanvas.height = gridHeight
@@ -191,15 +197,16 @@
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
           grid = 0.5*givenGame.gameInfo.maxPlayers + 3
+          var m = gridHeight / (grid + 1)
           baseHeightCell = ((gridHeight - (2*m)) / 2) / grid
-          baseWidthCell = ((gridWidth - (2*m)) / 2) / grid
-          var xS = (gridWidth - (2*m)) / 2
+          baseWidthCell = ((gridWidth - (4*m)) / 2) / grid
+          var xS = (gridWidth - (4*m)) / 2
           var yS = 0
-          var xE = (gridWidth - (2*m))
+          var xE = (gridWidth - (4*m))
           var yE = (gridHeight - (2*m)) / 2
           for(let i = 0; i <= grid; i++){
-            baseCtx.moveTo(xS+m,yS+m)
-            baseCtx.lineTo(xE+m,yE+m)
+            baseCtx.moveTo(xS+2*m,yS+m)
+            baseCtx.lineTo(xE+2*m,yE+m)
             baseCtx.stroke()
             xS -= baseWidthCell
             yS += baseHeightCell
@@ -208,11 +215,11 @@
           }
           var xS = 0
           var yS = (gridHeight - (2*m)) / 2
-          var xE = (gridWidth - (2*m)) / 2
+          var xE = (gridWidth - (4*m)) / 2
           var yE = 0
           for(let i = 0; i <= grid; i++){
-            baseCtx.moveTo(xS+m,yS+m)
-            baseCtx.lineTo(xE+m,yE+m)
+            baseCtx.moveTo(xS+2*m,yS+m)
+            baseCtx.lineTo(xE+2*m,yE+m)
             baseCtx.stroke()
             xS += baseWidthCell
             yS += baseHeightCell
@@ -226,15 +233,16 @@
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
           grid = givenGame.gameInfo.maxPlayers + 5
+          m = gridHeight / (grid + 1)
           kohrHeightCell = ((gridHeight - (2*m)) / 2) / grid
-          kohrWidthCell = ((gridWidth - (2*m)) / 2) / grid
-          var xS = (gridWidth - (2*m)) / 2
+          kohrWidthCell = ((gridWidth - (4*m)) / 2) / grid
+          var xS = (gridWidth - (4*m)) / 2
           var yS = 0
-          var xE = (gridWidth - (2*m))
+          var xE = (gridWidth - (4*m))
           var yE = (gridHeight - (2*m)) / 2
           for(let i = 0; i <= grid; i++){
-            kohrCtx.moveTo(xS+m,yS+m)
-            kohrCtx.lineTo(xE+m,yE+m)
+            kohrCtx.moveTo(xS+2*m,yS+m)
+            kohrCtx.lineTo(xE+2*m,yE+m)
             kohrCtx.stroke()
             xS -= kohrWidthCell
             yS += kohrHeightCell
@@ -243,11 +251,11 @@
           }
           var xS = 0
           var yS = (gridHeight - (2*m)) / 2
-          var xE = (gridWidth - (2*m)) / 2
+          var xE = (gridWidth - (4*m)) / 2
           var yE = 0
           for(let i = 0; i <= grid; i++){
-            kohrCtx.moveTo(xS+m,yS+m)
-            kohrCtx.lineTo(xE+m,yE+m)
+            kohrCtx.moveTo(xS+2*m,yS+m)
+            kohrCtx.lineTo(xE+2*m,yE+m)
             kohrCtx.stroke()
             xS += kohrWidthCell
             yS += kohrHeightCell
@@ -270,7 +278,7 @@
               var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
             }
             let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
-            let x = (m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
+            let x = (2*m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
             let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
             kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
             //kohrCtx.fillRect(x,y,5,5)
