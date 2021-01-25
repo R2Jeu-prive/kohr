@@ -143,9 +143,8 @@
           }
         })
 
-        $(".game-canvas").click(function(e){
+        $(".game-canvas").on("click",function(e){
           var parentOffset = $(this).offset(); 
-          //or $(this).offset(); if you really just want the current element's offset
           var clickX = e.pageX - parentOffset.left;
           var clickY = e.pageY - parentOffset.top;
           var maxHeight = parseInt($("#game-frame").css("height"))
@@ -182,17 +181,17 @@
             return
           }
           let play = (tempMe.team == game.gameInfo.teamPlaying)
-          console.log(coordX,coordY)
           showGame(game,pseudo,selected,play)
         });
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
-          console.log(userSelected)
-
+          //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
 
+          //SET ENERGY HEIGHT TO FIT THE BAR
           $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
+
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
           if(tempMe == undefined){
@@ -217,7 +216,7 @@
           }
           $(".game-energybar-energy").css("width",energyWidth + "px")
 
-          //DRAW CANVAS
+          //GET CANVAS AND DEFINE LIMITING DIMENSION
           var baseCanvas = document.getElementById("game-base-canvas")
           var kohrCanvas = document.getElementById("game-kohr-canvas")
           var maxHeight = parseInt($("#game-frame").css("height"))
@@ -229,22 +228,24 @@
           kohrCanvas.height = gridHeight
           kohrCanvas.width = gridWidth
 
-          //BASE CANVAS
+          //CALCULATE GRID AND M SIZE FOR BASE AND KOHR
+          var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
+          var baseM = gridHeight / (1.3*baseGrid)
+
+          //DRAW BASE GRID
           var baseCtx = baseCanvas.getContext("2d");
           baseCtx.strokeStyle = "#6e6e91"
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
-          grid = 0.5*givenGame.gameInfo.maxPlayers + 3
-          var m = gridHeight / (1.3*grid)
-          baseHeightCell = ((gridHeight - (2*m)) / 2) / grid
-          baseWidthCell = ((gridWidth - (4*m)) / 2) / grid
-          var xS = (gridWidth - (4*m)) / 2
+          baseHeightCell = ((gridHeight - (2*baseM)) / 2) / baseGrid
+          baseWidthCell = ((gridWidth - (4*baseM)) / 2) / baseGrid
+          var xS = (gridWidth - (4*baseM)) / 2
           var yS = 0
-          var xE = (gridWidth - (4*m))
-          var yE = (gridHeight - (2*m)) / 2
-          for(let i = 0; i <= grid; i++){
-            baseCtx.moveTo(xS+2*m,yS+m)
-            baseCtx.lineTo(xE+2*m,yE+m)
+          var xE = (gridWidth - (4*baseM))
+          var yE = (gridHeight - (2*baseM)) / 2
+          for(let i = 0; i <= baseGrid; i++){
+            baseCtx.moveTo(xS+2*baseM,yS+baseM)
+            baseCtx.lineTo(xE+2*baseM,yE+baseM)
             baseCtx.stroke()
             xS -= baseWidthCell
             yS += baseHeightCell
@@ -252,12 +253,12 @@
             yE += baseHeightCell
           }
           var xS = 0
-          var yS = (gridHeight - (2*m)) / 2
-          var xE = (gridWidth - (4*m)) / 2
+          var yS = (gridHeight - (2*baseM)) / 2
+          var xE = (gridWidth - (4*baseM)) / 2
           var yE = 0
-          for(let i = 0; i <= grid; i++){
-            baseCtx.moveTo(xS+2*m,yS+m)
-            baseCtx.lineTo(xE+2*m,yE+m)
+          for(let i = 0; i <= baseGrid; i++){
+            baseCtx.moveTo(xS+2*baseM,yS+baseM)
+            baseCtx.lineTo(xE+2*baseM,yE+baseM)
             baseCtx.stroke()
             xS += baseWidthCell
             yS += baseHeightCell
@@ -265,22 +266,22 @@
             yE += baseHeightCell
           }
 
-          //KOHR CANVAS
+          //DRAW KOHR GRID
           var kohrCtx = kohrCanvas.getContext("2d");
           kohrCtx.strokeStyle = "#6e6e91"
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
-          grid = givenGame.gameInfo.maxPlayers + 5
-          m = gridHeight / (1.3*grid)
-          kohrHeightCell = ((gridHeight - (2*m)) / 2) / grid
-          kohrWidthCell = ((gridWidth - (4*m)) / 2) / grid
-          var xS = (gridWidth - (4*m)) / 2
+          kohrGrid = givenGame.gameInfo.maxPlayers + 5
+          kohrM = gridHeight / (1.3*kohrGrid)
+          kohrHeightCell = ((gridHeight - (2*kohrM)) / 2) / kohrGrid
+          kohrWidthCell = ((gridWidth - (4*kohrM)) / 2) / kohrGrid
+          var xS = (gridWidth - (4*kohrM)) / 2
           var yS = 0
-          var xE = (gridWidth - (4*m))
-          var yE = (gridHeight - (2*m)) / 2
-          for(let i = 0; i <= grid; i++){
-            kohrCtx.moveTo(xS+2*m,yS+m)
-            kohrCtx.lineTo(xE+2*m,yE+m)
+          var xE = (gridWidth - (4*kohrM))
+          var yE = (gridHeight - (2*kohrM)) / 2
+          for(let i = 0; i <= kohrGrid; i++){
+            kohrCtx.moveTo(xS+2*kohrM,yS+kohrM)
+            kohrCtx.lineTo(xE+2*kohrM,yE+kohrM)
             kohrCtx.stroke()
             xS -= kohrWidthCell
             yS += kohrHeightCell
@@ -288,18 +289,20 @@
             yE += kohrHeightCell
           }
           var xS = 0
-          var yS = (gridHeight - (2*m)) / 2
-          var xE = (gridWidth - (4*m)) / 2
+          var yS = (gridHeight - (2*kohrM)) / 2
+          var xE = (gridWidth - (4*kohrM)) / 2
           var yE = 0
-          for(let i = 0; i <= grid; i++){
-            kohrCtx.moveTo(xS+2*m,yS+m)
-            kohrCtx.lineTo(xE+2*m,yE+m)
+          for(let i = 0; i <= kohrGrid; i++){
+            kohrCtx.moveTo(xS+2*kohrM,yS+kohrM)
+            kohrCtx.lineTo(xE+2*kohrM,yE+kohrM)
             kohrCtx.stroke()
             xS += kohrWidthCell
             yS += kohrHeightCell
             xE += kohrWidthCell
             yE += kohrHeightCell
           }
+
+          //DRAW PIECES
           for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
             pieceImage = new Image()
@@ -316,10 +319,25 @@
               var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
             }
             let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
-            let x = (2*m + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
+            let x = (2*kohrM + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
             let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
             kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
-            //kohrCtx.fillRect(x,y,5,5)
+          }
+
+          //DRAW SELECTED SQUARE
+          if(!userSelected.unselect){
+            if(userSelected.atMiddle){
+              kohrCtx.fillStyle = '#3c503c';
+              kohrCtx.beginPath();
+              let leftPointX = (2*kohrM) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
+              let leftPointY = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
+              kohrCtx.moveTo(leftPointX,leftPointY);
+              kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
+              kohrCtx.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
+              kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
+              kohrCtx.closePath();
+              kohrCtx.fill();
+            }
           }
           console.log(givenGame)
           return givenGame
