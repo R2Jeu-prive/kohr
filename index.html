@@ -159,6 +159,8 @@
           var m = gridHeight / (1.3*grid)
           var clickX = clickX - 2*m
           var clickY = clickY - m
+          var relX = clickX / (maxWidth - 4*m)
+          var relY = clickY / (maxHeight - 2*m)
           console.log(clickX,clickY,game)
         });
 
