@@ -56,6 +56,9 @@
 .game-energybar{
     position: absolute;
     width: 40%;
+    left: 25%;
+    top : 5%;
+    transform: translateX(-50%);
 }
 
 .game-energybar-under{
@@ -81,4 +84,8 @@
     margin: 0px;
     padding: 0px;
     width: 100%;
+}
+
+.game-ressources{
+    position: absolute;
 }
