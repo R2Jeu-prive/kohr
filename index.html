@@ -238,6 +238,16 @@
           showGame(game,pseudo,selected,play)
         });
 
+        function countBuildings(game,type,team){
+          var counter = 0
+          game.buildings.forEach(function(building){
+            if(building.type == type && building.team == team){
+              counter = counter + 1
+            }
+          })
+          return counter
+        }
+
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
@@ -248,8 +258,8 @@
           $(".game-ressources").css("height",2*parseInt($(".game-energybar-under").first().css("height")) + "px")
           $(".game-ressource-count").css("left",$(".game-ressources").first().css("height"))
           $(".game-ressource-count").css("font-size",(2/5)*parseInt($(".game-ressources").first().css("height")) + "px")
-          $(".game-energy-prod-count").css("right",$(".game-energybar-under").first().css("height"))
-          $(".game-energy-count").css("left",$(".game-energybar-under").first().css("height"))
+          $(".game-energy-prod-count").css("left",$(".game-energybar-under").first().css("height"))
+          $(".game-energy-count").css("right",$(".game-energybar-under").first().css("height"))
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -259,11 +269,16 @@
           }
           var userTeam = tempMe.team
 
-          //SET RESSOURCE COUNTS
+          //SET COUNTS
           $(".game-copper-count").text("x" + givenGame.stats[userTeam][1])
           $(".game-titanium-count").text("x" + givenGame.stats[userTeam][2])
           $(".game-gold-count").text("x" + givenGame.stats[userTeam][3])
           $(".game-ruby-count").text("x" + givenGame.stats[userTeam][4])
+          $(".game-energy-count").text("x" + givenGame.stats[userTeam][4])
+          var prod = 5 + countBuildings(givenGame,"Workshop",userTeam);
+          var maxCapacity = 10 + 2*countBuildings(givenGame,"Battery",userTeam);
+          $(".game-energy-prod-count").text(prod + " / tour")
+          $(".game-energy-count").text(givenGame.stats[userTeam][0] + " / " + maxCapacity)
 
           //SET ENERGY BAR
           var energy = givenGame.stats[userTeam][0]

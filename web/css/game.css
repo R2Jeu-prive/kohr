@@ -143,28 +143,28 @@
 .game-energy-prod{
     position: absolute;
     height: 100%;
-    right : 0%;
+    left : 0%;
     width : 100%;
 }
 
 .game-energy{
     position: absolute;
     height: 100%;
-    left : 0px;
+    right : 0px;
     width : 100%;
 }
 
 .game-energy-prod-icon{
     position: absolute;
     height: 100%;
-    right : 0%;
+    left : 0%;
     filter: drop-shadow(0px 0px 4px black);
 }
 
 .game-energy-icon{
     position: absolute;
     height: 100%;
-    left : 0%;
+    right : 0%;
     filter: drop-shadow(0px 0px 4px black);
 }
 
