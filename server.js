@@ -53,6 +53,13 @@ addRoute("/piece/red_rook", "/web/img/piece/red_rook.png")
 addRoute("/piece/red_bishop", "/web/img/piece/red_bishop.png")
 addRoute("/piece/red_queen", "/web/img/piece/red_queen.png")
 
+addRoute("/icon/energy_prod", "/web/img/icons/energy_prod.png")
+addRoute("/icon/energy", "/web/img/icons/energy.png")
+addRoute("/icon/copper", "/web/img/icons/copper.png")
+addRoute("/icon/titanium", "/web/img/icons/titanium.png")
+addRoute("/icon/gold", "/web/img/icons/gold.png")
+addRoute("/icon/ruby", "/web/img/icons/ruby.png")
+
 io.on('connection', function(socket){
     tempName = "#" + Math.floor(Math.random() * 1000)+1;
     users.push(new User(tempName,socket))

@@ -87,4 +87,35 @@
 
 .game-ressources{
     position: absolute;
+    width: 40%;
+    right: 5vh;
+    top : 5%;
+}
+
+.game-copper-icon{
+    display: inline-block;
+    position: static;
+    height: 100%;
+    width: 100vh;
+}
+
+.game-titanium-icon{
+    display: inline-block;
+    position: static;
+    height: 100%;
+    width: 100vh;
+}
+
+.game-gold-icon{
+    display: inline-block;
+    position: static;
+    height: 100%;
+    width: 100vh;
+}
+
+.game-ruby-icon{
+    display: inline-block;
+    position: static;
+    height: 100%;
+    width: 100vh;
 }
