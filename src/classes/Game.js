@@ -15,7 +15,7 @@ class Game {
         this.pieces = []
         this.buildings = []
         this.players = []
-        this.stats = [[100000,100000,100000,100000,100000],[100000,100000,100000,100000,100000]]
+        this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
     }
