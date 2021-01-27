@@ -601,13 +601,13 @@ class Game {
             var piece = new Bishop(x,y,team)
         }
         this.pieces.push(piece)
-        this.stats[team][1] = this.stats[team][1] - pieceMovePrices[type][0]
-        this.stats[team][2] = this.stats[team][2] - pieceMovePrices[type][1]
-        this.stats[team][3] = this.stats[team][3] - pieceMovePrices[type][2]
-        this.stats[team][4] = this.stats[team][4] - pieceMovePrices[type][3]
+        this.stats[team][1] = this.stats[team][1] - piecePrices[type][0]
+        this.stats[team][2] = this.stats[team][2] - piecePrices[type][1]
+        this.stats[team][3] = this.stats[team][3] - piecePrices[type][2]
+        this.stats[team][4] = this.stats[team][4] - piecePrices[type][3]
         this.lastTimeStamp = timeStamp
         this.refreshAllGame(io)
-        return [this.stats,pieceMovePrices]
+        return [this.stats,piecePrices]
     }
 
     // PIECE MOVE
