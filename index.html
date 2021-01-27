@@ -243,11 +243,13 @@
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
 
-          //SET BARS HEIGHT
+          //SET DYNAMIC CSS PROPERTIES
           $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
           $(".game-ressources").css("height",2*parseInt($(".game-energybar-under").first().css("height")) + "px")
           $(".game-ressource-count").css("left",$(".game-ressources").first().css("height"))
           $(".game-ressource-count").css("font-size",(2/5)*parseInt($(".game-ressources").first().css("height")) + "px")
+          $(".game-energy-prod-count").css("right",$(".game-energybar-under").first().css("height"))
+          $(".game-energy-count").css("left",$(".game-energybar-under").first().css("height"))
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
