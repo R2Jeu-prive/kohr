@@ -253,6 +253,17 @@
               kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
               kohrCtx.closePath();
               kohrCtx.fill();
+            }else{
+              baseCtx.fillStyle = '#3c5050';
+              baseCtx.beginPath();
+              let leftPointX = (2*baseM) + ((userSelected.x-1)*baseWidthCell) + ((userSelected.y-1)*baseWidthCell)
+              let leftPointY = (gridHeight/2) + ((userSelected.x-1)*baseHeightCell) - ((userSelected.y-1)*baseHeightCell)
+              baseCtx.moveTo(leftPointX,leftPointY);
+              baseCtx.lineTo(leftPointX+baseWidthCell,leftPointY-baseHeightCell);
+              baseCtx.lineTo(leftPointX+2*baseWidthCell,leftPointY);
+              baseCtx.lineTo(leftPointX+baseWidthCell,leftPointY+baseHeightCell);
+              baseCtx.closePath();
+              baseCtx.fill();
             }
           }
 
