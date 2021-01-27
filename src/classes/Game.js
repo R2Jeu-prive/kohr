@@ -15,6 +15,7 @@ class Game {
         this.pieces = []
         this.buildings = []
         this.players = []
+        this.disconnectedPlayers = []
         this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
