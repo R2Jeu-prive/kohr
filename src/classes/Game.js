@@ -164,6 +164,11 @@ class Game {
         this.players.push(user)
         this.refreshAllLobby(io)
     }
+    playerReconnect(user,io){
+        this.disconnectedPlayers.splice(this.players.findIndex(oldPlayer => oldPlayer.pseudo == user.pseudo),1)
+        this.players.push(user)
+        this.refreshAllLobby(io)
+    }
     playerLeave(user,disconnected,io){
         //returns true if game has to be deleted
         if(!this.isUserConnected(user)){
@@ -176,6 +181,9 @@ class Game {
             this.gameInfo.masterPseudo = this.players.find(player => player.pseudo != this.gameInfo.masterPseudo).pseudo
         }
         if(this.players.find(player => player == user) != undefined){
+            if(this.gameInfo.status == "game"){
+                this.disconnectedPlayers.push(this.players.find(player => player == user))
+            }
             this.players.splice(this.players.findIndex(player => player == user),1);
             this.refreshAllLobby(io)
         }
