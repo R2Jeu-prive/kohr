@@ -92,30 +92,26 @@
     top : 5%;
 }
 
-.game-copper-icon{
-    display: inline-block;
-    position: static;
+.game-copper{
+    position: absolute;
     height: 100%;
-    width: 100vh;
+    right : 75%;
 }
 
-.game-titanium-icon{
-    display: inline-block;
-    position: static;
+.game-titanium{
+    position: absolute;
     height: 100%;
-    width: 100vh;
+    right : 50%;
 }
 
-.game-gold-icon{
-    display: inline-block;
-    position: static;
+.game-gold{
+    position: absolute;
     height: 100%;
-    width: 100vh;
+    right : 25%;
 }
 
-.game-ruby-icon{
-    display: inline-block;
-    position: static;
+.game-ruby{
+    position: absolute;
     height: 100%;
-    width: 100vh;
+    right : 0%;
 }
