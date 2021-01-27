@@ -336,7 +336,7 @@
             }
             let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
             let x = (2*kohrM + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
-            let y = (gridHeight/2) - (pieceX*kohrHeightCell) + (pieceY*kohrHeightCell)
+            let y = (gridHeight/2) + (pieceX*kohrHeightCell) - (pieceY*kohrHeightCell)
             kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
           }
 
