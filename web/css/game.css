@@ -56,9 +56,8 @@
 .game-energybar{
     position: absolute;
     width: 40%;
-    left: 25%;
+    left: 5vh;
     top : 5%;
-    transform: translateX(-50%);
 }
 
 .game-energybar-under{
@@ -74,7 +73,7 @@
     position:absolute;
     height: 100%;
     width: 100%;
-    background-color: rgba(255,197,0,0.5);
+    background-color: rgba(255,220,80,0.7);
 }
 
 .game-energybar-above{
