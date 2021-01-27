@@ -607,6 +607,7 @@ class Game {
         this.stats[team][4] = this.stats[team][4] - piecePrices[type][3]
         this.lastTimeStamp = timeStamp
         this.refreshAllGame(io)
+        return [this.stats,piecePrices]
     }
 
     // PIECE MOVE
