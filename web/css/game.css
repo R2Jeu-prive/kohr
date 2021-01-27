@@ -138,5 +138,44 @@
     font-weight: bold;
     color: rgb(230,230,240);
     margin: 0px;
-    line-height: 100%;
+}
+
+.game-energy-prod{
+    position: absolute;
+    height: 100%;
+    left : calc(25% + 5px);
+    width : 25%;
+}
+
+.game-energy{
+    position: absolute;
+    height: 100%;
+    left : 5px;
+    width : 25%;
+}
+
+.game-energy-prod-icon{
+    position: absolute;
+    height: 100%;
+}
+
+.game-energy-icon{
+    position: absolute;
+    height: 100%;
+}
+
+.game-energy-prod-count{
+    position: absolute;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    color: rgb(230,230,240);
+    margin: 0px;
+}
+
+.game-energy-count{
+    position: absolute;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    color: rgb(230,230,240);
+    margin: 0px;
 }
