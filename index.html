@@ -237,6 +237,8 @@
           var baseWidthCell = ((gridWidth - (4*baseM)) / 2) / baseGrid
           var kohrHeightCell = ((gridHeight - (2*kohrM)) / 2) / kohrGrid
           var kohrWidthCell = ((gridWidth - (4*kohrM)) / 2) / kohrGrid
+          var baseCtx = baseCanvas.getContext("2d");
+          var kohrCtx = kohrCanvas.getContext("2d");
 
           //DRAW SELECTED SQUARE
           if(!userSelected.unselect){
@@ -255,7 +257,6 @@
           }
 
           //DRAW BASE GRID
-          var baseCtx = baseCanvas.getContext("2d");
           baseCtx.strokeStyle = "#6e6e91"
           baseCtx.lineCap = "round";
           baseCtx.lineWidth = 4;
@@ -287,7 +288,6 @@
           }
 
           //DRAW KOHR GRID
-          var kohrCtx = kohrCanvas.getContext("2d");
           kohrCtx.strokeStyle = "#6e6e91"
           kohrCtx.lineCap = "round";
           kohrCtx.lineWidth = 4;
