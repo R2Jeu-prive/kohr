@@ -119,3 +119,8 @@
     right : 0%;
     margin: 0px;
 }
+
+.game-ressource-icon{
+    position: absolute;
+    height: 100%;
+}
