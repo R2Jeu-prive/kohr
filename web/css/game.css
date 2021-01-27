@@ -89,8 +89,9 @@
     position: absolute;
     width: 40%;
     right: 5vh;
-    top : 2.5%;
-    border-bottom : 1px solid rgb(230,230,235);
+    top : 3%;
+    border-left: 4px solid rgb(110,110,145);
+    border-right: 4px solid rgb(110,110,145);
 }
 
 .game-copper{
@@ -128,4 +129,14 @@
 .game-ressource-icon{
     position: absolute;
     height: 100%;
+}
+
+.game-ressource-count{
+    position: absolute;
+    height: 100%;
+    left : 100vh;
+    font-family: "Comfortaa";
+    font-size: 80%;
+    font-weight: bold;
+    color : rgb(230,230,240);
 }
