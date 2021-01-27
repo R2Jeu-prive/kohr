@@ -82,7 +82,7 @@ io.on('connection', function(socket){
         user.changePseudo(data.pseudo)
         game = games.find(game => game.disconnectedPlayers.find(player => player.pseudo == user.pseudo) != undefined)
         if(game == undefined){
-            game = games.find(game => game.gameInfo.maxPlayers > game.players.length)
+            game = games.find(game => game.gameInfo.maxPlayers > game.players.length && game.gameInfo.status == "lobby")
         }else{
             user.setTeam(game.disconnectedPlayers.find(player => player.pseudo == user.pseudo).team)
             game.playerReconnect(user,io)

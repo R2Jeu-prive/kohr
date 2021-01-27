@@ -168,7 +168,7 @@ class Game {
     playerReconnect(user,io){
         this.disconnectedPlayers.splice(this.players.findIndex(oldPlayer => oldPlayer.pseudo == user.pseudo),1)
         this.players.push(user)
-        this.refreshAllLobby(io)
+        this.refreshAllGame(io)
     }
     playerLeave(user,disconnected,io){
         //returns true if game has to be deleted
@@ -184,9 +184,12 @@ class Game {
         if(this.players.find(player => player == user) != undefined){
             if(this.gameInfo.status == "game"){
                 this.disconnectedPlayers.push(this.players.find(player => player == user))
+                this.players.splice(this.players.findIndex(player => player == user),1);
+                this.refreshAllGame(io)
+            }else{
+                this.players.splice(this.players.findIndex(player => player == user),1);
+                this.refreshAllLobby(io)
             }
-            this.players.splice(this.players.findIndex(player => player == user),1);
-            this.refreshAllLobby(io)
         }
         if(!disconnected){
             io.to(user.socket_id).emit("fatalError",{text : "Vous avez été expulsé par le chef de la partie !"});
