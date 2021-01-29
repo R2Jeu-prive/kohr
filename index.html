@@ -307,7 +307,7 @@
             timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
             gameTimerIntervalId = setInterval(function(){
-              setGametimer((Date.now() - timerZero)/1000,canPlay)
+              setGameTimer((Date.now() - timerZero)/1000,canPlay)
             }, 50);
           }
 
