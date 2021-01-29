@@ -106,15 +106,16 @@ class Game {
                 building.inventory[0] = building.inventory[0] + production
             }
         },this)
-        this.refreshAllGame(io)
+        this.refreshAllGame(io,true)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
-    refreshAllGame(io){
+    refreshAllGame(io,newTurn){
+        newTurn = newTurn || false
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
-                io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+                io.to(player.socket_id).emit("showGamePlay",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
             }else{
-                io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+                io.to(player.socket_id).emit("showGameWait",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
             }
         },this)
     }

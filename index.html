@@ -91,6 +91,9 @@
               <img class="game-ressource-icon" src="/icon/ruby"/>
               <p class="game-ruby-count game-ressource-count">x0000</p>
             </div>
+            <div class="game-timer-background">
+              <p class="game-timer-text">30s</p>
+            </div>
           </div>
         </div>
         <div id="game-kohr-side">
@@ -248,6 +251,37 @@
           return counter
         }
 
+        function setGameTimer(time,canPlay){
+          if(time == 0){
+            clearInterval(gameTimerId);
+            gameTimerId = setInterval(setGameTimer(time+1,canPlay), 1000);
+          }
+          if(time > 30){
+            time = 30;
+          }
+          $(".game-timer-text").text((30-time) + "s")
+          transparent = "rgba(0,0,0,0)"
+          green = "rgba(100,0,0,1)"
+          red = "rgba(0,100,0,1)"
+          if(canPlay){
+            deg = time * (180/30)
+            if(time < 15){
+              background = transparent + " 0deg 90deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
+            }else{
+              background = green +" "+ (270+deg) + "deg, " + transparent +" "+ (270+deg) + "deg 90deg, " + green + " 270 deg"
+            }
+          }else{
+            deg = (30-time) * (180/30)
+            if(time < 15){
+              background = transparent +" "+ (270+deg) + "deg, " + red +" "+ (270+deg) + "deg 90deg, " + red + " 270 deg"
+            }else{
+              background = red + " 0deg 90deg, " + transparent + " 270deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
+            }
+          }
+          $(".game-timer-background").css("background","conic-gradient(" + background + ")")
+
+        }
+
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
@@ -262,6 +296,7 @@
           $(".game-energy-count").css("right",$(".game-energybar-under").first().css("height"))
           $(".game-energy-prod-count").css("font-size",(3/5)*parseInt($(".game-energybar-under").first().css("height")) + "px")
           $(".game-energy-count").css("font-size",(3/5)*parseInt($(".game-energybar-under").first().css("height")) + "px")
+          $(".game-timer-background").css("height",$(".game-timer-background").css("width"))
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -270,6 +305,10 @@
             return givenGame
           }
           var userTeam = tempMe.team
+
+          if(givenGame.newTurn){
+            setGameTimer(0,canPlay)
+          }
 
           //SET COUNTS
           $(".game-copper-count").text("x" + givenGame.stats[userTeam][1])

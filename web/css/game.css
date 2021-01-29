@@ -189,3 +189,12 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.game-timer-background{
+    position: absolute;
+    width : 15%;
+    max-width: 150px;
+    top : 100%;
+    left : 50%;
+    transform: translate(-50%,-50%);
+}
