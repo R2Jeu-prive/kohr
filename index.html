@@ -252,8 +252,8 @@
         }
 
         function setGameTimer(time,canPlay){
-          if(time == 0){
-            clearInterval(currentTimerId);
+          if(time == 0 && ){
+            clearTimeout(currentTimerId);
           }
           currentTimerId = setTimeout(function(){
             setGameTimer(time+1,canPlay)
