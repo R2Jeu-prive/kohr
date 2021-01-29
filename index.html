@@ -139,7 +139,7 @@
       $(document).ready(function() {
         var socket = io();
         var pseudo = "#-1";
-        currentTimerId = undefined;
+        gameTimerIntervalId = undefined;
         selected = {unselect:true,x:1,y:1,atMiddle:true}
         var showPlayButtons = false
         var game = {}
@@ -253,12 +253,6 @@
         }
 
         function setGameTimer(time,canPlay){
-          if(time == 0){
-            clearTimeout(currentTimerId);
-          }
-          currentTimerId = setTimeout(function(){
-            setGameTimer(time+1,canPlay)
-          },1000)
           if(time > 30){
             time = 30;
           }
@@ -267,18 +261,18 @@
           var red = "rgba(100,0,0,1)"
           var green = "rgba(0,100,0,1)"
           if(canPlay){
-            deg = time * (180/30)
+            var deg = time * (180/30)
             if(time < 15){
-              background = transparent + " 0deg 270deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
+              var background = transparent + " 0deg 270deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
             }else{
-              background = green + " " + (-90+deg) + "deg, " + transparent +" "+ (-90+deg) + "deg 270deg, " + green + " 270deg"
+              var background = green + " " + (-90+deg) + "deg, " + transparent +" "+ (-90+deg) + "deg 270deg, " + green + " 270deg"
             }
           }else{
-            deg = (30-time) * (180/30)
+            var deg = (30-time) * (180/30)
             if(time < 15){
-              background = transparent +" "+ (-90+deg) + "deg, " + red +" "+ (-90+deg) + "deg 90deg, " + transparent + " 270deg"
+              var background = transparent +" "+ (-90+deg) + "deg, " + red +" "+ (-90+deg) + "deg 90deg, " + transparent + " 270deg"
             }else{
-              background = red + " 90deg, " + transparent + " 90deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
+              var background = red + " 90deg, " + transparent + " 90deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
             }
           }
           $(".game-timer-background").css("background","conic-gradient(" + background + ")")
@@ -310,7 +304,11 @@
           var userTeam = tempMe.team
 
           if(givenGame.newTurn){
-            setGameTimer(0,canPlay)
+            timerZero = Date.now()
+            clearInterval(gameTimerIntervalId)
+            gameTimerIntervalId = setInterval(function(){
+              setGametimer((Date.now() - timerZero)/1000,canPlay)
+            }, 50);
           }
 
           //SET COUNTS
