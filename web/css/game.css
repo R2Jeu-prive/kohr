@@ -202,7 +202,7 @@
 
 .game-timer-text{
     position: absolute;
-    top : 45%;
+    top : 50%;
     left : 50%;
     height : 70%;
     width : 80%;
@@ -213,4 +213,5 @@
     padding-top: 10%;
     color: rgb(230,230,240);
     font-family: 'Comfortaa';
+    text-align: center;
 }
