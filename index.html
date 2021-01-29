@@ -276,9 +276,9 @@
           }else{
             deg = (30-time) * (180/30)
             if(time < 15){
-              background = transparent +" "+ (270+deg) + "deg, " + red +" "+ (270+deg) + "deg 90deg, " + red + " 270deg"
+              background = transparent +" "+ (-90+deg) + "deg, " + red +" "+ (-90+deg) + "deg 90deg, " + red + " 270deg"
             }else{
-              background = red + " 90deg, " + transparent + " 90deg " + (-90+deg) + "deg, " + red + " " + (-90+deg) + "deg" 
+              background = red + " 90deg, " + transparent + " 90deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
             }
           }
           $(".game-timer-background").css("background","conic-gradient(" + background + ")")
