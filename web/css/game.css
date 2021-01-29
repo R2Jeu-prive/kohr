@@ -204,13 +204,13 @@
     position: absolute;
     top : 45%;
     left : 50%;
-    height : 80%;
+    height : 70%;
     width : 80%;
     transform: translate(-50%,-50%);
     clip-path: circle(50% at 50% 50%);
     background-color: rgb(60,60,80);
     margin: 0px;
-    padding: 0px;
+    padding-top: 10%;
     color: rgb(230,230,240);
     font-family: 'Comfortaa';
 }
