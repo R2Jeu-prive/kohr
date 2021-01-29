@@ -139,6 +139,7 @@
       $(document).ready(function() {
         var socket = io();
         var pseudo = "#-1";
+        currentTimerId;
         selected = {unselect:true,x:1,y:1,atMiddle:true}
         var showPlayButtons = false
         var game = {}
@@ -252,7 +253,7 @@
         }
 
         function setGameTimer(time,canPlay){
-          if(time == 0 && ){
+          if(time == 0){
             clearTimeout(currentTimerId);
           }
           currentTimerId = setTimeout(function(){
