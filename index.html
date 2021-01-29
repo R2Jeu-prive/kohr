@@ -322,25 +322,23 @@
           $(".game-gold-count").text("x" + givenGame.stats[userTeam][3])
           $(".game-ruby-count").text("x" + givenGame.stats[userTeam][4])
           $(".game-energy-count").text("x" + givenGame.stats[userTeam][4])
-          var prod = 5 + countBuildings(givenGame,"Workshop",userTeam);
-          var maxCapacity = 10 + 2*countBuildings(givenGame,"Battery",userTeam);
-          $(".game-energy-prod-count").text(prod + " / tour")
-          $(".game-energy-count").text(givenGame.stats[userTeam][0] + " / " + maxCapacity)
 
           //SET ENERGY BAR
-          var energy = givenGame.stats[userTeam][0]
           var allWidth = parseInt($(".game-energybar-under").css("width"))
           var roundSize = parseInt($(".game-energybar-energy").css("height"))/2 + "px"
+          var prod = 5 + countBuildings(givenGame,"Workshop",userTeam);
+          var maxCapacity = 10 + 2*countBuildings(givenGame,"Battery",userTeam);
+          var energy = givenGame.stats[userTeam][0]
+          $(".game-energy-prod-count").text(prod + " / tour")
+          $(".game-energy-count").text(energy + " / " + maxCapacity)
           if(energy == 0){
-            var energyWidth = 0
             $(".game-energybar-energy").css("border-radius","0px")
-          }else if(energy < 16){
-            var energyWidth = (8*allWidth/100) + energy*(6*allWidth/100)
+          }else if(energy < maxCapacity){
             $(".game-energybar-energy").css("border-radius",roundSize + " 0px 0px " + roundSize)
           }else{
-            var energyWidth = allWidth
             $(".game-energybar-energy").css("border-radius",roundSize)
           }
+          var energyWidth = (energy * allWidth) / maxCapacity
           $(".game-energybar-energy").css("width",energyWidth + "px")
 
           //GET CANVAS AND DEFINE LIMITING DIMENSION
