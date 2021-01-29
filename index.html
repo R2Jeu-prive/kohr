@@ -269,16 +269,16 @@
           if(canPlay){
             deg = time * (180/30)
             if(time < 15){
-              background = transparent + " 0deg 90deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
+              background = transparent + " 0deg 270deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
             }else{
-              background = green +" "+ (270+deg) + "deg, " + transparent +" "+ (270+deg) + "deg 90deg, " + green + " 270 deg"
+              background = green + " " + (270+deg) + "deg, " + transparent +" "+ (270+deg) + "deg 270deg, " + green + " 270deg"
             }
           }else{
             deg = (30-time) * (180/30)
             if(time < 15){
-              background = transparent +" "+ (270+deg) + "deg, " + red +" "+ (270+deg) + "deg 90deg, " + red + " 270 deg"
+              background = transparent +" "+ (270+deg) + "deg, " + red +" "+ (270+deg) + "deg 90deg, " + red + " 270deg"
             }else{
-              background = red + " 0deg 90deg, " + transparent + " 270deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
+              background = red + " 90deg, " + transparent + " 90deg " + (270+deg) + "deg, " + red + " " + (270+deg) + "deg" 
             }
           }
           $(".game-timer-background").css("background","conic-gradient(" + background + ")")
