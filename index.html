@@ -307,6 +307,7 @@
           var userTeam = tempMe.team
 
           if(givenGame.newTurn){
+            givenGame.newTurn = false;
             timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
             gameTimerIntervalId = setInterval(function(){
