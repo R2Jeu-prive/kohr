@@ -256,7 +256,7 @@
           if(time > 30){
             time = 30;
           }
-          $(".game-timer-text").text((30-time) + "s")
+          $(".game-timer-text").text((30-Math.round(time)) + "s")
           var transparent = "rgba(0,0,0,0)"
           var red = "rgba(100,0,0,1)"
           var green = "rgba(0,100,0,1)"
