@@ -253,16 +253,18 @@
 
         function setGameTimer(time,canPlay){
           if(time == 0){
-            clearInterval(gameTimerId);
-            gameTimerId = setInterval(setGameTimer(time+1,canPlay), 1000);
+            clearInterval(currentTimerId);
           }
+          currentTimerId = setTimeout(function(){
+            setGameTimer(time+1,canPlay)
+          },1000)
           if(time > 30){
             time = 30;
           }
           $(".game-timer-text").text((30-time) + "s")
-          transparent = "rgba(0,0,0,0)"
-          green = "rgba(100,0,0,1)"
-          red = "rgba(0,100,0,1)"
+          var transparent = "rgba(0,0,0,0)"
+          var green = "rgba(100,0,0,1)"
+          var red = "rgba(0,100,0,1)"
           if(canPlay){
             deg = time * (180/30)
             if(time < 15){
