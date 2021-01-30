@@ -232,7 +232,7 @@
     font-family: "Comfortaa";
     z-index : 1;
     font-size: larger;
-    margin: 10 15 5 15;
+    padding: 10 15 7 15;
 }
 
 .game-switch{
@@ -249,5 +249,5 @@
     font-family: "Comfortaa";
     z-index : 1;
     font-size: larger;
-    margin: 10 15 5 15;
+    padding: 10 15 7 15;
 }
