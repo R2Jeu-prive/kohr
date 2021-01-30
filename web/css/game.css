@@ -230,7 +230,7 @@
     font-family: "Comfortaa";
 }
 
-.game-switch{
+.game-kohr-change-board{
     position: absolute;
     left : 3vh;
     border-top: none;
@@ -242,4 +242,20 @@
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     cursor: pointer;
     font-family: "Comfortaa";
+    z-index : 1;
+}
+
+.game-base-change-board{
+    position: absolute;
+    left : 3vh;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;   
+    background-color: rgba(230,230,240,0.1);
+    border-left: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-family: "Comfortaa";
+    z-index : 1;
 }
