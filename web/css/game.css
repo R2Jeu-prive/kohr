@@ -56,7 +56,7 @@
 .game-energybar{
     position: absolute;
     width: 40%;
-    left: 5vh;
+    left: 3vh;
     top : 5%;
 }
 
@@ -88,7 +88,7 @@
 .game-ressources{
     position: absolute;
     width: 40%;
-    right: 5vh;
+    right: 3vh;
     top : 3%;
     border-left: 4px solid rgb(110,110,145);
     border-right: 4px solid rgb(110,110,145);
@@ -214,4 +214,32 @@
     color: rgb(230,230,240);
     font-family: 'Comfortaa';
     text-align: center;
+}
+
+.game-skip{
+    position: absolute;
+    right : 3vh;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;   
+    background-color: rgba(230,230,240,0.1);
+    border-right: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-family: "Comfortaa";
+}
+
+.game-switch{
+    position: absolute;
+    left : 3vh;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;   
+    background-color: rgba(230,230,240,0.1);
+    border-left: 2px solid rgb(230,230,240);
+    color: rgb(230,230,240);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-family: "Comfortaa";
 }

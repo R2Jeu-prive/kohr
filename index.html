@@ -58,8 +58,8 @@
     <div id="game-frame" hidden>
       <div id="game-board">
         <div id="game-base-side">
-          <button class="game-buttons" id="game-skip">Finir le tour</button>
-          <button class="game-buttons" id="game-base-change-board">Voir le Kohr</button>
+          <button class="game-skip">Finir le tour</button>
+          <button class="game-switch">Voir le Kohr</button>
           <canvas class="game-canvas" id="game-base-canvas"></canvas>
           <div class="game-energybar" id="game-base-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
@@ -97,8 +97,8 @@
           </div>
         </div>
         <div id="game-kohr-side">
-          <button class="game-buttons" id="game-skip">Finir le tour</button>
-          <button class="game-buttons" id="game-kohr-change-board">Voir la Base</button>
+          <button class="game-skip">Finir le tour</button>
+          <button class="game-switch">Voir la Base</button>
           <canvas class="game-canvas" id="game-kohr-canvas"></canvas>
           <div class="game-energybar" id="game-kohr-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
@@ -298,6 +298,7 @@
           $(".game-energy-count").css("font-size",(3/5)*parseInt($(".game-energybar-under").first().css("height")) + "px")
           $(".game-timer-background").css("width",$(".game-timer-background").css("height"))
           $(".game-timer-text").css("font-size",(1/3)*parseInt($(".game-timer-text").css("width")) + "px")
+          $(".game-skip").css("top","calc()")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
