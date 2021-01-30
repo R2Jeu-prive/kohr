@@ -224,12 +224,15 @@
     border-top: none;
     border-left: none;
     border-bottom: none;   
-    background-color: rgba(230,230,240,0.1);
-    border-right: 2px solid rgb(230,230,240);
+    background-color: rgba(110,110,145,0.2);
+    border-right: 2px solid rgb(110,110,145);
     color: rgb(230,230,240);
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     cursor: pointer;
     font-family: "Comfortaa";
+    z-index : 1;
+    font-size: larger;
+    margin: 10 15 5 15;
 }
 
 .game-switch{
