@@ -307,7 +307,7 @@
     margin:0 5px 5px 0;
 }
 
-.game-action-4-li{
+.game-action-4-li:disabled{
     list-style: none;
     background:pink;
     float:left;
