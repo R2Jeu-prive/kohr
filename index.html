@@ -365,7 +365,7 @@
           $(".game-timer-text").css("font-size",(1/3)*parseInt($(".game-timer-text").css("width")) + "px")
           $(".game-skip").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
           $(".game-switch").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
-          $(".game-action-4-li").css("height",$(".game-action-4-li").width() + "px")
+          $(".game-action-4-li").css("height",$(".game-action-4-li").first().css("width"))
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
