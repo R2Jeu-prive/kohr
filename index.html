@@ -587,11 +587,11 @@
               //SOLO AT MIDDLE
               if(userSelected.atMiddle){
                 var neighbours = 0
-                this.buildings.forEach(function(building){
-                  if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle){
+                givenGame.buildings.forEach(function(building){
+                  if(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1 && building.atMiddle == userSelected.atMiddle){
                     neighbours = neighbours + 1
                   }
-                },this)
+                })
                 if(neighbours == 0){
                   var showAsPossible = false;
                 }
