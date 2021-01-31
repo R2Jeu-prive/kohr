@@ -588,7 +588,7 @@
               if(userSelected.atMiddle){
                 var neighbours = 0
                 givenGame.buildings.forEach(function(building){
-                  if(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1 && building.atMiddle == userSelected.atMiddle){
+                  if(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1 && building.atMiddle == userSelected.atMiddle && building.team == userTeam){
                     neighbours = neighbours + 1
                   }
                 })
@@ -600,20 +600,20 @@
               //MAX COUNT
               if([4,5,6].indexOf(i) != -1){
                 var lightPieces = 0
-                lightPieces += countPieces(givenGame,"Pawn",team)
-                lightPieces += countPieces(givenGame,"Knight",team)
-                lightPieces += countPieces(givenGame,"Bishop",team)
-                var lightCapacity = getCapacity(givenGame,"LIGHT",team)
+                lightPieces += countPieces(givenGame,"Pawn",userTeam)
+                lightPieces += countPieces(givenGame,"Knight",userTeam)
+                lightPieces += countPieces(givenGame,"Bishop",userTeam)
+                var lightCapacity = getCapacity(givenGame,"LIGHT",userTeam)
                 if(lightCapacity == lightPieces){
                   var showAsPossible = false;
                 }
               }
               if([1,2,3].indexOf(i) != -1){
                 var heavyPieces = 0
-                heavyPieces += this.countPieces(givenGame,"Queen",team)
-                heavyPieces += this.countPieces(givenGame,"Rook",team)
-                heavyPieces += this.countPieces(givenGame,"Enchanter",team)
-                var heavyCapacity = this.getCapacity(givenGame,"HEAVY",team)
+                heavyPieces += this.countPieces(givenGame,"Queen",userTeam)
+                heavyPieces += this.countPieces(givenGame,"Rook",userTeam)
+                heavyPieces += this.countPieces(givenGame,"Enchanter",userTeam)
+                var heavyCapacity = this.getCapacity(givenGame,"HEAVY",userTeam)
                 if(heavyCapacity == heavyPieces){
                   var showAsPossible = false;
                 }
