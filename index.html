@@ -97,18 +97,18 @@
             <p class="game-action-2">Entité ennemie !</p>
             <p class="game-action-3">La pièce n'a pas fini de se construire !</p>
             <ul class="game-action-4">
-              <li class="game-action-4-li game-switch-1">A<img class="game-action-4-img" src="/piece/blue_queen"/></li>
-              <li class="game-action-4-li game-switch-2">B<img class="game-action-4-img" src="/piece/blue_rook"/></li>
-              <li class="game-action-4-li game-switch-3">C<img class="game-action-4-img" src="/piece/blue_enchanter"/></li>
-              <li class="game-action-4-li game-switch-4">D<img class="game-action-4-img" src="/piece/blue_knight"/></li>
-              <li class="game-action-4-li game-switch-5">E<img class="game-action-4-img" src="/piece/blue_bishop"/></li>
-              <li class="game-action-4-li game-switch-6">F<img class="game-action-4-img" src="/piece/blue_pawn"/></li>
-              <li class="game-action-4-li game-switch-7">G<img class="game-action-4-img" src="/building/blue_extractor"/></li>
-              <li class="game-action-4-li game-switch-8">H<img class="game-action-4-img" src="/building/blue_wall"/></li>
-              <li class="game-action-4-li game-switch-9">I<img class="game-action-4-img" src="/building/blue_battery"/></li>
-              <li class="game-action-4-li game-switch-10">J<img class="game-action-4-img" src="/building/blue_workshop"/></li>
-              <li class="game-action-4-li game-switch-11">K<img class="game-action-4-img" src="/building/blue_light"/></li>
-              <li class="game-action-4-li game-switch-12">L<img class="game-action-4-img" src="/building/blue_heavy"/></li>
+              <button class="game-action-4-button game-switch-1">A<img class="game-action-4-img" src="/piece/blue_queen"/></button>
+              <button class="game-action-4-button game-switch-2">B<img class="game-action-4-img" src="/piece/blue_rook"/></button>
+              <button class="game-action-4-button game-switch-3">C<img class="game-action-4-img" src="/piece/blue_enchanter"/></button>
+              <button class="game-action-4-button game-switch-4">D<img class="game-action-4-img" src="/piece/blue_knight"/></button>
+              <button class="game-action-4-button game-switch-5">E<img class="game-action-4-img" src="/piece/blue_bishop"/></button>
+              <button class="game-action-4-button game-switch-6">F<img class="game-action-4-img" src="/piece/blue_pawn"/></button>
+              <button class="game-action-4-button game-switch-7">G<img class="game-action-4-img" src="/building/blue_extractor"/></button>
+              <button class="game-action-4-button game-switch-8">H<img class="game-action-4-img" src="/building/blue_wall"/></button>
+              <button class="game-action-4-button game-switch-9">I<img class="game-action-4-img" src="/building/blue_battery"/></button>
+              <button class="game-action-4-button game-switch-10">J<img class="game-action-4-img" src="/building/blue_workshop"/></button>
+              <button class="game-action-4-button game-switch-11">K<img class="game-action-4-img" src="/building/blue_light"/></button>
+              <button class="game-action-4-button game-switch-12">L<img class="game-action-4-img" src="/building/blue_heavy"/></button>
             </ul>
             <ul class="game-action-5">
               <button class="game-button game-move game-switch-13"></button>
@@ -366,8 +366,8 @@
           $(".game-skip").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
           $(".game-switch").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
           $(".game-action-4").css("width", (265/320)*$(".game-actions").width() + "px")
-          $(".game-action-4-li").css("width", (60/320)*$(".game-actions").width() + "px")
-          $(".game-action-4-li").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-action-4-button").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-action-4-button").css("height", (60/320)*$(".game-actions").width() + "px")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
