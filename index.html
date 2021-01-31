@@ -241,6 +241,12 @@
         })
 
         $(".game-canvas").on("click",function(e){
+          let tempMe = game.players.find(player => player.pseudo == pseudo)
+          if(tempMe == undefined){
+            console.log("oula4")
+            return
+          }
+          var play = (tempMe.team == game.gameInfo.teamPlaying)
           var parentOffset = $(this).offset(); 
           var clickX = e.pageX - parentOffset.left;
           var clickY = e.pageY - parentOffset.top;
@@ -265,6 +271,9 @@
           var isoY = 1 - (relY - relX + 0.5)
           var coordX = Math.floor(isoX*grid+1)
           var coordY = Math.floor(isoY*grid+1)
+          if(tempMe.team == 1){
+            coordX = -1*coordX + grid + 1
+          }
           if(coordX > 0 && coordX <= grid && coordY > 0 && coordY <= grid){
             selected.unselect = false
             selected.x = coordX
@@ -272,12 +281,7 @@
           }else{
             selected.unselect = true
           }
-          let tempMe = game.players.find(player => player.pseudo == pseudo)
-          if(tempMe == undefined){
-            console.log("oula4")
-            return
-          }
-          let play = (tempMe.team == game.gameInfo.teamPlaying)
+          
           showGame(game,pseudo,selected,play)
         });
 
