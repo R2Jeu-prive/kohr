@@ -273,6 +273,7 @@
           var coordY = Math.floor(isoY*grid+1)
           if(tempMe.team == 1){
             coordX = -1*coordX + grid + 1
+            coordY = -1*coordY + grid + 1
           }
           if(coordX > 0 && coordX <= grid && coordY > 0 && coordY <= grid){
             selected.unselect = false
@@ -443,10 +444,17 @@
           //DRAW SELECTED SQUARE
           if(!userSelected.unselect){
             if(userSelected.atMiddle){
+              if(tempMe.team == 1){
+                var x = -1*userSelected.x + kohrGrid + 1
+                var y = -1*userSelected.y + kohrGrid + 1
+              }else{
+                var x = userSelected.x
+                var y = userSelected.y
+              }
               kohrCtx.fillStyle = '#3c5050';
               kohrCtx.beginPath();
-              let leftPointX = (2*kohrM) + ((userSelected.x-1)*kohrWidthCell) + ((userSelected.y-1)*kohrWidthCell)
-              let leftPointY = (gridHeight/2) + ((userSelected.x-1)*kohrHeightCell) - ((userSelected.y-1)*kohrHeightCell)
+              let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
+              let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
               kohrCtx.moveTo(leftPointX,leftPointY);
               kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
               kohrCtx.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
@@ -454,10 +462,17 @@
               kohrCtx.closePath();
               kohrCtx.fill();
             }else{
+              if(tempMe.team == 1){
+                var x = -1*userSelected.x + baseGrid + 1
+                var y = -1*userSelected.y + baseGrid + 1
+              }else{
+                var x = userSelected.x
+                var y = userSelected.y
+              }
               baseCtx.fillStyle = '#3c5050';
               baseCtx.beginPath();
-              let leftPointX = (2*baseM) + ((userSelected.x-1)*baseWidthCell) + ((userSelected.y-1)*baseWidthCell)
-              let leftPointY = (gridHeight/2) + ((userSelected.x-1)*baseHeightCell) - ((userSelected.y-1)*baseHeightCell)
+              let leftPointX = (2*baseM) + ((x-1)*baseWidthCell) + ((y-1)*baseWidthCell)
+              let leftPointY = (gridHeight/2) + ((x-1)*baseHeightCell) - ((y-1)*baseHeightCell)
               baseCtx.moveTo(leftPointX,leftPointY);
               baseCtx.lineTo(leftPointX+baseWidthCell,leftPointY-baseHeightCell);
               baseCtx.lineTo(leftPointX+2*baseWidthCell,leftPointY);
