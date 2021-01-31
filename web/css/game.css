@@ -313,3 +313,8 @@
     float:left;
     margin:0 5px 5px 0;
 }
+
+.game-action-4-img{
+    position: absolute;
+    height: 100%;
+}
