@@ -342,6 +342,7 @@
           },this)
           return count
         }
+
         function getCapacity(game,type,team){
           var armoryName = type.toLowerCase() + "Armory"
           var armoryAtMiddleCount = countBuildings(game,armoryName, team, true)
@@ -611,7 +612,7 @@
                 lightPieces += countPieces(givenGame,"Knight",userTeam)
                 lightPieces += countPieces(givenGame,"Bishop",userTeam)
                 var lightCapacity = getCapacity(givenGame,"LIGHT",userTeam)
-                if(lightCapacity == lightPieces){
+                if(lightCapacity <= lightPieces){
                   var showAsPossible = false;
                 }
               }
@@ -621,7 +622,7 @@
                 heavyPieces += countPieces(givenGame,"Rook",userTeam)
                 heavyPieces += countPieces(givenGame,"Enchanter",userTeam)
                 var heavyCapacity = getCapacity(givenGame,"HEAVY",userTeam)
-                if(heavyCapacity == heavyPieces){
+                if(heavyCapacity <= heavyPieces){
                   var showAsPossible = false;
                 }
               }
