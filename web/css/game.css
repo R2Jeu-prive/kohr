@@ -252,22 +252,58 @@
     padding: 10 15 7 15;
 }
 
+.game-actions{
+    position: absolute;
+    top: 60%;
+    left: 3vh;
+    background-color: red;
+    height: 35%;
+    width: 25%;
+}
+
 .game-action-1{
     position: absolute;
+    margin: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 .game-action-2{
     position: absolute;
+    margin: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 .game-action-3{
     position: absolute;
+    margin: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 .game-action-4{
     position: absolute;
+    left: 0%;
+    top: 0%;
+    height: 100%;
+    width: 100%;
 }
 
 .game-action-4-li{
     position: absolute;
+    list-style: none;
+    background:green;
+    float:left;
+    margin:0 5px 5px 0;
+    width:20%;
 }
