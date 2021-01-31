@@ -610,10 +610,10 @@
               }
               if([1,2,3].indexOf(i) != -1){
                 var heavyPieces = 0
-                heavyPieces += this.countPieces(givenGame,"Queen",userTeam)
-                heavyPieces += this.countPieces(givenGame,"Rook",userTeam)
-                heavyPieces += this.countPieces(givenGame,"Enchanter",userTeam)
-                var heavyCapacity = this.getCapacity(givenGame,"HEAVY",userTeam)
+                heavyPieces += countPieces(givenGame,"Queen",userTeam)
+                heavyPieces += countPieces(givenGame,"Rook",userTeam)
+                heavyPieces += countPieces(givenGame,"Enchanter",userTeam)
+                var heavyCapacity = getCapacity(givenGame,"HEAVY",userTeam)
                 if(heavyCapacity == heavyPieces){
                   var showAsPossible = false;
                 }
