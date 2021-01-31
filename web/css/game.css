@@ -251,3 +251,23 @@
     font-size: larger;
     padding: 10 15 7 15;
 }
+
+.game-action-1{
+    position: absolute;
+}
+
+.game-action-2{
+    position: absolute;
+}
+
+.game-action-3{
+    position: absolute;
+}
+
+.game-action-4{
+    position: absolute;
+}
+
+.game-action-4-li{
+    position: absolute;
+}

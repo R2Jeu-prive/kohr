@@ -247,13 +247,13 @@ class Game {
         }
 
         //INVALID WORLD
-        if(["Wall","Battery"].indexOf(type) != -1 && atMiddle != undefined){
+        if(type == "Wall" && !atMiddle){
             console.log("6")
-            return false //atMiddle not needed
-        }
-        if(["Wall","Battery"].indexOf(type) == -1 && atMiddle == undefined){
-            console.log("7")
             return false //atMiddle needed
+        }
+        if(type == "Battery" && atMiddle){
+            console.log("6")
+            return false //atMiddle impossible
         }
 
         //DOESN'T HAVE RESSOURCES

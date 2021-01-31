@@ -92,6 +92,41 @@
               <p class="game-ruby-count game-ressource-count">x0000</p>
             </div>
           </div>
+          <div class="game-actions">
+            <p class="game-action-1">Ce n'est pas à votre tour de jouer !</p>
+            <p class="game-action-2">Entité ennemie !</p>
+            <p class="game-action-3">La pièce n'a pas fini de se construire !</p>
+            <ul class="game-action-4">
+              <li class="game-action-4-li game-switch-1">A<img class="game-action-4-img" src="/piece/blue_queen"/></li>
+              <li class="game-action-4-li game-switch-2">B<img class="game-action-4-img" src="/piece/blue_rook"/></li>
+              <li class="game-action-4-li game-switch-3">C<img class="game-action-4-img" src="/piece/blue_enchanter"/></li>
+              <li class="game-action-4-li game-switch-4">D<img class="game-action-4-img" src="/piece/blue_knight"/></li>
+              <li class="game-action-4-li game-switch-5">E<img class="game-action-4-img" src="/piece/blue_bishop"/></li>
+              <li class="game-action-4-li game-switch-6">F<img class="game-action-4-img" src="/piece/blue_pawn"/></li>
+              <li class="game-action-4-li game-switch-7">G<img class="game-action-4-img" src="/building/blue_extractor"/></li>
+              <li class="game-action-4-li game-switch-8">H<img class="game-action-4-img" src="/building/blue_wall"/></li>
+              <li class="game-action-4-li game-switch-9">I<img class="game-action-4-img" src="/building/blue_battery"/></li>
+              <li class="game-action-4-li game-switch-10">J<img class="game-action-4-img" src="/building/blue_workshop"/></li>
+              <li class="game-action-4-li game-switch-11">K<img class="game-action-4-img" src="/building/blue_light"/></li>
+              <li class="game-action-4-li game-switch-12">L<img class="game-action-4-img" src="/building/blue_heavy"/></li>
+            </ul>
+            <ul class="game-action-5">
+              <button class="game-button game-move game-switch-13"></button>
+              <button class="game-button game-attack1 game-switch-14"></button>
+              <button class="game-button game-attack2 game-switch-15"></button>
+            </ul>
+            <ul class="game-action-6">
+              <button class="game-button game-collect"></button>
+              <div class="game-change-prod">
+                <button class="game-button game-change-prod-1"></button>
+                <button class="game-button game-change-prod-1"></button>
+                <button class="game-button game-change-prod-1"></button>
+              </div>
+              <button class="game-button game-upgrade"></button>
+              <button class="game-button game-destroy"></button>
+              <p class="game-no-interraction">Aucune action possible !</p>
+            </ul>
+          </div>
           <div class="game-timer-background">
             <p class="game-timer-text">30s</p>
           </div>
@@ -143,7 +178,8 @@
         var socket = io();
         var pseudo = "#-1";
         gameTimerIntervalId = undefined;
-        selected = {unselect:true,x:1,y:1,atMiddle:true}
+        selected = {unselect:true,x:1,y:1,atMiddle:true,switch:0}
+        actionOrigin = {unselect:true,x:1,y:1,atMiddle:true}
         var showPlayButtons = false
         var game = {}
         var imageOffsets = {}
@@ -280,6 +316,35 @@
           }
           $(".game-timer-background").css("background","conic-gradient(" + background + ")")
 
+        }
+
+        function countBuildings(game,buildingName,team,onlyAtMiddle){
+          var onlyAtMiddle = onlyAtMiddle || false
+          var count = 0
+          game.buildings.forEach(function(building){
+            if(building.type == buildingName && building.team == team && !(onlyAtMiddle && !building.atMiddle)){
+              count = count + 1
+            }
+          },this)
+          return count
+        }
+
+        function countPieces(game,pieceName,team){
+          var count = 0
+          game.pieces.forEach(function(piece){
+            if(piece.type == pieceName && piece.team == team){
+              count = count + 1
+            }
+          },this)
+          return count
+        }
+        function getCapacity(game,type,team){
+          var armoryName = type.toLowerCase() + "Armory"
+          var armoryAtMiddleCount = game.countBuildings(game,armoryName, team, true)
+          var allArmoryCount = game.countBuildings(game,armoryName, team)
+          var armoryAtBaseCount = allArmoryCount - armoryAtMiddleCount
+          var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
+          return capacity
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
@@ -476,6 +541,95 @@
             let x = (2*kohrM + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
             let y = (gridHeight/2) + (pieceX*kohrHeightCell) - (pieceY*kohrHeightCell)
             kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+          }
+
+          //LEFT SHOW DEF
+          if(!canPlay){
+            var leftShow = 1;
+          }else{
+            var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && piece.atMiddle == userSelected.atMiddle)
+            var selectedbuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+            if(selectedPiece != undefined){
+              if(selectedPiece.team == userTeam){
+                if(selectedPiece.buildingTimeLeft == 0){
+                  var leftShow = 5;
+                }else{
+                  var leftShow = 3;
+                }
+              }else{
+                var leftShow = 2;
+              }
+            }else if(selectedbuilding != undefined){
+              if(selectedbuilding.team == userTeam){
+                var leftShow = 6;
+              }else{
+                var leftShow = 2;
+              }
+            }else{
+              var leftShow = 4;
+            }
+          }
+
+          //HIDING LEFT FRAMES
+          for (let i = 1; i < 7; i++) {
+            if(i == leftShow){
+              $(".game-action-" + i).attr("hidden",false)
+            }else{
+              $(".game-action-" + i).attr("hidden",true)
+            }
+          }
+
+          //SETTING LEFT FRAMES
+          if(leftShow == 4){
+            for(let i = 1; i < 13; i++){
+              var showAsPossible = true;
+
+              //SOLO AT MIDDLE
+              if(userSelected.atMiddle){
+                var neighbours = 0
+                this.buildings.forEach(function(building){
+                  if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle){
+                    neighbours = neighbours + 1
+                  }
+                },this)
+                if(neighbours == 0){
+                  var showAsPossible = false;
+                }
+              }
+
+              //MAX COUNT
+              if([4,5,6].indexOf(i) != -1){
+                var lightPieces = 0
+                lightPieces += countPieces(givenGame,"Pawn",team)
+                lightPieces += countPieces(givenGame,"Knight",team)
+                lightPieces += countPieces(givenGame,"Bishop",team)
+                var lightCapacity = getCapacity(givenGame,"LIGHT",team)
+                if(lightCapacity == lightPieces){
+                  var showAsPossible = false;
+                }
+              }
+              if([1,2,3].indexOf(i) != -1){
+                var heavyPieces = 0
+                heavyPieces += this.countPieces(givenGame,"Queen",team)
+                heavyPieces += this.countPieces(givenGame,"Rook",team)
+                heavyPieces += this.countPieces(givenGame,"Enchanter",team)
+                var heavyCapacity = this.getCapacity(givenGame,"HEAVY",team)
+                if(heavyCapacity == heavyPieces){
+                  var showAsPossible = false;
+                }
+              }
+
+              //INVALID WORLD
+              if(i >= 1 && i <= 6  && !atMiddle){
+                var showAsPossible = false;
+              }
+              if(i == 8 && !atMiddle){
+                var showAsPossible = false;
+              }
+              if(i == 9 && atMiddle){
+                var showAsPossible = false;
+              }
+            }
           }
 
           console.log(givenGame)
