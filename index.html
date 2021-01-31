@@ -619,7 +619,7 @@
                   }
                 })
                 if(neighbours == 0){
-                  var showAsPossible = false;
+                  showAsPossible = false;
                 }
               }
 
@@ -631,7 +631,7 @@
                 lightPieces += countPieces(givenGame,"Bishop",userTeam)
                 var lightCapacity = getCapacity(givenGame,"LIGHT",userTeam)
                 if(lightCapacity <= lightPieces){
-                  var showAsPossible = false;
+                  showAsPossible = false;
                 }
               }
               if([1,2,3].indexOf(i) != -1){
@@ -641,19 +641,19 @@
                 heavyPieces += countPieces(givenGame,"Enchanter",userTeam)
                 var heavyCapacity = getCapacity(givenGame,"HEAVY",userTeam)
                 if(heavyCapacity <= heavyPieces){
-                  var showAsPossible = false;
+                  showAsPossible = false;
                 }
               }
 
               //INVALID WORLD
               if(i >= 1 && i <= 6  && !userSelected.atMiddle){
-                var showAsPossible = false;
+                showAsPossible = false;
               }
               if(i == 8 && !userSelected.atMiddle){
-                var showAsPossible = false;
+                showAsPossible = false;
               }
               if(i == 9 && userSelected.atMiddle){
-                var showAsPossible = false;
+                showAsPossible = false;
               }
 
               $(".game-switch-" + i).attr("disabled",!showAsPossible)
