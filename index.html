@@ -349,6 +349,9 @@
           var armoryAtMiddleCount = countBuildings(game,armoryName, team, true)
           var allArmoryCount = countBuildings(game,armoryName, team)
           var armoryAtBaseCount = allArmoryCount - armoryAtMiddleCount
+          if(type="LIGHT"){
+            armoryAtBaseCount += 1
+          }
           var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
           return capacity
         }
