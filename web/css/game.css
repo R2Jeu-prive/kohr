@@ -297,10 +297,11 @@
     top: 0%;
     height: 100%;
     width: 100%;
+    padding: 0px;
+    margin: 5px 0px 0px 5px;
 }
 
 .game-action-4-li{
-    position: absolute;
     list-style: none;
     background:green;
     float:left;
