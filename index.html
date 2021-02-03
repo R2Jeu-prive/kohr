@@ -655,6 +655,9 @@
               if(i == 9 && userSelected.atMiddle){
                 showAsPossible = false;
               }
+              if(i == 10 && userSelected.atMiddle){
+                showAsPossible = false;
+              }
 
               $(".game-switch-" + i).attr("disabled",!showAsPossible)
             }

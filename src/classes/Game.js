@@ -255,7 +255,11 @@ class Game {
             return false //atMiddle needed
         }
         if(type == "Battery" && atMiddle){
-            console.log("6")
+            console.log("7")
+            return false //atMiddle impossible
+        }
+        if(type == "Workshop" && atMiddle){
+            console.log("7.5")
             return false //atMiddle impossible
         }
 
@@ -325,7 +329,7 @@ class Game {
     }
     buildingBuild(type,x,y,atMiddle,team,timeStamp,io){
         if(type == "Workshop"){
-            var building = new Workshop(x,y,atMiddle,team)
+            var building = new Workshop(x,y,team)
         }else if(type == "LightArmory"){
             var building = new LightArmory(x,y,atMiddle,team)
         }else if(type == "HeavyArmory"){

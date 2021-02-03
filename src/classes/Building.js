@@ -59,8 +59,8 @@ class Extractor extends Building {
 }
 
 class Workshop extends Building {
-    constructor(x,y,atMiddle,team){
-        super(x,y,atMiddle,team,10,"Worshop")
+    constructor(x,y,team){
+        super(x,y,false,team,10,"Worshop")
     }
 }
 
