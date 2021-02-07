@@ -189,6 +189,13 @@
         imageOffsets["Rook"] = [0,25]
         imageOffsets["Bishop"] = [0,25]
         imageOffsets["Queen"] = [0,25]
+        imageOffsets["Core"] = [0,25]
+        imageOffsets["Extractor"] = [0,25]
+        imageOffsets["LightArmory"] = [0,25]
+        imageOffsets["HeavyArmory"] = [0,25]
+        imageOffsets["Battery"] = [0,25]
+        imageOffsets["Workshop"] = [0,25]
+        imageOffsets["Wall"] = [0,25]
         var imageScales = {}
         imageScales["Pawn"] = 2
         imageScales["Enchanter"] = 2
@@ -196,6 +203,13 @@
         imageScales["Rook"] = 2
         imageScales["Bishop"] = 2
         imageScales["Queen"] = 2
+        imageScales["Core"] = 2
+        imageScales["Extractor"] = 2
+        imageScales["LightArmory"] = 2
+        imageScales["HeavyArmory"] = 2
+        imageScales["Battery"] = 2
+        imageScales["Workshop"] = 2
+        imageScales["Wall"] = 2
 
         
         $('#login-background').on('submit', function(e){
@@ -572,7 +586,46 @@
             let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
             let x = (2*kohrM + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
             let y = (gridHeight/2) + (pieceX*kohrHeightCell) - (pieceY*kohrHeightCell)
+            if(piece.buildingTimeLeft > 0){
+              kohrCtx.globalAlpha = 0.5
+            }
             kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+            kohrCtx.globalAlpha = 1
+          }
+
+          //DRAW BUILDINGS
+          for (index in givenGame.buildings){
+            building = givenGame.buildings[index]
+            if(building.atMiddle == false && building.team != userTeam){
+              continue
+            }
+            if(building.type == "Wall"){
+              continue
+            }
+            buildingImage = new Image()
+            if(building.team == userTeam){
+              var color = "blue"
+            }else{
+              var color = "red"
+            }
+            var buildingImage = document.getElementById("cache-" + color + "_" + building.type.toLowerCase())
+            var buildingX = building.x - 1
+            var buildingY = building.y - 1
+            if(userTeam == 1){
+              var buildingX = -buildingX + givenGame.gameInfo.maxPlayers + 4
+              var buildingY = -buildingY + givenGame.gameInfo.maxPlayers + 4
+            }
+            if(building.atMiddle){
+              let imageSize = (kohrHeightCell/250) * imageScales[building.type] * 500
+              let x = (2*kohrM + kohrWidthCell) + (buildingX*kohrWidthCell) + (buildingY*kohrWidthCell)
+              let y = (gridHeight/2) + (buildingX*kohrHeightCell) - (buildingY*kohrHeightCell)
+              kohrCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+            }else{
+              let imageSize = (baseHeightCell/250) * imageScales[building.type] * 500
+              let x = (2*baseM + baseWidthCell) + (buildingX*baseWidthCell) + (buildingY*baseWidthCell)
+              let y = (gridHeight/2) + (buildingX*baseHeightCell) - (buildingY*baseHeightCell)
+              baseCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+            }
           }
 
           //LEFT SHOW DEF
