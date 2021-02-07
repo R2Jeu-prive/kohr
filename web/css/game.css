@@ -301,6 +301,7 @@
 }
 
 .game-precreate-button{
+    position: static;
     list-style: none;
     padding: 0px;
     background:purple;

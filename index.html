@@ -609,7 +609,7 @@
 
           //SETTING LEFT FRAMES
           if(leftShow == 4){
-            for(let i = 1; i < 13; i++){
+            $('.game-action-4').children('button').each(function() {
               var showAsPossible = true;
 
               //SOLO AT MIDDLE
@@ -625,44 +625,24 @@
                 }
               }
 
-              //MAX COUNT
-              if([4,5,6].indexOf(i) != -1){
-                var lightPieces = 0
-                lightPieces += countPieces(givenGame,"Pawn",userTeam)
-                lightPieces += countPieces(givenGame,"Knight",userTeam)
-                lightPieces += countPieces(givenGame,"Bishop",userTeam)
-                var lightCapacity = getCapacity(givenGame,"LIGHT",userTeam)
-                if(lightCapacity <= lightPieces){
-                  showAsPossible = false;
-                }
-              }
-              if([1,2,3].indexOf(i) != -1){
-                var heavyPieces = 0
-                heavyPieces += countPieces(givenGame,"Queen",userTeam)
-                heavyPieces += countPieces(givenGame,"Rook",userTeam)
-                heavyPieces += countPieces(givenGame,"Enchanter",userTeam)
-                var heavyCapacity = getCapacity(givenGame,"HEAVY",userTeam)
-                if(heavyCapacity <= heavyPieces){
-                  showAsPossible = false;
-                }
-              }
-
               //INVALID WORLD
-              if(i >= 1 && i <= 6  && !userSelected.atMiddle){
+              var cuts = $(this).attr("id").split("-");
+              var name = cuts[cuts.length - 1]
+              if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter"].indexOf(name) != -1 && !userSelected.atMiddle){
                 showAsPossible = false;
               }
-              if(i == 8 && !userSelected.atMiddle){
+              if(name == "Wall" && !userSelected.atMiddle){
                 showAsPossible = false;
               }
-              if(i == 9 && userSelected.atMiddle){
+              if(name="Battery" && userSelected.atMiddle){
                 showAsPossible = false;
               }
-              if(i == 10 && userSelected.atMiddle){
+              if(name="Workshop" && userSelected.atMiddle){
                 showAsPossible = false;
               }
 
-              $(".game-switch-" + i).attr("disabled",!showAsPossible)
-            }
+              $(this).attr("disabled",!showAsPossible)
+            })
           }
 
           console.log(givenGame)
