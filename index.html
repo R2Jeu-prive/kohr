@@ -97,18 +97,18 @@
             <p class="game-action-2">Entité ennemie !</p>
             <p class="game-action-3">La pièce n'a pas fini de se construire !</p>
             <ul class="game-action-4">
-              <button class="game-action-4-button game-switch-1"><img class="game-action-4-img" src="/piece/blue_queen"/></button>
-              <button class="game-action-4-button game-switch-2"><img class="game-action-4-img" src="/piece/blue_rook"/></button>
-              <button class="game-action-4-button game-switch-3"><img class="game-action-4-img" src="/piece/blue_enchanter"/></button>
-              <button class="game-action-4-button game-switch-4"><img class="game-action-4-img" src="/piece/blue_knight"/></button>
-              <button class="game-action-4-button game-switch-5"><img class="game-action-4-img" src="/piece/blue_bishop"/></button>
-              <button class="game-action-4-button game-switch-6"><img class="game-action-4-img" src="/piece/blue_pawn"/></button>
-              <button class="game-action-4-button game-switch-7"><img class="game-action-4-img" src="/building/blue_extractor"/></button>
-              <button class="game-action-4-button game-switch-8"><img class="game-action-4-img" src="/building/blue_wall"/></button>
-              <button class="game-action-4-button game-switch-9"><img class="game-action-4-img" src="/building/blue_battery"/></button>
-              <button class="game-action-4-button game-switch-10"><img class="game-action-4-img" src="/building/blue_workshop"/></button>
-              <button class="game-action-4-button game-switch-11"><img class="game-action-4-img" src="/building/blue_light"/></button>
-              <button class="game-action-4-button game-switch-12"><img class="game-action-4-img" src="/building/blue_heavy"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Queen"><img class="game-action-4-img" src="/piece/blue_queen"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Rook"><img class="game-action-4-img" src="/piece/blue_rook"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Enchanter"><img class="game-action-4-img" src="/piece/blue_enchanter"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Knight"><img class="game-action-4-img" src="/piece/blue_knight"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Bishop"><img class="game-action-4-img" src="/piece/blue_bishop"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Pawn"><img class="game-action-4-img" src="/piece/blue_pawn"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Extractor"><img class="game-action-4-img" src="/building/blue_extractor"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Wall"><img class="game-action-4-img" src="/building/blue_wall"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Battery"><img class="game-action-4-img" src="/building/blue_battery"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Workshop"><img class="game-action-4-img" src="/building/blue_workshop"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-LightArmory"><img class="game-action-4-img" src="/building/blue_light"/></button>
+              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-HeavyArmory"><img class="game-action-4-img" src="/building/blue_heavy"/></button>
             </ul>
             <ul class="game-action-5">
               <button class="game-button game-move game-switch-13"></button>
@@ -180,7 +180,6 @@
         gameTimerIntervalId = undefined;
         selected = {unselect:true,x:1,y:1,atMiddle:true,switch:0}
         actionOrigin = {unselect:true,x:1,y:1,atMiddle:true}
-        var showPlayButtons = false
         var game = {}
         var imageOffsets = {}
         imageOffsets["Pawn"] = [0,25]
@@ -237,6 +236,8 @@
             }else{
               $("#game-board").css("left", "0%");
             }
+          }else if(buttonType.startsWith("precreatepiece")){
+            selected.switch = "jqhsgd"
           }
         })
 
@@ -357,6 +358,7 @@
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
+          console.log(userSelected)
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
@@ -664,7 +666,7 @@
           }
 
           console.log(givenGame)
-          return givenGame
+          return [givenGame,userSelected];
         }
 
         socket.on("disconnect",function(){
@@ -737,11 +739,15 @@
         });
         
         socket.on("showGamePlay",function(data){
-          game = showGame(data,pseudo,selected,true)
+          var returnedStuff = showGame(data,pseudo,selected,true)
+          game = returnedStuff[0]
+          selected = returnedStuff[1]
         })
         
         socket.on("showGameWait",function(data){
-          game = showGame(data,pseudo,selected,false)
+          var returnedStuff = showGame(data,pseudo,selected,true)
+          game = returnedStuff[0]
+          selected = returnedStuff[1]
         })
         
       });
