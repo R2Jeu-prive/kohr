@@ -627,10 +627,10 @@
 
           //DRAW ENTITIES
           var entitiesToDraw = orderEntities(givenGame,userTeam)
-          kohrCtx.shadowColor = 'black';
-          baseCtx.shadowColor = 'black';
-          kohrCtx.shodowBlur = 5;
-          baseCtx.shodowBlur = 5;
+          kohrCtx.shadowColor = "black";
+          baseCtx.shadowColor = "black";
+          kohrCtx.shadowBlur = 15;
+          baseCtx.shadowBlur = 15;
           for(index in entitiesToDraw){
             var entity = entitiesToDraw[index]
             if(entity.atMiddle === false || entity.atMiddle === true){
