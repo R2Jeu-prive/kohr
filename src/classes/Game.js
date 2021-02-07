@@ -174,7 +174,7 @@ class Game {
         console.log(this.skipId)
         console.log(this.skipId._idleStart + this.skipId._idleTimeout)
         var timeLeft = Math.ceil((this.skipId._idleStart + this.skipId._idleTimeout - Date.now()) / 1000);
-        console.log(Math.ceil((timeout._idleStart + timeout._idleTimeout)/1000 - process.uptime()));
+        console.log(Math.ceil((this.skipId._idleStart + this.skipId._idleTimeout)/1000 - process.uptime()));
         this.refreshAllGame(io,timeLeft)
     }
     playerLeave(user,disconnected,io){
