@@ -611,20 +611,21 @@
           if(leftShow == 4){
             $('.game-action-4').children('button').each(function() {
               var showAsPossible = true;
-
+              console.log("d",showAsPossible)
               //SOLO AT MIDDLE
               if(userSelected.atMiddle){
                 var neighbours = 0
                 givenGame.buildings.forEach(function(building){
-                  console.log(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1,building.atMiddle == userSelected.atMiddle,building.team == userTeam)
                   if(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1 && building.atMiddle == userSelected.atMiddle && building.team == userTeam){
                     neighbours = neighbours + 1
                   }
                 })
                 if(neighbours == 0){
                   showAsPossible = false;
+                  console.log("canceled")
                 }
               }
+              console.log(showAsPossible)
 
               //INVALID WORLD
               var cuts = $(this).attr("id").split("-");
