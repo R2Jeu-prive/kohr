@@ -616,6 +616,7 @@
               if(userSelected.atMiddle){
                 var neighbours = 0
                 givenGame.buildings.forEach(function(building){
+                  console.log(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1,building.atMiddle == userSelected.atMiddle,building.team == userTeam)
                   if(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1 && building.atMiddle == userSelected.atMiddle && building.team == userTeam){
                     neighbours = neighbours + 1
                   }
@@ -623,7 +624,6 @@
                 if(neighbours == 0){
                   showAsPossible = false;
                 }
-                console.log(Math.abs(building.x - userSelected.x) + Math.abs(building.y - userSelected.y) == 1,building.atMiddle == userSelected.atMiddle,building.team == userTeam)
               }
 
               //INVALID WORLD
@@ -645,8 +645,6 @@
               $(this).attr("disabled",!showAsPossible)
             })
           }
-
-          console.log(givenGame)
           return [givenGame,userSelected];
         }
 
