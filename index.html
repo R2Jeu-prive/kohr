@@ -580,7 +580,8 @@
             var leftShow = 1;
           }else{
             var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && piece.atMiddle == userSelected.atMiddle)
-            var selectedbuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+            var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+            console.log(selectedPiece,selectedBuilding,givenGame)
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
@@ -591,8 +592,8 @@
               }else{
                 var leftShow = 2;
               }
-            }else if(selectedbuilding != undefined){
-              if(selectedbuilding.team == userTeam){
+            }else if(selectedBuilding != undefined){
+              if(selectedBuilding.team == userTeam){
                 var leftShow = 6;
               }else{
                 var leftShow = 2;
