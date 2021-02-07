@@ -300,7 +300,7 @@
     transform: translate(-50%, -50%);
 }
 
-.game-action-4-button{
+.game-precreate-button{
     list-style: none;
     padding: 0px;
     background:purple;
@@ -308,11 +308,11 @@
     margin:0 5px 5px 0;
 }
 
-.game-action-4-button:disabled{
+.game-precreate-button:disabled{
     background:pink;
 }
 
-.game-action-4-img{
+.game-precreate-img{
     position: relative;
     height: 100%;
 }
