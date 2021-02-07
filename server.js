@@ -164,7 +164,7 @@ io.on('connection', function(socket){
                     game.pieceBuild("Pawn",1,1,0,456456,io)
                     game.pieceBuild("Pawn",1,7,0,456456,io)
                     game.pieceBuild("Pawn",7,1,0,456456,io)
-                    game.pieceBuild("Pawn",2,3,0,456456,io)
+                    game.pieceBuild("Pawn",3,2,0,456456,io)
                 }else{
                     socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
                 }
