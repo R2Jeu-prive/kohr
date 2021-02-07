@@ -397,7 +397,7 @@
             givenGame.newTurn = false;
             var timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
-            var gameTimerIntervalId = setInterval(function(){
+            gameTimerIntervalId = setInterval(function(){
               setGameTimer((Date.now() - timerZero)/1000,canPlay,maxTime)
             }, 50);
           }
