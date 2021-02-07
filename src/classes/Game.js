@@ -109,7 +109,7 @@ class Game {
                 building.inventory[0] = building.inventory[0] + production
             }
         },this)
-        this.refreshAllGame(io,true)
+        this.refreshAllGame(io,30)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
     refreshAllGame(io,newTurn = false){
