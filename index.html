@@ -391,14 +391,12 @@
           var userTeam = tempMe.team
 
           //SET OF TIMER
-          if(givenGame.newTurn != false){
-            var maxTime = givenGame.newTurn
-            console.log(maxTime)
+          if(givenGame.newTurn){
             givenGame.newTurn = false;
             var timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
             gameTimerIntervalId = setInterval(function(){
-              setGameTimer((Date.now() - timerZero)/1000,canPlay,maxTime)
+              setGameTimer((Date.now() - timerZero)/1000,canPlay,30)
             }, 50);
           }
 
