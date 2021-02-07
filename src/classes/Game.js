@@ -171,7 +171,10 @@ class Game {
     playerReconnect(user,io){
         this.disconnectedPlayers.splice(this.players.findIndex(oldPlayer => oldPlayer.pseudo == user.pseudo),1)
         this.players.push(user)
+        console.log(this.skipId)
+        console.log(this.skipId._idleStart + this.skipId._idleTimeout)
         var timeLeft = Math.ceil((this.skipId._idleStart + this.skipId._idleTimeout - Date.now()) / 1000);
+        console.log(timeLeft)
         this.refreshAllGame(io,timeLeft)
     }
     playerLeave(user,disconnected,io){
