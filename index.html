@@ -275,7 +275,7 @@
         $(".game-canvas").on("click",function(e){
           let tempMe = game.players.find(player => player.pseudo == pseudo)
           if(tempMe == undefined){
-            console.log("oula4")
+            console.log("oula")
             return
           }
           var play = (tempMe.team == game.gameInfo.teamPlaying)
@@ -386,6 +386,50 @@
           }
           var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
           return capacity
+        }
+
+        function orderEntitiesAlgo(a,b){
+          var aMiddle = a.atMiddle || true;
+          var bMiddle = b.atMiddle || true; //if atMiddle is undefined it's a piece, so it's True
+          if(aMiddle && !bMiddle){
+            return -1
+          }else if(!aMiddle && bMiddle){
+            return 1
+          }else{
+            if(a.y - a.x < b.y - b.x){
+              return -1
+            }else if(b.y - b.x < a.y - a.x){
+              return 1
+            }
+          }
+          return 0
+        }
+
+        function orderEntitiesAlgoInverted(a,b){
+          var aMiddle = a.atMiddle || true;
+          var bMiddle = b.atMiddle || true; //if atMiddle is undefined it's a piece, so it's True
+          if(aMiddle && !bMiddle){
+            return -1
+          }else if(!aMiddle && bMiddle){
+            return 1
+          }else{
+            if(a.y - a.x > b.y - b.x){
+              return -1
+            }else if(b.y - b.x > a.y - a.x){
+              return 1
+            }
+          }
+          return 0
+        }
+
+        function orderEntities(gameToOrder,showTeam){
+          var allEntities = gameToOrder.pieces.concat(gameToOrder.buildings)
+          if(showTeam == 0){
+            allEntities.sort(orderEntitiesAlgo)
+          }else{
+            allEntities.sort(orderEntitiesAlgoInverted)
+          }
+          return allEntities
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
@@ -581,8 +625,48 @@
             yE += kohrHeightCell
           }
 
-          //DRAW PIECES
-          for (index in givenGame.pieces){
+          //DRAW ENTITIES
+          var entitiesToDraw = orderEntities(givenGame,userTeam)
+          for(index in entitiesToDraw){
+            var entity = entitiesToDraw[index]
+            if(entity.atMiddle === false || entity.atMiddle === true){
+              var eMiddle = entity.atMiddle
+            }else{
+              var eMiddle = true
+            }
+            if(!eMiddle && entity.team != userTeam){
+              continue //entity is at other base
+            }
+            if(entity.type == "Wall"){
+              //[TODO]
+            }else{
+              entityImage = new Image()
+              if(entity.team == userTeam){
+                var color = "blue"
+              }else{
+                var color = "red"
+              }
+              var entityImage = document.getElementById("cache-" + color + "_" + building.type.toLowerCase())
+              var entityX = entity.x - 1
+              var entityY = entity.y - 1
+              if(userTeam == 1){
+                var entityX = -entityX + givenGame.gameInfo.maxPlayers + 4
+                var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
+              }
+              if(eMiddle){
+                let imageSize = (kohrHeightCell/250) * imageScales[entity.type] * 500
+                let x = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
+                let y = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
+                kohrCtx.drawImage(entityImage, x + imageOffsets[entity.type][0] - imageSize/2, y + imageOffsets[entity.type][1] - imageSize, imageSize, imageSize);
+              }else{
+                let imageSize = (baseHeightCell/250) * imageScales[entity.type] * 500
+                let x = (2*baseM + baseWidthCell) + (entityX*baseWidthCell) + (entityY*baseWidthCell)
+                let y = (gridHeight/2) + (entityX*baseHeightCell) - (entityY*baseHeightCell)
+                baseCtx.drawImage(entityImage, x + imageOffsets[entity.type][0] - imageSize/2, y + imageOffsets[entity.type][1] - imageSize, imageSize, imageSize);
+              }
+            }
+          }
+          /*for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
             pieceImage = new Image()
             if(piece.team == userTeam){
@@ -640,7 +724,7 @@
               let y = (gridHeight/2) + (buildingX*baseHeightCell) - (buildingY*baseHeightCell)
               baseCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[building.type][1] - imageSize, imageSize, imageSize);
             }
-          }
+          }*/
 
           //LEFT SHOW DEF
           if(!canPlay){
@@ -648,7 +732,7 @@
           }else{
             var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
             var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
-            console.log(selectedPiece,selectedBuilding,givenGame)
+            console.log(userSelected)
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
