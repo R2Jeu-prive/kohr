@@ -393,6 +393,7 @@
           //SET OF TIMER
           if(givenGame.newTurn != false){
             var maxTime = givenGame.newTurn
+            console.log(maxTime)
             givenGame.newTurn = false;
             var timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
