@@ -611,7 +611,6 @@
           if(leftShow == 4){
             $('.game-action-4').children('button').each(function() {
               var showAsPossible = true;
-              console.log("d",showAsPossible)
               //SOLO AT MIDDLE
               if(userSelected.atMiddle){
                 var neighbours = 0
@@ -622,10 +621,8 @@
                 })
                 if(neighbours == 0){
                   showAsPossible = false;
-                  console.log("canceled")
                 }
               }
-              console.log(showAsPossible)
 
               //INVALID WORLD
               var cuts = $(this).attr("id").split("-");
@@ -636,10 +633,10 @@
               if(name == "Wall" && !userSelected.atMiddle){
                 showAsPossible = false;
               }
-              if(name="Battery" && userSelected.atMiddle){
+              if(name == "Battery" && userSelected.atMiddle){
                 showAsPossible = false;
               }
-              if(name="Workshop" && userSelected.atMiddle){
+              if(name == "Workshop" && userSelected.atMiddle){
                 showAsPossible = false;
               }
 
