@@ -619,12 +619,12 @@
               let imageSize = (kohrHeightCell/250) * imageScales[building.type] * 500
               let x = (2*kohrM + kohrWidthCell) + (buildingX*kohrWidthCell) + (buildingY*kohrWidthCell)
               let y = (gridHeight/2) + (buildingX*kohrHeightCell) - (buildingY*kohrHeightCell)
-              kohrCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+              kohrCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[building.type][1] - imageSize, imageSize, imageSize);
             }else{
               let imageSize = (baseHeightCell/250) * imageScales[building.type] * 500
               let x = (2*baseM + baseWidthCell) + (buildingX*baseWidthCell) + (buildingY*baseWidthCell)
               let y = (gridHeight/2) + (buildingX*baseHeightCell) - (buildingY*baseHeightCell)
-              baseCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
+              baseCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[building.type][1] - imageSize, imageSize, imageSize);
             }
           }
 
