@@ -112,7 +112,7 @@ class Game {
         this.refreshAllGame(io,30)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
-    refreshAllGame(io,newTurn = false){
+    refreshAllGame(io,newTurn = 0){
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
                 io.to(player.socket_id).emit("showGamePlay",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
@@ -121,7 +121,7 @@ class Game {
             }
         },this)
     }
-    refreshPlayerGame(player,io,newTurn = false){
+    refreshPlayerGame(player,io,newTurn = 0){
         if(player.team == this.gameInfo.teamPlaying){
             io.to(player.socket_id).emit("showGamePlay",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
         }else{
