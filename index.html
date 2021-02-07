@@ -725,7 +725,7 @@
         })
         
         socket.on("showGameWait",function(data){
-          var returnedStuff = showGame(data,pseudo,selected,true)
+          var returnedStuff = showGame(data,pseudo,selected,false)
           game = returnedStuff[0]
           selected = returnedStuff[1]
         })
