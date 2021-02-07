@@ -97,18 +97,18 @@
             <p class="game-action-2">Entité ennemie !</p>
             <p class="game-action-3">La pièce n'a pas fini de se construire !</p>
             <ul class="game-action-4">
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Queen"><img class="game-precreate-img" src="/piece/blue_queen"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Rook"><img class="game-precreate-img" src="/piece/blue_rook"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Enchanter"><img class="game-precreate-img" src="/piece/blue_enchanter"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Knight"><img class="game-precreate-img" src="/piece/blue_knight"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Bishop"><img class="game-precreate-img" src="/piece/blue_bishop"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatepiece-Pawn"><img class="game-precreate-img" src="/piece/blue_pawn"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Extractor"><img class="game-precreate-img" src="/building/blue_extractor"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Wall"><img class="game-precreate-img" src="/building/blue_wall"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Battery"><img class="game-precreate-img" src="/building/blue_battery"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-Workshop"><img class="game-precreate-img" src="/building/blue_workshop"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-LightArmory"><img class="game-precreate-img" src="/building/blue_light"/></button>
-              <button class="game-buttons game-precreate-button" id="game-base-precreatebuilding-HeavyArmory"><img class="game-precreate-img" src="/building/blue_heavy"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Queen" id="game-base-precreatepiece-Queen"><img class="game-precreate-img" src="/piece/blue_queen"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Rook" id="game-base-precreatepiece-Rook"><img class="game-precreate-img" src="/piece/blue_rook"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Enchanter" id="game-base-precreatepiece-Enchanter"><img class="game-precreate-img" src="/piece/blue_enchanter"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Knight" id="game-base-precreatepiece-Knight"><img class="game-precreate-img" src="/piece/blue_knight"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Bishop" id="game-base-precreatepiece-Bishop"><img class="game-precreate-img" src="/piece/blue_bishop"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Pawn" id="game-base-precreatepiece-Pawn"><img class="game-precreate-img" src="/piece/blue_pawn"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Extractor" id="game-base-precreatebuilding-Extractor"><img class="game-precreate-img" src="/building/blue_extractor"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Wall" id="game-base-precreatebuilding-Wall"><img class="game-precreate-img" src="/building/blue_wall"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Battery" id="game-base-precreatebuilding-Battery"><img class="game-precreate-img" src="/building/blue_battery"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Workshop" id="game-base-precreatebuilding-Workshop"><img class="game-precreate-img" src="/building/blue_workshop"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-LightArmory" id="game-base-precreatebuilding-LightArmory"><img class="game-precreate-img" src="/building/blue_light"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-HeavyArmory" id="game-base-precreatebuilding-HeavyArmory"><img class="game-precreate-img" src="/building/blue_heavy"/></button>
             </ul>
             <ul class="game-action-5">
               <button class="game-button game-move game-switch-13"></button>
@@ -176,11 +176,12 @@
     <script>
       $(document).ready(function() {
         var socket = io();
-        var pseudo = "#-1";
+        pseudo = "#-1";
         gameTimerIntervalId = undefined;
         selected = {unselect:true,x:1,y:1,atMiddle:true,switch:0}
         actionOrigin = {unselect:true,x:1,y:1,atMiddle:true}
-        var game = {}
+        game = {}
+        canPlay = false
         var imageOffsets = {}
         imageOffsets["Pawn"] = [0,25]
         imageOffsets["Enchanter"] = [0,25]
@@ -237,7 +238,9 @@
               $("#game-board").css("left", "0%");
             }
           }else if(buttonType.startsWith("precreatepiece")){
-            selected.switch = "jqhsgd"
+            var cuts = buttonId.split("-");
+            selected.switch = cuts[cuts.length - 1]
+            showGame(game,pseudo,selected,canPlay)
           }
         })
 
@@ -297,23 +300,23 @@
           return counter
         }
 
-        function setGameTimer(time,canPlay){
-          if(time > 30){
-            time = 30;
+        function setGameTimer(time,canPlay,maxTime){
+          if(time > maxTime){
+            time = maxTime;
           }
           $(".game-timer-text").text((30-Math.round(time)) + "s")
           var transparent = "rgb(30,30,40)"
           var red = "rgb(80,60,80)"
           var green = "rgb(60,80,80)"
           if(canPlay){
-            var deg = time * (180/30)
+            var deg = time * (180/maxTime)
             if(time < 15){
               var background = transparent + " 0deg 270deg, " + green + " 270deg " + (270+deg) + "deg, " + transparent + " " + (270+deg) + "deg" 
             }else{
               var background = green + " " + (-90+deg) + "deg, " + transparent +" "+ (-90+deg) + "deg 270deg, " + green + " 270deg"
             }
           }else{
-            var deg = (30-time) * (180/30)
+            var deg = (maxTime-time) * (180/maxTime)
             if(time < 15){
               var background = transparent +" "+ (-90+deg) + "deg, " + red +" "+ (-90+deg) + "deg 90deg, " + transparent + " 270deg"
             }else{
@@ -358,12 +361,11 @@
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
-          console.log(userSelected)
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
 
-          //SET DYNAMIC CSS PROPERTIES
+          //SET DYNAMIC CSS PROPERTIES AT START
           $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
           $(".game-ressources").css("height",2*parseInt($(".game-energybar-under").first().css("height")) + "px")
           $(".game-ressource-count").css("left",$(".game-ressources").first().css("height"))
@@ -388,12 +390,14 @@
           }
           var userTeam = tempMe.team
 
-          if(givenGame.newTurn){
+          //SET OF TIMER
+          if(givenGame.newTurn != false){
+            var maxTime = givenGame.newTurn
             givenGame.newTurn = false;
-            timerZero = Date.now()
+            var timerZero = Date.now()
             clearInterval(gameTimerIntervalId)
-            gameTimerIntervalId = setInterval(function(){
-              setGameTimer((Date.now() - timerZero)/1000,canPlay)
+            var gameTimerIntervalId = setInterval(function(){
+              setGameTimer((Date.now() - timerZero)/1000,canPlay,maxTime)
             }, 50);
           }
 
@@ -642,7 +646,12 @@
 
               $(this).attr("disabled",!showAsPossible)
             })
+          }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
+            userSelected.switch = ""
           }
+
+          //SET DYNAMIC CSS PROPERTIES AT END
+          $(".game-switch-" + userSelected.switch).css("background-color","green")
           return [givenGame,userSelected];
         }
 
@@ -716,13 +725,15 @@
         });
         
         socket.on("showGamePlay",function(data){
-          var returnedStuff = showGame(data,pseudo,selected,true)
+          canPlay = true
+          var returnedStuff = showGame(data,pseudo,selected,canPlay)
           game = returnedStuff[0]
           selected = returnedStuff[1]
         })
         
         socket.on("showGameWait",function(data){
-          var returnedStuff = showGame(data,pseudo,selected,false)
+          canPlay = false
+          var returnedStuff = showGame(data,pseudo,selected,canPlay)
           game = returnedStuff[0]
           selected = returnedStuff[1]
         })

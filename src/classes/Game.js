@@ -112,8 +112,7 @@ class Game {
         this.refreshAllGame(io,true)
         this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
-    refreshAllGame(io,newTurn){
-        newTurn = newTurn || false
+    refreshAllGame(io,newTurn = false){
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){
                 io.to(player.socket_id).emit("showGamePlay",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
@@ -122,11 +121,11 @@ class Game {
             }
         },this)
     }
-    refreshPlayerGame(player,io){
+    refreshPlayerGame(player,io,newTurn = false){
         if(player.team == this.gameInfo.teamPlaying){
-            io.to(player.socket_id).emit("showGamePlay",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+            io.to(player.socket_id).emit("showGamePlay",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
         }else{
-            io.to(player.socket_id).emit("showGameWait",{gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
+            io.to(player.socket_id).emit("showGameWait",{newTurn : newTurn, gameInfo : this.gameInfo, players : this.players, pieces : this.pieces, buildings : this.buildings, stats : this.stats, timeStamp : this.lastTimeStamp})
         }
     }
     refreshAllLobby(io){
@@ -172,7 +171,8 @@ class Game {
     playerReconnect(user,io){
         this.disconnectedPlayers.splice(this.players.findIndex(oldPlayer => oldPlayer.pseudo == user.pseudo),1)
         this.players.push(user)
-        this.refreshAllGame(io)
+        var timeLeft = Math.ceil((this.skipId._idleStart + this.skipId._idleTimeout - Date.now()) / 1000);
+        this.refreshAllGame(io,timeLeft)
     }
     playerLeave(user,disconnected,io){
         //returns true if game has to be deleted
