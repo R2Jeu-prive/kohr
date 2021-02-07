@@ -396,9 +396,9 @@
           }else if(!aMiddle && bMiddle){
             return 1
           }else{
-            if(a.y - a.x < b.y - b.x){
+            if(a.y - a.x > b.y - b.x){
               return -1
-            }else if(b.y - b.x < a.y - a.x){
+            }else if(b.y - b.x > a.y - a.x){
               return 1
             }
           }
@@ -413,9 +413,9 @@
           }else if(!aMiddle && bMiddle){
             return 1
           }else{
-            if(a.y - a.x > b.y - b.x){
+            if(a.y - a.x < b.y - b.x){
               return -1
-            }else if(b.y - b.x > a.y - a.x){
+            }else if(b.y - b.x < a.y - a.x){
               return 1
             }
           }
@@ -627,6 +627,10 @@
 
           //DRAW ENTITIES
           var entitiesToDraw = orderEntities(givenGame,userTeam)
+          kohrCtx.shadowColor = 'black';
+          baseCtx.shadowColor = 'black';
+          kohrCtx.shodowBlur = 25;
+          baseCtx.shodowBlur = 25;
           for(index in entitiesToDraw){
             var entity = entitiesToDraw[index]
             if(entity.atMiddle === false || entity.atMiddle === true){
@@ -666,6 +670,8 @@
               }
             }
           }
+          kohrCtx.shodowBlur = 0;
+          baseCtx.shodowBlur = 0;
           /*for (index in givenGame.pieces){
             piece = givenGame.pieces[index]
             pieceImage = new Image()
