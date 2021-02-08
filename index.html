@@ -723,7 +723,10 @@
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
               var wallHeight = 5*h
-              var fillColor = "rgba(32,32,43,0.5)"
+              var fillColor = "rgba(32,32,43,1)"
+              if(userSelected.x == entity.x && userSelected.y == entity.y && userSelected.atMiddle){
+                var fillColor = "rgba(60,80,80,1)"
+              }
               var border = ["#000000",1]
               //DRAWING WALLS
               if(neighbors[0] && neighbors[1] && neighbors[2] && neighbors[3]){
@@ -814,9 +817,9 @@
             if(entity.type == "Wall"){
               //DRAWING TOP OF WALLS ON TOP OF EVERYTHING
               if(color == "blue"){
-                var fillColor = "rgba(100,165,255,0.8)"
+                var fillColor = "rgba(100,165,255,1)"
               }else{
-                var fillColor = "rgba(255,80,80,0.8)"
+                var fillColor = "rgba(255,80,80,1)"
               }
               var polyPoints = [[-1*w,0]]
               if(neighbors[0]){
