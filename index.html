@@ -388,6 +388,26 @@
           return capacity
         }
 
+        function getWallNeighbors(entities,originX,originY,team){
+          if(team == 0){
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == team)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == team)
+          }else{
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == team)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == team)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
+          }
+          topLeft == topLeft || false
+          topRight == topRight || false
+          bottomLeft == bottomLeft || false
+          bottomRight == bottomRight || false
+          console.log([topLeft,topRight,bottomLeft,bottomRight])
+          return [topLeft,topRight,bottomLeft,bottomRight]
+        }
+
         function orderEntitiesAlgo(a,b){
           var aMiddle = a.atMiddle || true;
           var bMiddle = b.atMiddle || true; //if atMiddle is undefined it's a piece, so it's True
@@ -430,6 +450,21 @@
             allEntities.sort(orderEntitiesAlgoInverted)
           }
           return allEntities
+        }
+
+        function drawPara(ctx,gX,gY,points,fillColor,border){
+          ctx.beginPath()
+          ctx.fillStyle = fillColor
+          ctx.lineCap = "round"
+          ctx.strokeStyle = border[0]
+          ctx.lineWidth = border[1]
+          ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
+          ctx.moveTo(points[1][0]+gX,points[1][1]+gY)
+          ctx.moveTo(points[2][0]+gX,points[2][1]+gY)
+          ctx.moveTo(points[3][0]+gX,points[3][1]+gY)
+          ctx.closePath()
+          ctx.fill()
+          ctx.stroke()
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
@@ -629,8 +664,8 @@
           var entitiesToDraw = orderEntities(givenGame,userTeam)
           kohrCtx.shadowColor = "black";
           baseCtx.shadowColor = "black";
-          kohrCtx.shadowBlur = 15;
-          baseCtx.shadowBlur = 15;
+          kohrCtx.shadowBlur = 2;
+          baseCtx.shadowBlur = 2;
           for(index in entitiesToDraw){
             var entity = entitiesToDraw[index]
             if(entity.atMiddle === false || entity.atMiddle === true){
@@ -642,7 +677,20 @@
               continue //entity is at other base
             }
             if(entity.type == "Wall"){
-              //[TODO]
+              var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam)
+              console.log(neighbors)
+              var globalX = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
+              var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
+              var h = kohrHeightCell/3
+              var w = kohrWidthCell/3
+              var wallHeight = 10
+              var fillColor = "green"
+              var border = ["black",1]
+              
+              //LEFT SIDE
+              if(!neighbors[0] && !neighbors[2] && !neighbors[3]){
+                drawPara(kohrCtx,globalX,globaY,[[-1*w,0],[0,1*h],[-1*w,-wallHeight],[0,1*h-wallHeight]],fillColor,border)
+              }
             }else{
               entityImage = new Image()
               if(entity.team == userTeam){
