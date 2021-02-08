@@ -400,6 +400,7 @@
             var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
             var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
           }
+          console.log("b",team,[topLeft,topRight,bottomLeft,bottomRight])
           topLeft = topLeft || false
           topRight = topRight || false
           bottomLeft = bottomLeft || false
@@ -453,7 +454,6 @@
         }
 
         function drawPoly(ctx,gX,gY,points,polyHeight,fillColor,border){
-          console.log(ctx,gX,gY,points,fillColor,border)
           ctx.beginPath()
           ctx.fillStyle = fillColor
           ctx.lineCap = "round"
@@ -468,7 +468,6 @@
         }
 
         function drawParaS(ctx,gX,gY,points,paraHeight,fillColor,border){
-          console.log(ctx,gX,gY,points,fillColor,border)
           ctx.beginPath()
           ctx.fillStyle = fillColor
           ctx.lineCap = "round"
@@ -705,7 +704,6 @@
             }
             if(entity.type == "Wall"){
               var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam)
-              console.log(neighbors)
               var globalX = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
               var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
               var h = kohrHeightCell/3
@@ -767,7 +765,7 @@
               if(color == "blue"){
                 var fillColor = "#64a5ff"
               }else{
-                var fillColor = "#ff2500"
+                var fillColor = "#ff4324"
               }
               var border = ["#000000",1]
               var polyPoints = [[-1*w,0]]
@@ -812,7 +810,6 @@
           }else{
             var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
             var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
-            console.log(userSelected)
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
