@@ -724,8 +724,13 @@
               var w = kohrWidthCell/3
               var wallHeight = 5*h
               var fillColor = "rgba(32,32,43,1)"
-              if(userSelected.x == entity.x && userSelected.y == entity.y && userSelected.atMiddle){
+              if(userSelected.x == entity.x && userSelected.y == entity.y && userSelected.atMiddle && !userSelected.unselect){
                 var fillColor = "rgba(60,80,80,1)"
+              }
+              if(color == "blue"){
+                var border = ["rgba(100,165,255,1)",1]
+              }else{
+                var border = ["rgba(255,80,80,1)",1]
               }
               var border = ["#000000",1]
               //DRAWING WALLS
