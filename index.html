@@ -711,7 +711,7 @@
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
               var wallHeight = 5*h
-              var fillColor = "#ff0000"
+              var fillColor = "#20202b"
               var border = ["#000000",1]
               //DRAWING WALLS
               if(neighbors[0] && neighbors[1] && neighbors[2] && neighbors[3]){
@@ -764,7 +764,11 @@
                 drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
               }
               //DRAWING TOP OF WALLS
-              var fillColor = "#ffff00"
+              if(color == "blue"){
+                var fillColor = "#64a5ff"
+              }else{
+                var fillColor = "#ff2500"
+              }
               var border = ["#000000",1]
               var polyPoints = [[-1*w,0]]
               if(neighbors[0]){
