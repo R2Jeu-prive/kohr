@@ -468,6 +468,22 @@
           ctx.stroke()
         }
 
+        function drawParaS(ctx,gX,gY,points,paraHeight,fillColor,border){
+          console.log(ctx,gX,gY,points,fillColor,border)
+          ctx.beginPath()
+          ctx.fillStyle = fillColor
+          ctx.lineCap = "round"
+          ctx.strokeStyle = border[0]
+          ctx.lineWidth = border[1]
+          ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
+          ctx.lineTo(points[1][0]+gX,points[1][1]+gY)
+          ctx.lineTo(points[1][0]+gX,points[1][1]+gY-wallHeight)
+          ctx.lineTo(points[0][0]+gX,points[0][1]+gY-wallHeight)
+          ctx.closePath()
+          ctx.fill()
+          ctx.stroke()
+        }
+
         function showGame(givenGame,userPseudo,userSelected,canPlay){
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
@@ -696,12 +712,57 @@
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
               var wallHeight = 5*h
-              var fillColor = "#ffffff"
+              var fillColor = "#ff0000"
               var border = ["#000000",1]
-              
-              //LEFT SIDE
-              if(!neighbors[0] && !neighbors[2] && !neighbors[3]){
-                drawPara(kohrCtx,globalX,globalY,[[-1*w,0],[0,1*h],[0,1*h-wallHeight],[-1*w,-wallHeight]],fillColor,border)
+              //DRAWING WALLS
+              if(neighbors[0] && neighbors[1] && neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-2*w,-1*h],[-1*w,0*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[2*w,-1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[-1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[1*w,2*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && !neighbors[1] && !neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[0*w,1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[0*w,1*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && !neighbors[1] && !neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[1*w,2*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && !neighbors[1] && neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[-1*w,2*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && !neighbors[1] && neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[-1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[1*w,2*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && neighbors[1] && !neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[0*w,1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && neighbors[1] && !neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && neighbors[1] && neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,2*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(!neighbors[0] && neighbors[1] && neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[-1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && !neighbors[1] && !neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-2*w,-1*h],[0*w,1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[1*w,0*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && !neighbors[1] && !neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-2*w,-1*h],[1*w,2*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && !neighbors[1] && neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,2*h],[1*w,0*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && !neighbors[1] && neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[-1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && neighbors[1] && !neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[-2*w,-1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[0*w,1*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && neighbors[1] && !neighbors[2] && neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-2*w,-1*h],[1*w,2*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[1*w,0*h],[2*w,-1*h]],wallHeight,fillColor,border)
+              }else if(neighbors[0] && neighbors[1] && neighbors[2] && !neighbors[3]){
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,2*h],[2*w,-1*h]],wallHeight,fillColor,border)
+                drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
               }
             }else{
               entityImage = new Image()
@@ -721,65 +782,6 @@
           }
           kohrCtx.shodowBlur = 0;
           baseCtx.shodowBlur = 0;
-          /*for (index in givenGame.pieces){
-            piece = givenGame.pieces[index]
-            pieceImage = new Image()
-            if(piece.team == userTeam){
-              var color = "blue"
-            }else{
-              var color = "red"
-            }
-            var pieceImage = document.getElementById("cache-" + color + "_" + piece.type.toLowerCase())
-            var pieceX = piece.x - 1
-            var pieceY = piece.y - 1
-            if(userTeam == 1){
-              var pieceX = -pieceX + givenGame.gameInfo.maxPlayers + 4
-              var pieceY = -pieceY + givenGame.gameInfo.maxPlayers + 4
-            }
-            let imageSize = (kohrHeightCell/250) * imageScales[piece.type] * 500
-            let x = (2*kohrM + kohrWidthCell) + (pieceX*kohrWidthCell) + (pieceY*kohrWidthCell)
-            let y = (gridHeight/2) + (pieceX*kohrHeightCell) - (pieceY*kohrHeightCell)
-            if(piece.buildingTimeLeft > 0){
-              kohrCtx.globalAlpha = 0.5
-            }
-            kohrCtx.drawImage(pieceImage, x + imageOffsets[piece.type][0] - imageSize/2, y + imageOffsets[piece.type][1] - imageSize, imageSize, imageSize);
-            kohrCtx.globalAlpha = 1
-          }
-
-          //DRAW BUILDINGS
-          for (index in givenGame.buildings){
-            building = givenGame.buildings[index]
-            if(building.atMiddle == false && building.team != userTeam){
-              continue
-            }
-            if(building.type == "Wall"){
-              continue
-            }
-            buildingImage = new Image()
-            if(building.team == userTeam){
-              var color = "blue"
-            }else{
-              var color = "red"
-            }
-            var buildingImage = document.getElementById("cache-" + color + "_" + building.type.toLowerCase())
-            var buildingX = building.x - 1
-            var buildingY = building.y - 1
-            if(userTeam == 1){
-              var buildingX = -buildingX + givenGame.gameInfo.maxPlayers + 4
-              var buildingY = -buildingY + givenGame.gameInfo.maxPlayers + 4
-            }
-            if(building.atMiddle){
-              let imageSize = (kohrHeightCell/250) * imageScales[building.type] * 500
-              let x = (2*kohrM + kohrWidthCell) + (buildingX*kohrWidthCell) + (buildingY*kohrWidthCell)
-              let y = (gridHeight/2) + (buildingX*kohrHeightCell) - (buildingY*kohrHeightCell)
-              kohrCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[building.type][1] - imageSize, imageSize, imageSize);
-            }else{
-              let imageSize = (baseHeightCell/250) * imageScales[building.type] * 500
-              let x = (2*baseM + baseWidthCell) + (buildingX*baseWidthCell) + (buildingY*baseWidthCell)
-              let y = (gridHeight/2) + (buildingX*baseHeightCell) - (buildingY*baseHeightCell)
-              baseCtx.drawImage(buildingImage, x + imageOffsets[building.type][0] - imageSize/2, y + imageOffsets[building.type][1] - imageSize, imageSize, imageSize);
-            }
-          }*/
 
           //LEFT SHOW DEF
           if(!canPlay){
