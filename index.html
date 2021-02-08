@@ -388,17 +388,17 @@
           return capacity
         }
 
-        function getWallNeighbors(entities,originX,originY,team){
+        function getWallNeighbors(entities,originX,originY,team,wallTeam){
           if(team == 0){
-            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
-            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
-            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == team)
-            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == team)
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == wallTeam)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == wallTeam)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == wallTeam)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == wallTeam)
           }else{
-            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team != team)
-            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team != team)
-            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team != team)
-            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team != team)
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team != wallTeam)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team != wallTeam)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team != wallTeam)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team != wallTeam)
           }
           topLeft = topLeft || false
           topRight = topRight || false
@@ -701,7 +701,7 @@
               var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
             }
             if(entity.type == "Wall"){
-              var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam)
+              var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam,entity.team)
               var globalX = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
               var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
               var h = kohrHeightCell/3
