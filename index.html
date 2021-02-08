@@ -452,17 +452,16 @@
           return allEntities
         }
 
-        function drawPara(ctx,gX,gY,points,fillColor,border){
+        function drawPoly(ctx,gX,gY,points,polyHeight,fillColor,border){
           console.log(ctx,gX,gY,points,fillColor,border)
           ctx.beginPath()
           ctx.fillStyle = fillColor
           ctx.lineCap = "round"
           ctx.strokeStyle = border[0]
           ctx.lineWidth = border[1]
-          ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
-          ctx.lineTo(points[1][0]+gX,points[1][1]+gY)
-          ctx.lineTo(points[2][0]+gX,points[2][1]+gY)
-          ctx.lineTo(points[3][0]+gX,points[3][1]+gY)
+          points.forEach(function(point){
+            ctx.lineTo(point[0]+gX,point[1]+gY-polyHeight)
+          })
           ctx.closePath()
           ctx.fill()
           ctx.stroke()
@@ -764,6 +763,26 @@
                 drawParaS(kohrCtx,globalX,globalY,[[-1*w,2*h],[2*w,-1*h]],wallHeight,fillColor,border)
                 drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
               }
+              //DRAWING TOP OF WALLS
+              var fillColor = "#ffff00"
+              var border = ["#000000",1]
+              var polyPoints = [[-1*w,0]]
+              if(neighbors[0]){
+                polyPoints.push([-2*w,-1*h],[-1*w,-2*h])
+              }
+              polyPoints.push([0*w,-1*h])
+              if(neighbors[1]){
+                polyPoints.push([1*w,-2*h],[2*w,-1*h])
+              }
+              polyPoints.push([1*w,0*h])
+              if(neighbors[2]){
+                polyPoints.push([2*w,1*h],[1*w,2*h])
+              }
+              polyPoints.push([0*w,1*h])
+              if(neighbors[3]){
+                polyPoints.push([-1*w,2*h],[-2*w,1*h])
+              }
+              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,border)
             }else{
               entityImage = new Image()
               var entityImage = document.getElementById("cache-" + color + "_" + entity.type.toLowerCase())
