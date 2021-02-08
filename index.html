@@ -395,10 +395,10 @@
             var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == wallTeam)
             var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == wallTeam)
           }else{
-            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team != wallTeam)
-            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team != wallTeam)
-            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team != wallTeam)
-            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team != wallTeam)
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == wallTeam)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == wallTeam)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == wallTeam)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == wallTeam)
           }
           topLeft = topLeft || false
           topRight = topRight || false
