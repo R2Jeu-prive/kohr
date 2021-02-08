@@ -477,7 +477,20 @@
           ctx.lineTo(points[0][0]+gX,points[0][1]+gY-paraHeight)
           ctx.closePath()
           ctx.fill()
+          ctx.beginPath()
+          ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
+          ctx.lineTo(points[1][0]+gX,points[1][1]+gY)
+          ctx.moveTo(points[1][0]+gX,points[1][1]+gY-paraHeight)
+          ctx.lineTo(points[0][0]+gX,points[0][1]+gY-paraHeight)
           ctx.stroke()
+          ctx.setLineDash([0, paraHeight/3, paraHeight/3, paraHeight/3]);
+          ctx.beginPath()
+          ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
+          ctx.lineTo(points[0][0]+gX,points[0][1]+gY-paraHeight)
+          ctx.moveTo(points[1][0]+gX,points[1][1]+gY)
+          ctx.lineTo(points[1][0]+gX,points[1][1]+gY-paraHeight)
+          ctx.stroke()
+          ctx.setLineDash([]);
         }
 
         function showGame(givenGame,userPseudo,userSelected,canPlay){
@@ -706,7 +719,7 @@
               var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
-              var wallHeight = 2.8*h
+              var wallHeight = 5*h
               var fillColor = "#20202b"
               var border = ["#000000",1]
               //DRAWING WALLS
