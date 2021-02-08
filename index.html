@@ -817,6 +817,17 @@
           }
           for(index in entitiesToDraw){
             var entity = entitiesToDraw[index]
+            if(entity.team == userTeam){
+              var color = "blue"
+            }else{
+              var color = "red"
+            }
+            var entityX = entity.x - 1
+            var entityY = entity.y - 1
+            if(userTeam == 1){
+              var entityX = -entityX + givenGame.gameInfo.maxPlayers + 4
+              var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
+            }
             var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam,entity.team)
             var globalX = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
             var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
