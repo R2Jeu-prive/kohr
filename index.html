@@ -400,10 +400,10 @@
             var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
             var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
           }
-          topLeft == topLeft || false
-          topRight == topRight || false
-          bottomLeft == bottomLeft || false
-          bottomRight == bottomRight || false
+          topLeft = topLeft || false
+          topRight = topRight || false
+          bottomLeft = bottomLeft || false
+          bottomRight = bottomRight || false
           console.log([topLeft,topRight,bottomLeft,bottomRight])
           return [topLeft,topRight,bottomLeft,bottomRight]
         }
@@ -689,7 +689,7 @@
               
               //LEFT SIDE
               if(!neighbors[0] && !neighbors[2] && !neighbors[3]){
-                drawPara(kohrCtx,globalX,globaY,[[-1*w,0],[0,1*h],[-1*w,-wallHeight],[0,1*h-wallHeight]],fillColor,border)
+                drawPara(kohrCtx,globalX,globalY,[[-1*w,0],[0,1*h],[-1*w,-wallHeight],[0,1*h-wallHeight]],fillColor,border)
               }
             }else{
               entityImage = new Image()
