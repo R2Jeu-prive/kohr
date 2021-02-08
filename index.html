@@ -460,9 +460,9 @@
           ctx.strokeStyle = border[0]
           ctx.lineWidth = border[1]
           ctx.moveTo(points[0][0]+gX,points[0][1]+gY)
-          ctx.moveTo(points[1][0]+gX,points[1][1]+gY)
-          ctx.moveTo(points[2][0]+gX,points[2][1]+gY)
-          ctx.moveTo(points[3][0]+gX,points[3][1]+gY)
+          ctx.lineTo(points[1][0]+gX,points[1][1]+gY)
+          ctx.lineTo(points[2][0]+gX,points[2][1]+gY)
+          ctx.lineTo(points[3][0]+gX,points[3][1]+gY)
           ctx.closePath()
           ctx.fill()
           ctx.stroke()
@@ -696,8 +696,8 @@
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
               var wallHeight = 10
-              var fillColor = "green"
-              var border = ["black",1]
+              var fillColor = "#ffffff"
+              var border = ["#000000",1]
               
               //LEFT SIDE
               if(!neighbors[0] && !neighbors[2] && !neighbors[3]){
