@@ -677,6 +677,17 @@
             if(!eMiddle && entity.team != userTeam){
               continue //entity is at other base
             }
+            if(entity.team == userTeam){
+              var color = "blue"
+            }else{
+              var color = "red"
+            }
+            var entityX = entity.x - 1
+            var entityY = entity.y - 1
+            if(userTeam == 1){
+              var entityX = -entityX + givenGame.gameInfo.maxPlayers + 4
+              var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
+            }
             if(entity.type == "Wall"){
               var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam)
               console.log(neighbors)
@@ -694,18 +705,7 @@
               }
             }else{
               entityImage = new Image()
-              if(entity.team == userTeam){
-                var color = "blue"
-              }else{
-                var color = "red"
-              }
               var entityImage = document.getElementById("cache-" + color + "_" + entity.type.toLowerCase())
-              var entityX = entity.x - 1
-              var entityY = entity.y - 1
-              if(userTeam == 1){
-                var entityX = -entityX + givenGame.gameInfo.maxPlayers + 4
-                var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
-              }
               if(eMiddle){
                 let imageSize = (kohrHeightCell/250) * imageScales[entity.type] * 500
                 let x = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
