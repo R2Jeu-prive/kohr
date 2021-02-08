@@ -695,13 +695,13 @@
               var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
-              var wallHeight = 10
+              var wallHeight = 5*h
               var fillColor = "#ffffff"
               var border = ["#000000",1]
               
               //LEFT SIDE
               if(!neighbors[0] && !neighbors[2] && !neighbors[3]){
-                drawPara(kohrCtx,globalX,globalY,[[-1*w,0],[0,1*h],[-1*w,-wallHeight],[0,1*h-wallHeight]],fillColor,border)
+                drawPara(kohrCtx,globalX,globalY,[[-1*w,0],[0,1*h],[0,1*h-wallHeight],[-1*w,-wallHeight]],fillColor,border)
               }
             }else{
               entityImage = new Image()
