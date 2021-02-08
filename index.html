@@ -395,17 +395,15 @@
             var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == team)
             var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == team)
           }else{
-            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team == team)
-            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team == team)
-            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team == team)
-            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team == team)
+            var topLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX+1 && entity.y == originY && entity.atMiddle && entity.team != team)
+            var topRight = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY-1 && entity.atMiddle && entity.team != team)
+            var bottomLeft = entities.find(entity => entity.type == "Wall" && entity.x == originX && entity.y == originY+1 && entity.atMiddle && entity.team != team)
+            var bottomRight = entities.find(entity => entity.type == "Wall" && entity.x == originX-1 && entity.y == originY && entity.atMiddle && entity.team != team)
           }
-          console.log("b",team,[topLeft,topRight,bottomLeft,bottomRight])
           topLeft = topLeft || false
           topRight = topRight || false
           bottomLeft = bottomLeft || false
           bottomRight = bottomRight || false
-          console.log([topLeft,topRight,bottomLeft,bottomRight])
           return [topLeft,topRight,bottomLeft,bottomRight]
         }
 
