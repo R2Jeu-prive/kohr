@@ -775,11 +775,11 @@
                 polyPoints.push([1*w,-2*h],[2*w,-1*h])
               }
               polyPoints.push([1*w,0*h])
-              if(neighbors[2]){
+              if(neighbors[3]){
                 polyPoints.push([2*w,1*h],[1*w,2*h])
               }
               polyPoints.push([0*w,1*h])
-              if(neighbors[3]){
+              if(neighbors[2]){
                 polyPoints.push([-1*w,2*h],[-2*w,1*h])
               }
               drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,border)
