@@ -723,7 +723,7 @@
               var h = kohrHeightCell/3
               var w = kohrWidthCell/3
               var wallHeight = 5*h
-              var fillColor = "#20202b"
+              var fillColor = "rgba(32,32,43,0.5)"
               var border = ["#000000",1]
               //DRAWING WALLS
               if(neighbors[0] && neighbors[1] && neighbors[2] && neighbors[3]){
@@ -775,30 +775,6 @@
                 drawParaS(kohrCtx,globalX,globalY,[[-1*w,2*h],[2*w,-1*h]],wallHeight,fillColor,border)
                 drawParaS(kohrCtx,globalX,globalY,[[-1*w,0*h],[-2*w,-1*h]],wallHeight,fillColor,border)
               }
-              //DRAWING TOP OF WALLS
-              /*if(color == "blue"){
-                var fillColor = "#64a5ff"
-              }else{
-                var fillColor = "#ff5050"
-              }
-              var border = ["#000000",1]
-              var polyPoints = [[-1*w,0]]
-              if(neighbors[0]){
-                polyPoints.push([-2*w,-1*h],[-1*w,-2*h])
-              }
-              polyPoints.push([0*w,-1*h])
-              if(neighbors[1]){
-                polyPoints.push([1*w,-2*h],[2*w,-1*h])
-              }
-              polyPoints.push([1*w,0*h])
-              if(neighbors[3]){
-                polyPoints.push([2*w,1*h],[1*w,2*h])
-              }
-              polyPoints.push([0*w,1*h])
-              if(neighbors[2]){
-                polyPoints.push([-1*w,2*h],[-2*w,1*h])
-              }
-              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,[fillColor,border[1]])*/
             }else{
               entityImage = new Image()
               var entityImage = document.getElementById("cache-" + color + "_" + entity.type.toLowerCase())
@@ -838,9 +814,9 @@
             if(entity.type == "Wall"){
               //DRAWING TOP OF WALLS ON TOP OF EVERYTHING
               if(color == "blue"){
-                var fillColor = "#64a5ff"
+                var fillColor = "rgba(100,165,255,0.8)"
               }else{
-                var fillColor = "#ff5050"
+                var fillColor = "rgba(255,80,80,0.8)"
               }
               var polyPoints = [[-1*w,0]]
               if(neighbors[0]){
