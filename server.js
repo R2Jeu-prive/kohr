@@ -167,6 +167,14 @@ io.on('connection', function(socket){
                     game.buildingBuild("Wall",7,2,undefined,0,456456,io)
                     game.buildingBuild("Wall",6,1,undefined,0,456456,io)
                     game.buildingBuild("Wall",6,2,undefined,0,456456,io)
+                    game.buildingBuild("Wall",6,3,undefined,0,456456,io)
+                    game.buildingBuild("Wall",6,4,undefined,0,456456,io)
+                    game.buildingBuild("Wall",2,1,undefined,0,456456,io)
+                    game.buildingBuild("Wall",6,3,undefined,0,456456,io)
+                    game.buildingBuild("Wall",5,3,undefined,0,456456,io)
+                    game.buildingBuild("Wall",4,3,undefined,0,456456,io)
+                    game.buildingBuild("Wall",5,4,undefined,0,456456,io)
+                    game.buildingBuild("Wall",5,2,undefined,0,456456,io)
                     game.pieceBuild("Pawn",3,2,0,456456,io)
                 }else{
                     socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
