@@ -457,6 +457,8 @@
           ctx.lineCap = "round"
           ctx.strokeStyle = border[0]
           ctx.lineWidth = border[1]
+          ctx.shadowColor = fillColor
+          ctx.shadowBlur = 10
           points.forEach(function(point){
             ctx.lineTo(point[0]+gX,point[1]+gY-polyHeight)
           })
@@ -795,7 +797,7 @@
               if(neighbors[2]){
                 polyPoints.push([-1*w,2*h],[-2*w,1*h])
               }
-              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,border)
+              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,[fillColor,border[1]])
             }else{
               entityImage = new Image()
               var entityImage = document.getElementById("cache-" + color + "_" + entity.type.toLowerCase())
