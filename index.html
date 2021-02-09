@@ -851,7 +851,7 @@
           //GET CANVAS AND DEFINE LIMITING DIMENSION
           var baseCanvasS = document.getElementById("game-base-canvas-selected")
           var kohrCanvasS = document.getElementById("game-kohr-canvas-selected")
-          var kohrCanvasS = document.getElementById("game-kohr-canvas-top")
+          var kohrCanvasT = document.getElementById("game-kohr-canvas-top")
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2) * window.devicePixelRatio
@@ -880,7 +880,7 @@
           var kohrWidthCell = ((gridWidth - (4*kohrM)) / 2) / kohrGrid
           var baseCtxS = baseCanvasS.getContext("2d");
           var kohrCtxS = kohrCanvasS.getContext("2d");
-          var kohrCtxT = kohrCanvasS.getContext("2d");
+          var kohrCtxT = kohrCanvasT.getContext("2d");
 
           //DRAW SELECTED SQUARE
           if(!userSelected.unselect){
