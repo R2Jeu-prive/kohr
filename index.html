@@ -151,6 +151,7 @@
           <button class="game-buttons game-switch" id="game-kohr-change-board">Voir la Base</button>
           <canvas class="game-canvas" id="game-kohr-canvas-selected"></canvas>
           <canvas class="game-canvas" id="game-kohr-canvas"></canvas>
+          <canvas class="game-canvas" id="game-kohr-canvas-top"></canvas>
           <div class="game-energybar" id="game-kohr-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
             <div class="game-energybar-energy"></div>
@@ -850,6 +851,7 @@
           //GET CANVAS AND DEFINE LIMITING DIMENSION
           var baseCanvasS = document.getElementById("game-base-canvas-selected")
           var kohrCanvasS = document.getElementById("game-kohr-canvas-selected")
+          var kohrCanvasS = document.getElementById("game-kohr-canvas-top")
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2) * window.devicePixelRatio
@@ -862,6 +864,8 @@
           baseCanvasS.width = gridWidth //* window.devicePixelRatio
           kohrCanvasS.height = gridHeight //* window.devicePixelRatio
           kohrCanvasS.width = gridWidth //* window.devicePixelRatio
+          kohrCanvasT.height = gridHeight //* window.devicePixelRatio
+          kohrCanvasT.width = gridWidth //* window.devicePixelRatio
           $(".game-canvas").css("width",gridWidth/window.devicePixelRatio+"px")
           $(".game-canvas").css("height",gridHeight/window.devicePixelRatio+"px")
 
@@ -876,6 +880,7 @@
           var kohrWidthCell = ((gridWidth - (4*kohrM)) / 2) / kohrGrid
           var baseCtxS = baseCanvasS.getContext("2d");
           var kohrCtxS = kohrCanvasS.getContext("2d");
+          var kohrCtxT = kohrCanvasS.getContext("2d");
 
           //DRAW SELECTED SQUARE
           if(!userSelected.unselect){
@@ -963,7 +968,7 @@
               if(neighbors[2]){
                 polyPoints.push([-1*w,2*h],[-2*w,1*h])
               }
-              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,[fillColor,border[1]])
+              drawPoly(kohrCtxT,globalX,globalY,polyPoints,wallHeight,fillColor,[fillColor,border[1]])
             }
           }
 
