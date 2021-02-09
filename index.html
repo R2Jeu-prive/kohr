@@ -5,7 +5,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <meta name="viewport" content="initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/css/utility">
     <link rel="stylesheet" type="text/css" href="/css/login">
     <link rel="stylesheet" type="text/css" href="/css/game">
@@ -569,7 +569,7 @@
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
-          alert(window.innerHeight+ ', ' +window.innerWidth)
+          alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
           baseCanvas.height = gridHeight
           baseCanvas.width = gridWidth
           kohrCanvas.height = gridHeight
