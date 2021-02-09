@@ -256,7 +256,10 @@
     position: absolute;
     top: 60%;
     left: 3vh;
-    background-color: red;
+    background: rgba(110,110,145,0.2);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+    border-left: 4px solid rgb(110,110,145);
+    border-right: 4px solid rgb(110,110,145);
     height: 35%;
     width: 25%;
 }
@@ -269,6 +272,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    font-family: "Comfortaa";
+    font-size: larger;
 }
 
 .game-action-2{
@@ -279,6 +284,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    font-family: "Comfortaa";
+    font-size: larger;
 }
 
 .game-action-3{
@@ -289,6 +296,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    font-family: "Comfortaa";
+    font-size: larger;
 }
 
 .game-action-4{
@@ -301,16 +310,20 @@
 }
 
 .game-precreate-button{
+    border: 1px solid rgb(110,110,145);
+    border-radius: 3px;
     position: static;
     list-style: none;
     padding: 0px;
     background:purple;
     float:left;
-    margin:0 5px 5px 0;
+    margin:0 3px 3px 0;
 }
 
 .game-precreate-button:disabled{
-    background:pink;
+    filter: blur(2px) saturate(0.5);
+    border: none;
+    background: rgba(0,0,0,0);
 }
 
 .game-precreate-img{

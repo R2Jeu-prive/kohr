@@ -910,7 +910,7 @@
                 var x = userSelected.x
                 var y = userSelected.y
               }
-              baseCtxS.fillStyle = '#3c5050';
+              baseCtxS.fillStyle = "rgba(221,197,250,0.5)";
               baseCtxS.beginPath();
               let leftPointX = (2*baseM) + ((x-1)*baseWidthCell) + ((y-1)*baseWidthCell)
               let leftPointY = (gridHeight/2) + ((x-1)*baseHeightCell) - ((y-1)*baseHeightCell)
@@ -976,8 +976,8 @@
           if(!canPlay){
             var leftShow = 1;
           }else{
-            var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
-            var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+            var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle && !userSelected.unselect)
+            var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && !userSelected.unselect)
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
