@@ -74,6 +74,7 @@
         <div id="game-base-side">
           <button class="game-buttons game-skip">Finir le tour</button>
           <button class="game-buttons game-switch" id="game-base-change-board">Voir le Kohr</button>
+          <canvas class="game-canvas" id="game-base-canvas-selected"></canvas>
           <canvas class="game-canvas" id="game-base-canvas"></canvas>
           <div class="game-energybar" id="game-base-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
@@ -148,6 +149,7 @@
         <div id="game-kohr-side">
           <button class="game-buttons game-skip">Finir le tour</button>
           <button class="game-buttons game-switch" id="game-kohr-change-board">Voir la Base</button>
+          <canvas class="game-canvas" id="game-kohr-canvas-selected"></canvas>
           <canvas class="game-canvas" id="game-kohr-canvas"></canvas>
           <div class="game-energybar" id="game-kohr-energybar">
             <img class="game-energybar-under" src="/img/energybar_under"/>
@@ -268,7 +270,7 @@
           }else if(buttonType.startsWith("precreatepiece")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGame(game,pseudo,selected,canPlay)
+            showGameFast(game,pseudo,selected,canPlay)
           }
         })
 
@@ -315,7 +317,7 @@
             selected.unselect = true
           }
           
-          showGame(game,pseudo,selected,play)
+          showGameFast(game,pseudo,selected,play)
         });
 
         function countBuildings(game,type,team){
@@ -592,47 +594,6 @@
           var baseCtx = baseCanvas.getContext("2d");
           var kohrCtx = kohrCanvas.getContext("2d");
 
-          //DRAW SELECTED SQUARE
-          if(!userSelected.unselect){
-            if(userSelected.atMiddle){
-              if(tempMe.team == 1){
-                var x = -1*userSelected.x + kohrGrid + 1
-                var y = -1*userSelected.y + kohrGrid + 1
-              }else{
-                var x = userSelected.x
-                var y = userSelected.y
-              }
-              kohrCtx.fillStyle = '#3c5050';
-              kohrCtx.beginPath();
-              let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
-              let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
-              kohrCtx.moveTo(leftPointX,leftPointY);
-              kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
-              kohrCtx.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
-              kohrCtx.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
-              kohrCtx.closePath();
-              kohrCtx.fill();
-            }else{
-              if(tempMe.team == 1){
-                var x = -1*userSelected.x + baseGrid + 1
-                var y = -1*userSelected.y + baseGrid + 1
-              }else{
-                var x = userSelected.x
-                var y = userSelected.y
-              }
-              baseCtx.fillStyle = '#3c5050';
-              baseCtx.beginPath();
-              let leftPointX = (2*baseM) + ((x-1)*baseWidthCell) + ((y-1)*baseWidthCell)
-              let leftPointY = (gridHeight/2) + ((x-1)*baseHeightCell) - ((y-1)*baseHeightCell)
-              baseCtx.moveTo(leftPointX,leftPointY);
-              baseCtx.lineTo(leftPointX+baseWidthCell,leftPointY-baseHeightCell);
-              baseCtx.lineTo(leftPointX+2*baseWidthCell,leftPointY);
-              baseCtx.lineTo(leftPointX+baseWidthCell,leftPointY+baseHeightCell);
-              baseCtx.closePath();
-              baseCtx.fill();
-            }
-          }
-
           //DRAW BASE GRID
           baseCtx.strokeStyle = "#6e6e91"
           baseCtx.lineCap = "round";
@@ -856,6 +817,106 @@
           }
           kohrCtx.shodowBlur = 0;
           baseCtx.shodowBlur = 0;
+          var returnArray = showGameFast(givenGame,userPseudo,userSelected,canPlay)
+          return returnArray;
+        }
+        
+        function showGameFast(givenGame,userPseudo,userSelected,canPlay){
+          //SET DYNAMIC CSS PROPERTIES AT START
+          $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
+          $(".game-ressources").css("height",2*parseInt($(".game-energybar-under").first().css("height")) + "px")
+          $(".game-ressource-count").css("left",$(".game-ressources").first().css("height"))
+          $(".game-ressource-count").css("font-size",(2/5)*parseInt($(".game-ressources").first().css("height")) + "px")
+          $(".game-energy-prod-count").css("left",$(".game-energybar-under").first().css("height"))
+          $(".game-energy-count").css("right",$(".game-energybar-under").first().css("height"))
+          $(".game-energy-prod-count").css("font-size",(3/5)*parseInt($(".game-energybar-under").first().css("height")) + "px")
+          $(".game-energy-count").css("font-size",(3/5)*parseInt($(".game-energybar-under").first().css("height")) + "px")
+          $(".game-timer-background").css("width",$(".game-timer-background").css("height"))
+          $(".game-timer-text").css("font-size",(1/3)*parseInt($(".game-timer-text").css("width")) + "px")
+          $(".game-skip").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
+          $(".game-switch").css("top","calc(6% + "+(2*parseInt($(".game-energybar-under").first().css("height"))) + "px)")
+          $(".game-action-4").css("width", (265/320)*$(".game-actions").width() + "px")
+          $(".game-precreate-button").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-precreate-button").css("height", (60/320)*$(".game-actions").width() + "px")
+
+          //GET PLAYER TEAM
+          var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
+          if(tempMe == undefined){
+            console.log("oula")
+            return givenGame
+          }
+          var userTeam = tempMe.team
+
+          //GET CANVAS AND DEFINE LIMITING DIMENSION
+          var baseCanvasS = document.getElementById("game-base-canvas-selected")
+          var kohrCanvasS = document.getElementById("game-kohr-canvas-selected")
+          var maxHeight = parseInt($("#game-frame").css("height"))
+          var maxWidth = parseInt($("#game-frame").css("width"))
+          var gridHeight = Math.min(maxHeight, maxWidth/2) * window.devicePixelRatio
+          var gridWidth = gridHeight * 2
+          $(".game-skip").text(gridHeight + ", " + gridWidth + ", " + window.devicePixelRatio)
+          //$(".game-canvas").css("transform","translate(" + -50/window.devicePixelRatio + "%," + -50/window.devicePixelRatio + "%)")
+          
+          //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
+          baseCanvasS.height = gridHeight //* window.devicePixelRatio
+          baseCanvasS.width = gridWidth //* window.devicePixelRatio
+          kohrCanvasS.height = gridHeight //* window.devicePixelRatio
+          kohrCanvasS.width = gridWidth //* window.devicePixelRatio
+          $(".game-canvas").css("width",gridWidth/window.devicePixelRatio+"px")
+          $(".game-canvas").css("height",gridHeight/window.devicePixelRatio+"px")
+
+          //CALCULATE GRID, M AND CELL FOR BASE AND KOHR
+          var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
+          var baseM = gridHeight / (1.3*baseGrid)
+          var kohrGrid = givenGame.gameInfo.maxPlayers + 5
+          var kohrM = gridHeight / (1.3*kohrGrid)
+          var baseHeightCell = ((gridHeight - (2*baseM)) / 2) / baseGrid
+          var baseWidthCell = ((gridWidth - (4*baseM)) / 2) / baseGrid
+          var kohrHeightCell = ((gridHeight - (2*kohrM)) / 2) / kohrGrid
+          var kohrWidthCell = ((gridWidth - (4*kohrM)) / 2) / kohrGrid
+          var baseCtxS = baseCanvasS.getContext("2d");
+          var kohrCtxS = kohrCanvasS.getContext("2d");
+
+          //DRAW SELECTED SQUARE
+          if(!userSelected.unselect){
+            if(userSelected.atMiddle){
+              if(tempMe.team == 1){
+                var x = -1*userSelected.x + kohrGrid + 1
+                var y = -1*userSelected.y + kohrGrid + 1
+              }else{
+                var x = userSelected.x
+                var y = userSelected.y
+              }
+              kohrCtxS.fillStyle = '#3c5050';
+              kohrCtxS.beginPath();
+              let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
+              let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
+              kohrCtxS.moveTo(leftPointX,leftPointY);
+              kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
+              kohrCtxS.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
+              kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
+              kohrCtxS.closePath();
+              kohrCtxS.fill();
+            }else{
+              if(tempMe.team == 1){
+                var x = -1*userSelected.x + baseGrid + 1
+                var y = -1*userSelected.y + baseGrid + 1
+              }else{
+                var x = userSelected.x
+                var y = userSelected.y
+              }
+              baseCtxS.fillStyle = '#3c5050';
+              baseCtxS.beginPath();
+              let leftPointX = (2*baseM) + ((x-1)*baseWidthCell) + ((y-1)*baseWidthCell)
+              let leftPointY = (gridHeight/2) + ((x-1)*baseHeightCell) - ((y-1)*baseHeightCell)
+              baseCtxS.moveTo(leftPointX,leftPointY);
+              baseCtxS.lineTo(leftPointX+baseWidthCell,leftPointY-baseHeightCell);
+              baseCtxS.lineTo(leftPointX+2*baseWidthCell,leftPointY);
+              baseCtxS.lineTo(leftPointX+baseWidthCell,leftPointY+baseHeightCell);
+              baseCtxS.closePath();
+              baseCtxS.fill();
+            }
+          }
 
           //LEFT SHOW DEF
           if(!canPlay){
@@ -934,9 +995,9 @@
 
           //SET DYNAMIC CSS PROPERTIES AT END
           $(".game-switch-" + userSelected.switch).css("background-color","green")
-          return [givenGame,userSelected];
+          return [givenGame,userSelected]
         }
-
+        
         socket.on("disconnect",function(){
           $("#disconnected-frame").attr("hidden",false);
           $("#login-frame").attr("hidden",true);
