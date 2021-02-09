@@ -570,8 +570,8 @@
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
           $(".game-skip").text(gridHeight + ", " + gridWidth + ", " + window.devicePixelRatio)
-          $(".game-canvas").css("width",gridWidth * window.devicePixelRatio+"px")
-          $(".game-canvas").css("height",gridHeight * window.devicePixelRatio+"px")
+          //$(".game-canvas").css("width",gridWidth * window.devicePixelRatio+"px")
+          //$(".game-canvas").css("height",gridHeight * window.devicePixelRatio+"px")
           //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
           baseCanvas.height = gridHeight * window.devicePixelRatio
           baseCanvas.width = gridWidth * window.devicePixelRatio
