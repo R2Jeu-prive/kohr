@@ -569,6 +569,7 @@
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
+          $(".game-skip").text(gridHeight + ", " + gridWidth + ", " + window.devicePixelRatio)
           $(".game-canvas").css("width",gridWidth+"px")
           $(".game-canvas").css("height",gridHeight+"px")
           //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
