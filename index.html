@@ -642,6 +642,7 @@
           var xE = (gridWidth - (4*baseM))
           var yE = (gridHeight - (2*baseM)) / 2
           for(let i = 0; i <= baseGrid; i++){
+            baseCtx.beginPath()
             baseCtx.moveTo(xS+2*baseM,yS+baseM)
             baseCtx.lineTo(xE+2*baseM,yE+baseM)
             baseCtx.stroke()
@@ -655,6 +656,7 @@
           var xE = (gridWidth - (4*baseM)) / 2
           var yE = 0
           for(let i = 0; i <= baseGrid; i++){
+            baseCtx.beginPath()
             baseCtx.moveTo(xS+2*baseM,yS+baseM)
             baseCtx.lineTo(xE+2*baseM,yE+baseM)
             baseCtx.stroke()
@@ -673,6 +675,7 @@
           var xE = (gridWidth - (4*kohrM))
           var yE = (gridHeight - (2*kohrM)) / 2
           for(let i = 0; i <= kohrGrid; i++){
+            baseCtx.beginPath()
             kohrCtx.moveTo(xS+2*kohrM,yS+kohrM)
             kohrCtx.lineTo(xE+2*kohrM,yE+kohrM)
             kohrCtx.stroke()
@@ -686,6 +689,7 @@
           var xE = (gridWidth - (4*kohrM)) / 2
           var yE = 0
           for(let i = 0; i <= kohrGrid; i++){
+            baseCtx.beginPath()
             kohrCtx.moveTo(xS+2*kohrM,yS+kohrM)
             kohrCtx.lineTo(xE+2*kohrM,yE+kohrM)
             kohrCtx.stroke()
