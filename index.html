@@ -571,13 +571,13 @@
           var gridWidth = gridHeight * 2
           $(".game-skip").text(gridHeight + ", " + gridWidth + ", " + window.devicePixelRatio)
           $(".game-canvas").css("transform","translate(" + -50/window.devicePixelRatio + "%," + -50/window.devicePixelRatio + "%)")
-          //$(".game-canvas").css("width",gridWidth * window.devicePixelRatio+"px")
-          //$(".game-canvas").css("height",gridHeight * window.devicePixelRatio+"px")
+          $(".game-canvas").css("width",gridWidth * window.devicePixelRatio+"px")
+          $(".game-canvas").css("height",gridHeight * window.devicePixelRatio+"px")
           //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
-          baseCanvas.height = gridHeight * window.devicePixelRatio
-          baseCanvas.width = gridWidth * window.devicePixelRatio
-          kohrCanvas.height = gridHeight * window.devicePixelRatio
-          kohrCanvas.width = gridWidth * window.devicePixelRatio
+          baseCanvas.height = gridHeight * window.devicePixelRatio * window.devicePixelRatio
+          baseCanvas.width = gridWidth * window.devicePixelRatio * window.devicePixelRatio
+          kohrCanvas.height = gridHeight * window.devicePixelRatio * window.devicePixelRatio
+          kohrCanvas.width = gridWidth * window.devicePixelRatio * window.devicePixelRatio
 
           //CALCULATE GRID, M AND CELL FOR BASE AND KOHR
           var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
