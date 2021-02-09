@@ -569,11 +569,13 @@
           var maxWidth = parseInt($("#game-frame").css("width"))
           var gridHeight = Math.min(maxHeight, maxWidth/2)
           var gridWidth = gridHeight * 2
-          alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
-          baseCanvas.height = gridHeight
-          baseCanvas.width = gridWidth
-          kohrCanvas.height = gridHeight
-          kohrCanvas.width = gridWidth
+          $(".game-canvas").css("width",gridWidth+"px")
+          $(".game-canvas").css("height",gridHeight+"px")
+          //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
+          baseCanvas.height = gridHeight * window.devicePixelRatio
+          baseCanvas.width = gridWidth * window.devicePixelRatio
+          kohrCanvas.height = gridHeight * window.devicePixelRatio
+          kohrCanvas.width = gridWidth * window.devicePixelRatio
 
           //CALCULATE GRID, M AND CELL FOR BASE AND KOHR
           var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
