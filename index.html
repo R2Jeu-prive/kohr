@@ -280,8 +280,8 @@
           }
           var play = (tempMe.team == game.gameInfo.teamPlaying)
           var parentOffset = $(this).offset(); 
-          var clickX = (e.pageX - parentOffset.left) * window.devicePixelRatio;
-          var clickY = (e.pageY - parentOffset.top) * window.devicePixelRatio;
+          var clickX = (e.pageX - parentOffset.left) //* window.devicePixelRatio;
+          var clickY = (e.pageY - parentOffset.top) //* window.devicePixelRatio;
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
           var canvasHeight = parseInt($(this).css("height"))
@@ -294,7 +294,7 @@
             grid = game.gameInfo.maxPlayers + 5
             selected.atMiddle = true
           }
-          var m = gridHeight / (1.3*grid) * window.devicePixelRatio;
+          var m = gridHeight / (1.3*grid) //* window.devicePixelRatio;
           var clickX = clickX - 2*m
           var clickY = clickY - m
           var relX = clickX / (canvasWidth - 4*m)
@@ -573,10 +573,10 @@
           $(".game-canvas").css("transform","translate(" + -50/window.devicePixelRatio + "%," + -50/window.devicePixelRatio + "%)")
           
           //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
-          baseCanvas.height = gridHeight * window.devicePixelRatio
-          baseCanvas.width = gridWidth * window.devicePixelRatio
-          kohrCanvas.height = gridHeight * window.devicePixelRatio
-          kohrCanvas.width = gridWidth * window.devicePixelRatio
+          baseCanvas.height = gridHeight //* window.devicePixelRatio
+          baseCanvas.width = gridWidth //* window.devicePixelRatio
+          kohrCanvas.height = gridHeight //* window.devicePixelRatio
+          kohrCanvas.width = gridWidth //* window.devicePixelRatio
           $(".game-canvas").css("width",gridWidth+"px")
           $(".game-canvas").css("height",gridHeight+"px")
 
