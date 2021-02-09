@@ -892,7 +892,7 @@
                 var x = userSelected.x
                 var y = userSelected.y
               }
-              kohrCtxS.fillStyle = '#3c5050';
+              kohrCtxS.fillStyle = "rgba(221,197,250,1)";
               kohrCtxS.beginPath();
               let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
               let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
@@ -946,7 +946,7 @@
               var wallHeight = 5*h
               var border = ["#000000",1]
               if(userSelected.x == entity.x && userSelected.y == entity.y && userSelected.atMiddle && !userSelected.unselect){
-                var fillColor = "rgba(60,80,80,1)"
+                var fillColor = "rgba(221,197,250,1)"
               }else if(color == "blue"){
                 var fillColor = "rgba(100,165,255,1)"
               }else{
