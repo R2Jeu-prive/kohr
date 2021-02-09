@@ -577,8 +577,8 @@
           baseCanvas.width = gridWidth //* window.devicePixelRatio
           kohrCanvas.height = gridHeight //* window.devicePixelRatio
           kohrCanvas.width = gridWidth //* window.devicePixelRatio
-          $(".game-canvas").css("width",gridWidth+"px")
-          $(".game-canvas").css("height",gridHeight+"px")
+          $(".game-canvas").css("width",gridWidth/window.devicePixelRatio+"px")
+          $(".game-canvas").css("height",gridHeight/window.devicePixelRatio+"px")
 
           //CALCULATE GRID, M AND CELL FOR BASE AND KOHR
           var baseGrid = 0.5*givenGame.gameInfo.maxPlayers + 3
