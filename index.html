@@ -567,16 +567,16 @@
           var kohrCanvas = document.getElementById("game-kohr-canvas")
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
-          var gridHeight = Math.min(maxHeight, maxWidth/2)
+          var gridHeight = Math.min(maxHeight, maxWidth/2) * window.devicePixelRatio
           var gridWidth = gridHeight * 2
           $(".game-skip").text(gridHeight + ", " + gridWidth + ", " + window.devicePixelRatio)
           $(".game-canvas").css("transform","translate(" + -50/window.devicePixelRatio + "%," + -50/window.devicePixelRatio + "%)")
           
           //alert(kohrCanvas.clientWidth * window.devicePixelRatio + ", " + kohrCanvas.clientHeight * window.devicePixelRatio)
-          baseCanvas.height = gridHeight * window.devicePixelRatio * window.devicePixelRatio
-          baseCanvas.width = gridWidth * window.devicePixelRatio * window.devicePixelRatio
-          kohrCanvas.height = gridHeight * window.devicePixelRatio * window.devicePixelRatio
-          kohrCanvas.width = gridWidth * window.devicePixelRatio * window.devicePixelRatio
+          baseCanvas.height = gridHeight * window.devicePixelRatio
+          baseCanvas.width = gridWidth * window.devicePixelRatio
+          kohrCanvas.height = gridHeight * window.devicePixelRatio
+          kohrCanvas.width = gridWidth * window.devicePixelRatio
           $(".game-canvas").css("width",gridWidth * window.devicePixelRatio+"px")
           $(".game-canvas").css("height",gridHeight * window.devicePixelRatio+"px")
 
