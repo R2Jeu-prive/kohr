@@ -280,8 +280,8 @@
           }
           var play = (tempMe.team == game.gameInfo.teamPlaying)
           var parentOffset = $(this).offset(); 
-          var clickX = (e.pageX - parentOffset.left)*window.devicePixelRatio;
-          var clickY = (e.pageY - parentOffset.top)*window.devicePixelRatio;
+          var clickX = e.pageX - parentOffset.left*window.devicePixelRatio;
+          var clickY = e.pageY - parentOffset.top*window.devicePixelRatio;
           var maxHeight = parseInt($("#game-frame").css("height"))
           var maxWidth = parseInt($("#game-frame").css("width"))
           var canvasHeight = parseInt($(this).css("height"))
