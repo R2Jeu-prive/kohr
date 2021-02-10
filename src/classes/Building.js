@@ -46,8 +46,10 @@ class Extractor extends Building {
     countNeighbours(gameBuildings){
         var neighbours = 0
         gameBuildings.forEach(function(building){
-            if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
-                neighbours = neighbours + 1
+            if(building.type == "Extractor"){
+                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                    neighbours = neighbours + 1
+                }
             }
         },this)
         return neighbours
