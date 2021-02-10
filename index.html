@@ -108,6 +108,7 @@
             </div>
           </div>
           <div class="game-actions">
+            <p class="game-action-0">Aucune case sélectionnée</p>
             <p class="game-action-1">Ce n'est pas à votre tour de jouer !</p>
             <p class="game-action-2">Entité ennemie !</p>
             <p class="game-action-3">La pièce n'a pas fini de se construire !</p>
@@ -949,13 +950,15 @@
               }else{
                 var leftShow = 2;
               }
-            }else{
+            }else if(!userSelected.unselect){
               var leftShow = 4;
+            }else{
+              var leftShow = 0
             }
           }
 
           //HIDING LEFT FRAMES
-          for (let i = 1; i < 7; i++) {
+          for (let i = 0; i < 7; i++) {
             if(i == leftShow){
               $(".game-action-" + i).attr("hidden",false)
             }else{
@@ -1057,10 +1060,12 @@
                 $(".game-upgrade-button").css("display","none")
               }
             }
-            if(building.type != "Battery" || countBuildings(givenGame,"Battery",userTeam) != 3){
+            if((building.type != "Battery" || countBuildings(givenGame,"Battery",userTeam) != 3) && building.type != "Core"){
               $(".game-destroy-button").css("display","initial")
+              $(".game-no-interaction").css("display","none")
             }else{
               $(".game-destroy-button").css("display","none")
+              $(".game-no-interaction").css("display","initial")
             }
           }
 
