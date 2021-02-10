@@ -799,10 +799,6 @@
           $(".game-action-4").css("width", (265/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("width", (60/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("height", (60/320)*$(".game-actions").width() + "px")
-          $(".game-changeprod-img").css("width", (60/320)*$(".game-actions").width() + "px")
-          $(".game-changeprod-img").css("height", (60/320)*$(".game-actions").width() + "px")
-          $(".game-upgrade-img").css("width", (60/320)*$(".game-actions").width() + "px")
-          $(".game-upgrade-img").css("height", (60/320)*$(".game-actions").width() + "px")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -1086,6 +1082,10 @@
               $(this).css("background","")
             }
           })
+          $(".game-changeprod-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-changeprod-img").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("height", (60/320)*$(".game-actions").width() + "px")
           return [givenGame,userSelected]
         }
         
