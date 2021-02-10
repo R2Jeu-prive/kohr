@@ -127,19 +127,19 @@
               <button class="game-buttons game-precreate-button game-swicth-HeavyArmory" id="game-base-precreatebuilding-HeavyArmory"><img class="game-precreate-img" src="/building/blue_heavy"/></button>
             </ul>
             <ul class="game-action-5">
-              <button class="game-button game-move game-switch-13"></button>
-              <button class="game-button game-attack1 game-switch-14"></button>
-              <button class="game-button game-attack2 game-switch-15"></button>
+              <button class="game-buttons game-move game-switch-13"></button>
+              <button class="game-buttons game-attack1 game-switch-14"></button>
+              <button class="game-buttons game-attack2 game-switch-15"></button>
             </ul>
             <ul class="game-action-6">
-              <button class="game-button game-collect-button" id="game-base-collect">Récolter</button>
+              <button class="game-buttons game-collect-button" id="game-base-collect">Récolter</button>
               <div class="game-changeprod-container">
-                <button class="game-button game-changeprod-button" id="game-base-changeprod-1"></button>
-                <button class="game-button game-changeprod-button" id="game-base-changeprod-2"></button>
-                <button class="game-button game-changeprod-button" id="game-base-changeprod-3"></button>
+                <button class="game-buttons game-changeprod-button" id="game-base-changeprod-1"></button>
+                <button class="game-buttons game-changeprod-button" id="game-base-changeprod-2"></button>
+                <button class="game-buttons game-changeprod-button" id="game-base-changeprod-3"></button>
               </div>
-              <button class="game-button game-upgrade-button" id="game-base-upgrade"></button>
-              <button class="game-button game-destroy-button" id="game-base-destroy">Détruire</button>
+              <button class="game-buttons game-upgrade-button" id="game-base-upgrade"></button>
+              <button class="game-buttons game-destroy-button" id="game-base-destroy">Détruire</button>
               <p class="game-no-interaction">Aucune action possible !</p>
             </ul>
           </div>
@@ -284,6 +284,7 @@
             selected.switch = cuts[cuts.length - 1]
             showGameFast(game,pseudo,selected,canPlay)
           }else if(buttonType.startsWith("upgrade")){
+            console.log("upgrade")
             socket.emit("buildingEdit",{lastTimeStamp : game.lastTimeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : "upgrade"});
           }else if(buttonType.startsWith("collect")){
             socket.emit("buildingEdit",{lastTimeStamp : game.lastTimeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : "empty"});
