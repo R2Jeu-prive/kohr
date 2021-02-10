@@ -424,6 +424,11 @@ class Game {
                 building.inventory[2] = edit
             }
         }else{
+            if(building.type == "Wall"){
+                this.stats[team][2] -= 20 //remove 20 titanium
+            }else{
+                this.stats[team][4] -= 50 //remove 20 titanium
+            }
             building.upgrade()
         }
         this.lastTimeStamp = timeStamp
