@@ -767,7 +767,13 @@
                 let imageSize = (kohrHeightCell/250) * imageScales[entity.type] * 500
                 let x = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
                 let y = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
+                if(["Pawn","Queen","Rook","Enchanter","Knight","Bishop"].indexOf(entity.type) != -1){
+                  if(entity.buildingTimeLeft != 0){
+                    kohrCtx.globalAlpha = 0.3
+                  }
+                }
                 kohrCtx.drawImage(entityImage, x + imageOffsets[entity.type][0] - imageSize/2, y + imageOffsets[entity.type][1] - imageSize, imageSize, imageSize);
+                kohrCtx.globalAlpha = 1
               }else{
                 let imageSize = (baseHeightCell/250) * imageScales[entity.type] * 500
                 let x = (2*baseM + baseWidthCell) + (entityX*baseWidthCell) + (entityY*baseWidthCell)
