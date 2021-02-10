@@ -1008,7 +1008,7 @@
             if(["game-base-precreatepiece-"+userSelected.switch,"game-base-precreatebuilding-"+userSelected.switch,"game-kohr-precreatepiece-"+userSelected.switch,"game-kohr-precreatebuilding-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.1")
             }else{
-              $(this).css("background","backToNormal")
+              $(this).css("background","")
             }
           })
           return [givenGame,userSelected]
