@@ -375,3 +375,9 @@
     font-size: larger;
     padding: 10 15 7 15;
 }
+
+.game-upgrade-text{
+    margin: 0px;
+    font-family: "Comfortaa";
+    font-size: larger;
+}
