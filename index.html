@@ -1004,7 +1004,7 @@
 
           //SET DYNAMIC CSS PROPERTIES AT END
           $(".game-switch-" + userSelected.switch).css("background-color","green")
-          $(".game-precreate-buttons").each(function() {
+          $(".game-precreate-button").each(function() {
             if(["game-base-precreatepiece-"+userSelected.switch,"game-base-precreatebuilding-"+userSelected.switch,"game-kohr-precreatepiece-"+userSelected.switch,"game-kohr-precreatebuilding-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.1")
             }else{
