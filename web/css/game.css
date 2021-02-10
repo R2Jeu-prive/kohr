@@ -333,7 +333,7 @@
 
 .game-collect-button{
     border-top: none;
-    border-right: none;
+    border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
     background-color: rgba(110,110,145,0.2);
     border-left: 2px solid rgb(110,110,145);
@@ -348,7 +348,22 @@
 
 .game-destroy-button{
     border-top: none;
-    border-right: none;
+    border-right: 2px solid rgb(110,110,145);
+    border-bottom: none;
+    background-color: rgba(110,110,145,0.2);
+    border-left: 2px solid rgb(110,110,145);
+    color: rgb(230,230,240);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+    cursor: pointer;
+    font-family: "Comfortaa";
+    z-index: 1;
+    font-size: larger;
+    padding: 10 15 7 15;
+}
+
+.game-upgrade-button{
+    border-top: none;
+    border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
     background-color: rgba(110,110,145,0.2);
     border-left: 2px solid rgb(110,110,145);
