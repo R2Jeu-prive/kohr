@@ -331,6 +331,7 @@
 }
 
 .game-collect-button{
+    position: static;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -349,6 +350,7 @@
 }
 
 .game-destroy-button{
+    position: static;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -367,6 +369,7 @@
 }
 
 .game-upgrade-button{
+    position: static;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -385,12 +388,14 @@
 }
 
 .game-upgrade-text{
+    position: static;
     margin: 0px;
     font-family: "Comfortaa";
     font-size: larger;
 }
 
 .game-changeprod-container{
+    position: static;
     width: max-content;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -398,6 +403,7 @@
 }
 
 .game-changeprod-button{
+    position: static;
     display: initial;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
