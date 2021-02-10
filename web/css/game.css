@@ -314,7 +314,6 @@
     top: 50%;
     padding: 0px;
     margin: 0px;
-    height: 100%;
     width: 90%;
     transform: translate(-50%, -50%);
 }
@@ -344,6 +343,9 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
+    width: 52%;
+    margin-left: 24%;
+    margin-bottom: 5px;
 }
 
 .game-destroy-button{
@@ -359,6 +361,9 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
+    width: 52%;
+    margin-left: 24%;
+    margin-bottom: 5px;
 }
 
 .game-upgrade-button{
@@ -374,6 +379,9 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 5px;
 }
 
 .game-upgrade-text{
