@@ -997,6 +997,9 @@
               }
 
               $(this).attr("disabled",!showAsPossible)
+              if(userSelected.switch == name && !showAsPossible){
+                userSelected.switch = ""
+              }
             })
           }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
             userSelected.switch = ""
