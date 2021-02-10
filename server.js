@@ -226,14 +226,19 @@ io.on('connection', function(socket){
         })
     })
     socket.on('buildingEdit',function(data){
+        console.log("received")
         user = getUserBySocket(socket)
         if(user == undefined){
             return //user WTF
         }
+        console.log("passed user")
         games.forEach(function(game){
             if(game.isUserConnected(user) && game.gameInfo.status == "game"){
+                console.log("found in game")
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                    console.log("timestamp ok")
                     if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
+                        console.log("can build ok")
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
                         game.buildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team, newTimeStamp, io)
                     }
