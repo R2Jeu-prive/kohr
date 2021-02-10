@@ -315,7 +315,7 @@
     position: static;
     list-style: none;
     padding: 0px;
-    background:purple;
+    background:rgba(0,0,0,0.1);;
     float:left;
     margin:0 3px 3px 0;
 }
