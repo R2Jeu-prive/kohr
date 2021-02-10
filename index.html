@@ -131,15 +131,15 @@
               <button class="game-button game-attack2 game-switch-15"></button>
             </ul>
             <ul class="game-action-6">
-              <button class="game-button game-collect"></button>
+              <button class="game-button game-collect-button" id="game-base-collect">Récolter</button>
               <div class="game-change-prod">
-                <button class="game-button game-change-prod-1"></button>
-                <button class="game-button game-change-prod-1"></button>
-                <button class="game-button game-change-prod-1"></button>
+                <button class="game-button game-changeprod-button" id="game-base-changeprod-1"></button>
+                <button class="game-button game-changeprod-button" id="game-base-changeprod-2"></button>
+                <button class="game-button game-changeprod-button" id="game-base-changeprod-3"></button>
               </div>
-              <button class="game-button game-upgrade"></button>
-              <button class="game-button game-destroy"></button>
-              <p class="game-no-interraction">Aucune action possible !</p>
+              <button class="game-button game-upgrade-button" id="game-base-upgrade"></button>
+              <button class="game-button game-destroy-button" id="game-base-destroy">Détruire</button>
+              <p class="game-no-interaction">Aucune action possible !</p>
             </ul>
           </div>
           <div class="game-timer-background">
@@ -1003,6 +1003,65 @@
             })
           }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
             userSelected.switch = ""
+          }
+
+          if(leftShow == 5){
+            building = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+            if(building.type == "Extractor"){
+              $(".game-collect-button").css("display","initial")
+              $(".game-changeprod-button").css("display","initial")
+              if(building.inventory[2] == "copper"){
+                $("#game-base-changeprod-1").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-kohr-changeprod-1").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-base-changeprod-2").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+                $("#game-kohr-changeprod-2").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+                $("#game-base-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+                $("#game-kohr-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+              }else if(building.inventory[2] == "titanium"){
+                $("#game-base-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-kohr-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-base-changeprod-2").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+                $("#game-kohr-changeprod-2").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+                $("#game-base-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+                $("#game-kohr-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+              }else if(building.inventory[2] == "gold"){
+                $("#game-base-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-kohr-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-base-changeprod-2").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-kohr-changeprod-2").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-base-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+                $("#game-kohr-changeprod-3").html("<img class='game-changeprod-img' src='/icon/ruby'/>")
+              }else{
+                $("#game-base-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-kohr-changeprod-1").html("<img class='game-changeprod-img' src='/icon/copper'/>")
+                $("#game-base-changeprod-2").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-kohr-changeprod-2").html("<img class='game-changeprod-img' src='/icon/titanium'/>")
+                $("#game-base-changeprod-3").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+                $("#game-kohr-changeprod-3").html("<img class='game-changeprod-img' src='/icon/gold'/>")
+              }
+              if(building.level < 3){
+                $(".game-upgrade-button").html("<img class='game-changeprod-img' src='/icon/ruby'/>x50")
+                $(".game-upgrade-button").css("display","initial")
+              }else{
+                $(".game-upgrade-button").css("display","none")  
+              }
+            }else{
+              $(".game-collect-button").css("display","none")
+              $(".game-changeprod-button").css("display","none")
+            }
+            if(building.type == "Wall"){
+              if(building.level < 2){
+                $(".game-upgrade-button").html("<img class='game-changeprod-img' src='/icon/titanium'/>x20")
+                $(".game-upgrade-button").css("display","initial")
+              }else{
+                $(".game-upgrade-button").css("display","none")
+              }
+            }
+            if(building.type != "Battery" || countBuildings(givenGame,"Battery",userTeam) != 3){
+              $(".game-destroy-button").css("display","initial")
+            }else{
+              $(".game-destroy-button").css("display","none")
+            }
           }
 
           //SET DYNAMIC CSS PROPERTIES AT END
