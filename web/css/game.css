@@ -314,5 +314,19 @@
     top: 50%;
     padding: 0px;
     margin: 0px;
+    height: 100%;
+    width: 90%;
     transform: translate(-50%, -50%);
+}
+
+.game-no-interaction{
+    font-size: larger;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    margin: 0px;
+    color: rgb(230,230,240);
+    font-family: 'Comfortaa';
 }
