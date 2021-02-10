@@ -998,8 +998,8 @@
 
               $(this).attr("disabled",!showAsPossible)
             })
-            $(".game-button-precreatepiece-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
-            $(".game-button-precreatebuilding-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
+            $("#game-button-precreatepiece-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
+            $("#game-button-precreatebuilding-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
           }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
             userSelected.switch = ""
           }
