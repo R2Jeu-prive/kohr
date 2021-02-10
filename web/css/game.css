@@ -264,33 +264,7 @@
     width: 25%;
 }
 
-.game-action-1{
-    position: absolute;
-    margin: 0;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    font-family: "Comfortaa";
-    font-size: larger;
-    color: rgb(230,230,240);
-}
-
-.game-action-2{
-    position: absolute;
-    margin: 0;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    font-family: "Comfortaa";
-    font-size: larger;
-    color: rgb(230,230,240);
-}
-
-.game-action-3{
+.game-action-simpletext{
     position: absolute;
     margin: 0;
     text-align: center;
