@@ -177,7 +177,7 @@ io.on('connection', function(socket){
                     game.buildingBuild("Wall",5,2,undefined,0,456456,io)
                     game.buildingBuild("Wall",1,2,undefined,1,456456,io)
                     game.buildingBuild("Wall",1,3,undefined,1,456456,io)
-                    game.buildingBuild("Extractor",5,5,undefined,1,456456,io)
+                    game.buildingBuild("Extractor",5,5,true,1,456456,io)
                     game.pieceBuild("Pawn",3,2,0,456456,io)
                 }else{
                     socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
