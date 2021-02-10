@@ -259,6 +259,7 @@
         })
 
         $(".game-buttons").on("click",function(){
+          alert("test")
           var buttonId = $(this).attr("id")
           var buttonBoard = buttonId.slice(5,9) //kohr or base
           var buttonType = buttonId.slice(10)
@@ -696,9 +697,6 @@
               var w = kohrWidthCell/3
               var wallHeight = 5*h
               var fillColor = "rgba(32,32,43,1)"
-              /*if(userSelected.x == entity.x && userSelected.y == entity.y && userSelected.atMiddle && !userSelected.unselect){
-                var fillColor = "rgba(60,80,80,1)"
-              }*/
               if(color == "blue"){
                 var border = ["rgba(100,165,255,1)",1]
               }else{
@@ -770,52 +768,6 @@
               }
             }
           }
-          /*for(index in entitiesToDraw){
-            var entity = entitiesToDraw[index]
-            if(entity.type == "Wall"){
-              //DRAWING TOP OF WALLS ON TOP OF EVERYTHING
-              if(entity.team == userTeam){
-                var color = "blue"
-              }else{
-                var color = "red"
-              }
-              var entityX = entity.x - 1
-              var entityY = entity.y - 1
-              if(userTeam == 1){
-                var entityX = -entityX + givenGame.gameInfo.maxPlayers + 4
-                var entityY = -entityY + givenGame.gameInfo.maxPlayers + 4
-              }
-              var neighbors = getWallNeighbors(entitiesToDraw,entity.x,entity.y,userTeam,entity.team)
-              var globalX = (2*kohrM + kohrWidthCell) + (entityX*kohrWidthCell) + (entityY*kohrWidthCell)
-              var globalY = (gridHeight/2) + (entityX*kohrHeightCell) - (entityY*kohrHeightCell)
-              var h = kohrHeightCell/3
-              var w = kohrWidthCell/3
-              var wallHeight = 5*h
-              var border = ["#000000",1]
-              if(color == "blue"){
-                var fillColor = "rgba(100,165,255,1)"
-              }else{
-                var fillColor = "rgba(255,80,80,1)"
-              }
-              var polyPoints = [[-1*w,0]]
-              if(neighbors[0]){
-                polyPoints.push([-2*w,-1*h],[-1*w,-2*h])
-              }
-              polyPoints.push([0*w,-1*h])
-              if(neighbors[1]){
-                polyPoints.push([1*w,-2*h],[2*w,-1*h])
-              }
-              polyPoints.push([1*w,0*h])
-              if(neighbors[3]){
-                polyPoints.push([2*w,1*h],[1*w,2*h])
-              }
-              polyPoints.push([0*w,1*h])
-              if(neighbors[2]){
-                polyPoints.push([-1*w,2*h],[-2*w,1*h])
-              }
-              drawPoly(kohrCtx,globalX,globalY,polyPoints,wallHeight,fillColor,[fillColor,border[1]])
-            }
-          }*/
           kohrCtx.shodowBlur = 0;
           baseCtx.shodowBlur = 0;
           var returnArray = showGameFast(givenGame,userPseudo,userSelected,canPlay)
