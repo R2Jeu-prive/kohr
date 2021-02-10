@@ -260,6 +260,12 @@
         })
 
         $(".game-buttons").on("click",function(){
+          //GET PLAYER TEAM
+          var tempMe = game.players.find(player => player.pseudo == pseudo)
+          if(tempMe == undefined){
+            console.log("oula")
+          }
+          var userTeam = tempMe.team
           var buttonId = $(this).attr("id")
           var buttonBoard = buttonId.slice(5,9) //kohr or base
           var buttonType = buttonId.slice(10)
@@ -277,6 +283,15 @@
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
             showGameFast(game,pseudo,selected,canPlay)
+          }else if(buttonType.startsWith("upgrade")){
+            socket.emit("buildingEdit",{lastTimeStamp : game.lastTimeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : "upgrade"});
+          }else if(buttonType.startsWith("collect")){
+            socket.emit("buildingEdit",{lastTimeStamp : game.lastTimeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : "empty"});
+          }else if(buttonType.startsWith('changeprod')){
+            var extractor = game.buildings.find(building => building.x == selected.x && building.y == selected.y && building.atMiddle == selected.atMiddle && building.team == userTeam)
+            var prodTrio = ["copper","titanium","gold","ruby"].splice(["copper","titanium","gold","ruby"].indexOf(extractor.inventory[2]),1)
+            var newRess = prodTrio[parseInt(buttonType.substr(buttonType.length - 1)) - 1];
+            socket.emit("buildingEdit",{lastTimeStamp : game.lastTimeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : newRess})
           }
         })
 
