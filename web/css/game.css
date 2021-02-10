@@ -307,3 +307,12 @@
     position: relative;
     height: 100%;
 }
+
+.game-action-6{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 0px;
+    margin: 0px;
+    transform: translate(-50%, -50%);
+}
