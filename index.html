@@ -1072,6 +1072,10 @@
                 $(".game-upgrade-button").css("display","none")
               }
             }
+            if(["Extractor","Wall"].indexOf(building.type) == -1){
+              $(".game-upgrade-button").empty()
+              $(".game-upgrade-button").css("display","none")
+            }
             if((building.type != "Battery" || countBuildings(givenGame,"Battery",userTeam) != 3) && building.type != "Core"){
               $(".game-destroy-button").css("display","initial")
               $(".game-no-interaction").css("display","none")
