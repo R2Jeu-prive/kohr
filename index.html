@@ -259,7 +259,6 @@
         })
 
         $(".game-buttons").on("click",function(){
-          alert("test")
           var buttonId = $(this).attr("id")
           var buttonBoard = buttonId.slice(5,9) //kohr or base
           var buttonType = buttonId.slice(10)
@@ -270,6 +269,10 @@
               $("#game-board").css("left", "0%");
             }
           }else if(buttonType.startsWith("precreatepiece")){
+            var cuts = buttonId.split("-");
+            selected.switch = cuts[cuts.length - 1]
+            showGameFast(game,pseudo,selected,canPlay)
+          }else if(buttonType.startsWith("precreatebuilding")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
             showGameFast(game,pseudo,selected,canPlay)
@@ -995,6 +998,8 @@
 
               $(this).attr("disabled",!showAsPossible)
             })
+            $(".game-button-precreatepiece-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
+            $(".game-button-precreatebuilding-"+userSelected.switch).css("background","rgba(221,197,250,0.1)")
           }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
             userSelected.switch = ""
           }
