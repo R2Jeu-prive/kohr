@@ -235,8 +235,8 @@ io.on('connection', function(socket){
         games.forEach(function(game){
             if(game.isUserConnected(user) && game.gameInfo.status == "game"){
                 console.log("found in game")
+                console.log(data.lastTimeStamp,game.lastTimeStamp,user.team,game.gameInfo.teamPlaying)
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
-                    console.log(data.lastTimeStamp,game.lastTimeStamp,user.team,game.gameInfo.teamPlaying)
                     if(game.canBuildingEdit(data.edit, data.x, data.y, data.atMiddle, user.team)){
                         console.log("can build ok")
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
