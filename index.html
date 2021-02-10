@@ -525,6 +525,10 @@
           $(".game-action-4").css("width", (265/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("width", (60/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-changeprod-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-changeprod-img").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("height", (60/320)*$(".game-actions").width() + "px")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -795,6 +799,10 @@
           $(".game-action-4").css("width", (265/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("width", (60/320)*$(".game-actions").width() + "px")
           $(".game-precreate-button").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-changeprod-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-changeprod-img").css("height", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("width", (60/320)*$(".game-actions").width() + "px")
+          $(".game-upgrade-img").css("height", (60/320)*$(".game-actions").width() + "px")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -934,7 +942,6 @@
           }else{
             var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle && !userSelected.unselect)
             var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && !userSelected.unselect)
-            console.log(selectedPiece,selectedBuilding,givenGame.buildings)
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
@@ -1044,7 +1051,7 @@
                 $("#game-kohr-changeprod-3").html("<img class='game-changeprod-img' src='/icon/gold'/>")
               }
               if(building.level < 3){
-                $(".game-upgrade-button").html("<img class='game-changeprod-img' src='/icon/ruby'/>x50")
+                $(".game-upgrade-button").html("<img class='game-upgrade-img' src='/icon/ruby'/>x50")
                 $(".game-upgrade-button").css("display","initial")
               }else{
                 $(".game-upgrade-button").css("display","none")  
@@ -1055,7 +1062,7 @@
             }
             if(building.type == "Wall"){
               if(building.level < 2){
-                $(".game-upgrade-button").html("<img class='game-changeprod-img' src='/icon/titanium'/>x20")
+                $(".game-upgrade-button").html("<img class='game-upgrade-img' src='/icon/titanium'/>x20")
                 $(".game-upgrade-button").css("display","initial")
               }else{
                 $(".game-upgrade-button").css("display","none")
