@@ -294,6 +294,8 @@
             var newRess = prodTrio[parseInt(buttonType.substr(buttonType.length - 1)) - 1];
             console.log(extractor,prodTrio,newRess)
             socket.emit("buildingEdit",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : newRess})
+          }else if(buttonType.startsWith("delete")){
+            socket.emit("buildingDelete",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
           }
         })
 
