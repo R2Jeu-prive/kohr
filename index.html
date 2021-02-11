@@ -607,6 +607,8 @@
           $(".game-changeprod-img").css("height", (30/320)*$(".game-actions").width() + "px")
           $(".game-upgrade-img").css("width", (30/320)*$(".game-actions").width() + "px")
           $(".game-upgrade-img").css("height", (30/320)*$(".game-actions").width() + "px")
+          $(".game-piece-img").css("width", (30/320)*$(".game-actions").width() + "px")
+          $(".game-piece-img").css("height", (30/320)*$(".game-actions").width() + "px")
 
           //GET PLAYER TEAM
           var tempMe = givenGame.players.find(player => player.pseudo == userPseudo)
@@ -1103,16 +1105,16 @@
               $("#game-kohr-move").css("display","")
               $("#game-kohr-attack1").css("display","")
               var piece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle && !userSelected.unselect)
-              $("#game-base-move").html("<p class='game-move-text'>Déplacer</p><img class='game-move-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
-              $("#game-kohr-move").html("<p class='game-move-text'>Déplacer</p><img class='game-move-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
+              $("#game-base-move").html("<p class='game-piece-text'>Déplacer</p><img class='game-piece-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
+              $("#game-kohr-move").html("<p class='game-piece-text'>Déplacer</p><img class='game-piece-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
               var attackCosts = [1,2,3,1,1,2]
               var attackDamage = [" | 50PV"," | 30PV++",""," | 30PV"," | 25PV",""]
-              $("#game-base-attack1").html("<p class='game-attack1-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-move-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
-              $("#game-kohr-attack1").html("<p class='game-attack1-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-move-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
+              $("#game-base-attack1").html("<p class='game-piece-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-piece-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
+              $("#game-kohr-attack1").html("<p class='game-piece-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-piece-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
               if(piece.type == "Queen"){
-                $("#game-base-attack2").html("<p class='game-attack2-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-move-img' src='/icon/energy'/>x2 | 80PV")
+                $("#game-base-attack2").html("<p class='game-piece-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-piece-img' src='/icon/energy'/>x2 | 80PV")
                 $("#game-base-attack2").css("display","")
-                $("#game-kohr-attack2").html("<p class='game-attack2-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-move-img' src='/icon/energy'/>x2 | 80PV")
+                $("#game-kohr-attack2").html("<p class='game-piece-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-piece-img' src='/icon/energy'/>x2 | 80PV")
                 $("#game-kohr-attack2").css("display","")
               }else{
                 $("#game-base-attack2").css("display","none")
@@ -1211,6 +1213,8 @@
           $(".game-changeprod-img").css("height", (30/320)*$(".game-actions").width() + "px")
           $(".game-upgrade-img").css("width", (30/320)*$(".game-actions").width() + "px")
           $(".game-upgrade-img").css("height", (30/320)*$(".game-actions").width() + "px")
+          $(".game-piece-img").css("width", (30/320)*$(".game-actions").width() + "px")
+          $(".game-piece-img").css("height", (30/320)*$(".game-actions").width() + "px")
           return [givenGame,userSelected]
         }
         
