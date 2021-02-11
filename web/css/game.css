@@ -416,6 +416,16 @@
     padding: 5 10;
 }
 
+.game-action-5{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 0px;
+    margin: 0px;
+    width: 90%;
+    transform: translate(-50%, -50%);
+}
+
 .game-piece-button{
     position: static;
     border-top: none;
