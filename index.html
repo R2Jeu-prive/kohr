@@ -127,9 +127,9 @@
               <button class="game-buttons game-precreate-button game-swicth-HeavyArmory" id="game-base-precreatebuilding-HeavyArmory"><img class="game-precreate-img" src="/building/blue_heavy"/></button>
             </ul>
             <ul class="game-action-5">
-              <button class="game-buttons game-move game-switch-13"></button>
-              <button class="game-buttons game-attack1 game-switch-14"></button>
-              <button class="game-buttons game-attack2 game-switch-15"></button>
+              <button class="game-buttons game-piece-button game-switch-move" id="game-base-move"></button>
+              <button class="game-buttons game-piece-button game-switch-attack1" id="game-base-attack1"></button>
+              <button class="game-buttons game-piece-button game-switch-attack2" id="game-base-attack2"></button>
             </ul>
             <ul class="game-action-6">
               <button class="game-buttons game-collect-button" id="game-base-collect">Récolter</button>
@@ -200,34 +200,93 @@
         actionOrigin = {unselect:true,x:1,y:1,atMiddle:true}
         game = {}
         canPlay = false
-        var imageOffsets = {}
-        imageOffsets["Pawn"] = [0,25]
-        imageOffsets["Enchanter"] = [0,25]
-        imageOffsets["Knight"] = [0,25]
-        imageOffsets["Rook"] = [0,25]
-        imageOffsets["Bishop"] = [0,25]
-        imageOffsets["Queen"] = [0,25]
-        imageOffsets["Core"] = [0,25]
-        imageOffsets["Extractor"] = [0,25]
-        imageOffsets["LightArmory"] = [0,25]
-        imageOffsets["HeavyArmory"] = [0,25]
-        imageOffsets["Battery"] = [0,25]
-        imageOffsets["Workshop"] = [0,25]
-        imageOffsets["Wall"] = [0,25]
-        var imageScales = {}
-        imageScales["Pawn"] = 2
-        imageScales["Enchanter"] = 2
-        imageScales["Knight"] = 2
-        imageScales["Rook"] = 2
-        imageScales["Bishop"] = 2
-        imageScales["Queen"] = 2
-        imageScales["Core"] = 2
-        imageScales["Extractor"] = 2
-        imageScales["LightArmory"] = 2
-        imageScales["HeavyArmory"] = 2
-        imageScales["Battery"] = 2
-        imageScales["Workshop"] = 2
-        imageScales["Wall"] = 2
+        if(true){ //game const
+          var buildingPrices = {}
+          buildingPrices["Extractor"] = [30,50,10,0]
+          buildingPrices["Wall"] = [0,20,0,0]
+          buildingPrices["Workshop"] = [0,120,0,30]
+          buildingPrices["Battery"] = [50,0,0,0]
+          buildingPrices["LightArmory"] = [70,0,30,0]
+          buildingPrices["HeavyArmory"] = [0,70,20,50]
+          var imageOffsets = {}
+          imageOffsets["Pawn"] = [0,25]
+          imageOffsets["Enchanter"] = [0,25]
+          imageOffsets["Knight"] = [0,25]
+          imageOffsets["Rook"] = [0,25]
+          imageOffsets["Bishop"] = [0,25]
+          imageOffsets["Queen"] = [0,25]
+          imageOffsets["Core"] = [0,25]
+          imageOffsets["Extractor"] = [0,25]
+          imageOffsets["LightArmory"] = [0,25]
+          imageOffsets["HeavyArmory"] = [0,25]
+          imageOffsets["Battery"] = [0,25]
+          imageOffsets["Workshop"] = [0,25]
+          imageOffsets["Wall"] = [0,25]
+          var imageScales = {}
+          imageScales["Pawn"] = 2
+          imageScales["Enchanter"] = 2
+          imageScales["Knight"] = 2
+          imageScales["Rook"] = 2
+          imageScales["Bishop"] = 2
+          imageScales["Queen"] = 2
+          imageScales["Core"] = 2
+          imageScales["Extractor"] = 2
+          imageScales["LightArmory"] = 2
+          imageScales["HeavyArmory"] = 2
+          imageScales["Battery"] = 2
+          imageScales["Workshop"] = 2
+          imageScales["Wall"] = 2
+          var piecePrices = {}
+          piecePrices["Queen"] = [20,0,100,20]
+          piecePrices["Rook"] = [0,60,0,30]
+          piecePrices["Bishop"] = [65,0,10,0]
+          piecePrices["Enchanter"] = [0,0,50,50]
+          piecePrices["Knight"] = [70,0,30,0]
+          piecePrices["Pawn"] = [0,20,0,0]
+          var pieceMovePrices = {}
+          pieceMovePrices["Queen"] = 4
+          pieceMovePrices["Rook"] = 8
+          pieceMovePrices["Bishop"] = 3
+          pieceMovePrices["Enchanter"] = 3
+          pieceMovePrices["Knight"] = 1
+          pieceMovePrices["Pawn"] = 1
+          var piecePossibleMoves = {}
+          piecePossibleMoves["Queen"] = [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,-1],[0,-2],[0,-3],[0,-4],[0,-5],[0,-6],[0,-7],[0,-8],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[-1,0],[-2,0],[-3,0],[-4,0],[-5,0],[-6,0],[-7,0],[-8,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[-1,1],[-2,2],[-3,3],[-4,4],[-5,5],[-6,6],[-7,7],[-8,8],[-1,-1],[-2,-2],[-3,-3],[-4,-4],[-5,-5],[-6,-6],[-7,-7],[-8,-8],[1,-1],[2,-2],[3,-3],[4,-4],[5,-5],[6,-6],[7,-7],[8,-8]]
+          piecePossibleMoves["Rook"] = [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,-1],[0,-2],[0,-3],[0,-4],[0,-5],[0,-6],[0,-7],[0,-8],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[-1,0],[-2,0],[-3,0],[-4,0],[-5,0],[-6,0],[-7,0],[-8,0]]
+          piecePossibleMoves["Bishop"] = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[-1,1],[-2,2],[-3,3],[-4,4],[-5,5],[-6,6],[-7,7],[-8,8],[-1,-1],[-2,-2],[-3,-3],[-4,-4],[-5,-5],[-6,-6],[-7,-7],[-8,-8],[1,-1],[2,-2],[3,-3],[4,-4],[5,-5],[6,-6],[7,-7],[8,-8]]
+          piecePossibleMoves["Enchanter"] = [[1,0],[0,1],[-1,0],[0,-1],[1,1],[1,-1],[-1,-1],[-1,1],[2,0],[0,2],[-2,0],[0,-2]]
+          piecePossibleMoves["Knight"] = [[-1,2],[1,2],[2,-1],[2,1],[-2,-1],[-2,1],[-1,-2],[1,-2]]
+          piecePossibleMoves["Pawn"] = [[0,1]]
+          var piecePossibleAttacks = {}
+          piecePossibleAttacks["Queen"] = [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,-1],[0,-2],[0,-3],[0,-4],[0,-5],[0,-6],[0,-7],[0,-8],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[-1,0],[-2,0],[-3,0],[-4,0],[-5,0],[-6,0],[-7,0],[-8,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[-1,1],[-2,2],[-3,3],[-4,4],[-5,5],[-6,6],[-7,7],[-8,8],[-1,-1],[-2,-2],[-3,-3],[-4,-4],[-5,-5],[-6,-6],[-7,-7],[-8,-8],[1,-1],[2,-2],[3,-3],[4,-4],[5,-5],[6,-6],[7,-7],[8,-8]]
+          piecePossibleAttacks["Rook"] = [[0,0]]
+          piecePossibleAttacks["Bishop"] = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[-1,1],[-2,2],[-3,3],[-4,4],[-5,5],[-6,6],[-7,7],[-8,8],[-1,-1],[-2,-2],[-3,-3],[-4,-4],[-5,-5],[-6,-6],[-7,-7],[-8,-8],[1,-1],[2,-2],[3,-3],[4,-4],[5,-5],[6,-6],[7,-7],[8,-8]]
+          piecePossibleAttacks["Enchanter"] = [[1,0],[0,1],[-1,0],[0,-1],[1,1],[1,-1],[-1,-1],[-1,1]]
+          piecePossibleAttacks["Knight"] = [[-1,2],[1,2],[2,-1],[2,1],[-2,-1],[-2,1],[-1,-2],[1,-2]]
+          piecePossibleAttacks["Pawn"] = [[1,1],[-1,1]]
+          var pieceAttacks = {}
+          pieceAttacks["queenSoft"] = [50,1]
+          pieceAttacks["queenHard"] = [80,2]
+          pieceAttacks["diagonalSuicide"] = [30,2]
+          pieceAttacks["healing"] = [0,3]
+          pieceAttacks["jumping"] = [30,1]
+          pieceAttacks["simpleAttack"] = [25,1]
+          pieceAttacks["enchant"] = [0,2]
+          var gameDisplayInfo = {}
+          gameDisplayInfo["Pawn"] = {name:"Pion",description:"Le pion est la victime des autres types de pièces, peut occasionnelement servir",attacks:["Attaque/20"]}
+          gameDisplayInfo["Knight"] = {name:"Cavalier",description:"Il utilise les bigs blacks legs de son cheval pour sauter sur tout ce qui bouge",attacks:["Furious Jumper"]}
+          gameDisplayInfo["Rook"] = {name:"Tour",description:"Celle là, elle s'est pas faite détruire...",attacks:["Heal"]}
+          gameDisplayInfo["Bishop"] = {name:"Fou",description:'"Moi ? Fou ? Jamais !" Il arrête pas de répéter ça depuis qu\'il est né ',attacks:["Et ça fait bim, bam, boum !"]}
+          gameDisplayInfo["Enchanter"] = {name:"Envoûteur",description:"il te trouve, te drogue, et te ramène dans son pays natal",attacks:["Connaissez vous le GHB ?"]}
+          gameDisplayInfo["Queen"] = {name:"Reine",description:"Que font ces gueux en face de ma magnifique personne ?",attacks:["Coup de baton","Machette dans ta bouche"]}
+          gameDisplayInfo["Core"] = {name:"Noyau",description:"Faut le prendre en 4-4-2"}
+          gameDisplayInfo["Workshop"] = {name:"Atelier",description:"Viens tater de mes outils"}
+          gameDisplayInfo["LightArmory"] = {name:"Armurerie légère",description:"Envoyer des soldats à la mort ? Plus qu'une passion, un métier !"}
+          gameDisplayInfo["HeavyArmory"] = {name:"Armurerie lourde",description:"Voici Géraldine, depuis sa création, elle est en obésité morbide."}
+          gameDisplayInfo["Wall"] = {name:"Mur",description:"We need to build a wall !"}
+          gameDisplayInfo["Extractor"] = {name:"Extracteur",description:"Bonjour, moi je suis un plagiat de Clash Of Clans."}
+          gameDisplayInfo["Battery"] = {name:"Batterie",description:"Parce qu'avec Duracel, tout va plus vite !"}
+        }
 
         
         $('#login-background').on('submit', function(e){
@@ -1034,6 +1093,35 @@
               }
             })
           }else if(["Queen","Rook","Bishop","Pawn","Knight","Enchanter","Wall","Extractor","LightArmory","HeavyArmory","Workshop","Battery"].indexOf(userSelected.switch) != -1){
+            userSelected.switch = ""
+          }
+
+          if(leftShow == 5){
+            if(["move","attack1","attack2"].indexOf(userSelected.switch) == -1){
+              $("#game-base-move").css("display","")
+              $("#game-base-attack1").css("display","")
+              $("#game-kohr-move").css("display","")
+              $("#game-kohr-attack1").css("display","")
+              var piece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle && !userSelected.unselect)
+              $("#game-base-move").html("<p class='game-move-text'>Déplacer</p><img class='game-move-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
+              $("#game-kohr-move").html("<p class='game-move-text'>Déplacer</p><img class='game-move-img' src='/icon/energy'/>x" + pieceMovePrices[piece.type])
+              var attackCosts = [1,2,3,1,1,2]
+              var attackDamage = [" | 50PV"," | 30PV++",""," | 30PV"," | 25PV",""]
+              $("#game-base-attack1").html("<p class='game-attack1-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-move-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
+              $("#game-kohr-attack1").html("<p class='game-attack1-text'>" + gameDisplayInfo[piece.type].attacks[0] + "</p><img class='game-move-img' src='/icon/energy'/>x" + attackCosts[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)] + attackDamage[["Queen","Bishop","Rook","Knight","Pawn","Enchanter"].indexOf(piece.type)])
+              if(piece.type == "Queen"){
+                $("#game-base-attack2").html("<p class='game-attack2-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-move-img' src='/icon/energy'/>x2 | 80PV")
+                $("#game-base-attack2").css("display","")
+                $("#game-kohr-attack2").html("<p class='game-attack2-text'>" + gameDisplayInfo[piece.type].attacks[1] + "</p><img class='game-move-img' src='/icon/energy'/>x2 | 80PV")
+                $("#game-kohr-attack2").css("display","")
+              }else{
+                $("#game-base-attack2").css("display","none")
+                $("#game-kohr-attack2").css("display","none")
+              }
+            }else{
+              
+            }
+          }else if(["move","attack1","attack2"].indexOf(userSelected.switch) != -1){
             userSelected.switch = ""
           }
 
