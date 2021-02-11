@@ -294,7 +294,7 @@ io.on('connection', function(socket){
                 if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
                     if(game.canPieceMove(data.startX, data.startY, data.endX, data.endY, user.team)){
                         var newTimeStamp =  Date.now() //returns miliseconds since 1970
-                        game.pieceMove(data.startX, data.startY, data.endX, data.endY, newTimeStamp, io)
+                        game.pieceMove(data.startX, data.startY, data.endX, data.endY, user.team, newTimeStamp, io)
                     }
                 }else{
                     game.refreshPlayerGame(user, io)

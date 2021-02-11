@@ -734,7 +734,7 @@ class Game {
         //IF NOTHING WRONG
         return true
     }
-    pieceMove(startX,startY,endX,endY,timeStamp,io){
+    pieceMove(startX,startY,endX,endY,team,timeStamp,io){
         var movingPiece = this.pieces.find(piece => (piece.x == startX && piece.y == startY))
         movingPiece.changeCoords(endX,endY)
         this.stats[team][0] = this.stats[team][0] - pieceMovePrices[movingPiece.constructor.name]
