@@ -441,7 +441,7 @@
             console.log("50")
             return false //move is not possible for this piece
           }else{
-            for(var index in givenGame.building){
+            for(index in givenGame.building){
               var building = givenGame.buildings[index]
               console.log(index,building)
               if(!building.atMiddle){
@@ -458,7 +458,7 @@
                 }
               }
             }
-            for(var index in givenGame.pieces){
+            for(index in givenGame.pieces){
               var piece = givenGame.pieces[index]
               var pieceDeltaX = piece.x - startX
               var pieceDeltaY = piece.y - startY
