@@ -419,6 +419,17 @@
           showGameFast(game,pseudo,selected,play,actionOrigin)
         });
 
+        function intMiddle(a,b,c){
+          //returns true is a,b,c are in this order or inversed order (c,b,a)
+          if(a>=b && b>=c){
+            return true
+          }else if(a<=b && b<=c){
+            return true
+          }else{
+            return false
+          }
+        }
+        
         function countBuildings(game,type,team){
           var counter = 0
           game.buildings.forEach(function(building){
@@ -999,8 +1010,7 @@
                     deltaX = -deltaX
                     deltaY = -deltaY
                   }
-                  console.log(movingPiece,piecePossibleMoves[movingPiece.type],piecePossibleMoves[movingPiece.type].includes([deltaX, deltaY]),deltaX,deltaY)
-                  if(piecePossibleMoves[movingPiece.type].includes([deltaX, deltaY])){
+                  if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
                     console.log(2)
                     for(index in givenGame.buildings){
                       var building = givenGame.buildings[index]
@@ -1010,14 +1020,14 @@
                       }
                       var buildingDeltaX = building.x - startX
                       var buildingDeltaY = building.y - startY
-                      if(piecePossibleMoves[movingPiece.type].includes([buildingDeltaX, buildingDeltaY])){
+                      if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
                         //le batiment pourrait se trouver sur le chemin de la pièce
                         if(!(intMiddle(startX,building.x,endX) && intMiddle(startY,building.y,endY))){
                           for(index in givenGame.pieces){
                             var piece = givenGame.pieces[index]
                             var pieceDeltaX = piece.x - startX
                             var pieceDeltaY = piece.y - startY
-                            if(piecePossibleMoves[movingPiece.type].includes([pieceDeltaX, pieceDeltaY])){
+                            if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
                               //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                               if(!(intMiddle(startX,piece.x,endX) && intMiddle(startY,piece.y,endY))){
                                 console.log(endX,endY,"ok")
