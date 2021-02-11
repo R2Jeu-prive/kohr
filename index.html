@@ -414,6 +414,16 @@
             selected.y = coordY
           }else{
             selected.unselect = true
+            actionOrigin.unselect = true
+          }
+          if(!actionOrigin.unselect){
+            if(actionOrigin.switch == "move"){
+              socket.emit("pieceMove",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y});
+            }else if(actionOrigin.switch == "attack1"){
+
+            }else if(actionOrigin.switch == "attack2"){
+              
+            }
           }
           
           showGameFast(game,pseudo,selected,play,actionOrigin)
