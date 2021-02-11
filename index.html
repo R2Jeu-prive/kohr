@@ -458,7 +458,6 @@
             deltaY = -deltaY
           }
           if(!piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
-            console.log("50")
             return false //move is not possible for this piece
           }else{
             for(var index in givenGame.buildings){
@@ -473,7 +472,6 @@
               if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
                 //le batiment pourrait se trouver sur le chemin de la pièce
                 if(intMiddle(startX,building.x,endX) && intMiddle(startY,building.y,endY)){
-                  console.log("51")
                   return false // le batiment bloque le chemin !
                 }
               }
@@ -485,9 +483,99 @@
               if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
                 //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                 if(intMiddle(startX,piece.x,endX) && intMiddle(startY,piece.y,endY)){
-                  console.log("52")
                   return false // une pièce bloque le chemin !
                 }
+              }
+            }
+          }
+
+          //IF NOTHING WRONG
+          return true
+        }
+
+        function checkIfAttackPossible(startX,startY,endX,endY,attackingPiece,givenGame,userTeam){
+          //GET ELEMENTS
+          var attackingPiece = givenGame.pieces.find(piece => piece.x == startX && piece.y == startY)
+          var attackedPiece = givenGame.pieces.find(piece => piece.x == endX && piece.y == endY)
+          var attackedBuilding = givenGame.buildings.find(building => building.x == endX && building.y == endY && building.atMiddle)
+
+          //NOTHING TO ATTACK
+          if(attackedPiece === attackedBuilding){
+            return false //no entity at attack coords
+          }
+
+          //UNVALID ATTACK
+          var deltaX = endX - startX
+          var deltaY = endY - startY
+          if(userTeam == 1){
+              deltaX = -deltaX
+              deltaY = -deltaY
+          }
+          if(!piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
+              return false //attack moving is not possible for this piece
+          }else{
+            for(var building of this.buildings){
+              if(!building.atMiddle){
+                continue
+                //si le batiment n'est pas au milieu on le skip
+              }
+              var buildingDeltaX = building.x - startX
+              var buildingDeltaY = building.y - startY
+              if(piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
+                //le batiment pourrait se trouver sur le chemin de la pièce
+                if(intMiddle(startX,building.x,endX) && intMiddle(startY,building.y,endY) && (building.x != endX || building.y != endY)){
+                  console.log("62")
+                  return false // le batiment bloque le chemin !
+                }
+                if(building.x == endX && building.y == endY && building.team == userTeam && attackingPiece.type != "Rook"){
+                  console.log("63")
+                  return false //no friendly fire
+                }
+              }
+            }
+            for(var piece of this.pieces){
+              var pieceDeltaX = piece.x - startX
+              var pieceDeltaY = piece.y - startY
+              if(piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
+                //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
+                if(intMiddle(startX,piece.x,endX) && intMiddle(startY,piece.y,endY) && (piece.x != endX || piece.y != endY)){
+                  console.log("64")
+                  return false // une pièce bloque le chemin !
+                }
+                if(piece.x == endX && piece.y == endY && piece.team == userTeam && attackingPiece.type != "Rook"){
+                  console.log("65")
+                  return false //no friendly fire
+                }
+              }
+            }
+          }
+
+          //ENCHANTER MAX PIECES
+          if(attackingPiece.type == "Enchanter"){
+            if(attackedPiece == undefined){
+              console.log("66")
+              return false //can't enchant building
+            }
+            else if(["Bishop","Knight","Pawn"].indexOf(attackedPiece.type) != -1){
+              var lightPieces = 0
+              lightPieces += countPieces(givenGame,"Pawn",team)
+              lightPieces += countPieces(givenGame,"Knight",team)
+              lightPieces += countPieces(givenGame,"Bishop",team)
+              var lightCapacity = getCapacity(givenGame,"LIGHT",team)
+              if(lightCapacity <= lightPieces){
+                console.log("67")
+                return false //capacité max atteinte pour les pieces légères
+              }
+            }
+            else if(["Queen","Rook","Enchanter"].indexOf(attackedPiece.type) != -1){
+              var heavyPieces = 0
+              heavyPieces += countPieces(givenGame,"Queen",team)
+              heavyPieces += countPieces(givenGame,"Rook",team)
+              heavyPieces += countPieces(givenGame,"Enchanter",team)
+              var heavyCapacity = getCapacity(givenGame,"HEAVY",team)
+              if(heavyCapacity <= heavyPieces){
+                console.log("68")
+                return false //capacité max atteinte pour les pieces lourdes
               }
             }
           }
