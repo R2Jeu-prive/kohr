@@ -355,6 +355,18 @@
             socket.emit("buildingEdit",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : newRess})
           }else if(buttonType.startsWith("delete")){
             socket.emit("buildingDelete",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
+          }else if(buttonType.startsWith("move")){
+            var cuts = buttonId.split("-");
+            selected.switch = cuts[cuts.length - 1]
+            showGameFast(game,pseudo,selected,canPlay)
+          }else if(buttonType.startsWith("attack1")){
+            var cuts = buttonId.split("-");
+            selected.switch = cuts[cuts.length - 1]
+            showGameFast(game,pseudo,selected,canPlay)
+          }else if(buttonType.startsWith("attack1")){
+            var cuts = buttonId.split("-");
+            selected.switch = cuts[cuts.length - 1]
+            showGameFast(game,pseudo,selected,canPlay)
           }
         })
 
