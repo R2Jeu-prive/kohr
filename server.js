@@ -159,7 +159,7 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
                 if(user.pseudo == game.gameInfo.masterPseudo){
                     game.tryStartGame(io)
-                    game.pieceBuild("Pawn",2,5,0,456456,io)
+                    game.pieceBuild("Queen",2,5,0,456456,io)
                     game.pieceBuild("Pawn",7,7,0,456456,io)
                     game.pieceBuild("Pawn",1,1,0,456456,io)
                     game.pieceBuild("Pawn",1,7,0,456456,io)
