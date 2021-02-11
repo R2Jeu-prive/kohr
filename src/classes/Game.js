@@ -532,6 +532,12 @@ class Game {
 
     // PIECE BUILD
     canPieceBuild(type,x,y,team){
+        var maxBase = 4 + 1 
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxBase = 5 + 1 
+            maxMiddle = 9 + 1
+        }
         //INVALID DATA
         if(["Queen","Bishop","Knight","Rook","Enchanter","Pawn"].indexOf(type) == -1){
             console.log("33")
@@ -636,6 +642,12 @@ class Game {
 
     // PIECE MOVE
     canPieceMove(startX,startY,endX,endY,team){
+        var maxBase = 4 + 1 
+        var maxMiddle = 7 + 1
+        if(this.gameInfo.maxPlayers == 4){
+            maxBase = 5 + 1 
+            maxMiddle = 9 + 1
+        }
         //INVALID DATA
         if(!(Number.isInteger(startX) && Number.isInteger(startY) && Number.isInteger(endX) && Number.isInteger(endY))){
             console.log("43")
@@ -684,18 +696,19 @@ class Game {
             deltaX = -deltaX
             deltaY = -deltaY
         }
-        if(!piecePossibleMoves[movingPiece.constructor.name].includes([deltaX, deltaY])){
+        if(!piecePossibleMoves[movingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
             console.log("50")
             return false //move is not possible for this piece
         }else{
-            for(var building in this.buildings){
+            for(var index in this.buildings){
+                var building = this.buildings[index]
                 if(!building.atMiddle){
                     continue
                     //si le batiment n'est pas au milieu on le skip
                 }
                 var buildingDeltaX = building.x - startX
                 var buildingDeltaY = building.y - startY
-                if(piecePossibleMoves[movingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
+                if(piecePossibleMoves[movingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
                     //le batiment pourrait se trouver sur le chemin de la pièce
                     if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY)){
                         console.log("51")
@@ -703,10 +716,11 @@ class Game {
                     }
                 }
             }
-            for(var piece in this.pieces){
+            for(var index in this.pieces){
+                var piece = this.pieces[index]
                 var pieceDeltaX = piece.x - startX
                 var pieceDeltaY = piece.y - startY
-                if(piecePossibleMoves[movingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
+                if(piecePossibleMoves[movingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
                     //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                     if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY)){
                         console.log("52")
