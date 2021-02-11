@@ -438,7 +438,6 @@
     cursor: pointer;
     font-family: "Comfortaa";
     z-index: 1;
-    font-size: larger;
     padding: 10 15 7 15;
     width: 80%;
     margin-left: 10%;
@@ -449,5 +448,4 @@
     position: static;
     margin: 0px;
     font-family: "Comfortaa";
-    font-size: larger;
 }
