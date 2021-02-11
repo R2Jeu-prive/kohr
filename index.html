@@ -999,7 +999,9 @@
                     deltaX = -deltaX
                     deltaY = -deltaY
                   }
+                  console.log(1)
                   if(piecePossibleMoves[movingPiece.type].includes([deltaX, deltaY])){
+                    console.log(2)
                     for(index in givenGame.buildings){
                       var building = givenGame.buildings[index]
                       if(!building.atMiddle){
