@@ -428,6 +428,7 @@
           if(!actionOrigin.unselect){
             if(actionOrigin.switch == "move"){
               socket.emit("pieceMove",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y});
+              actionOrigin.unselect = true
             }else if(actionOrigin.switch == "attack1"){
 
             }else if(actionOrigin.switch == "attack2"){
