@@ -1153,18 +1153,18 @@
           if(!userActionOrigin.unselect){
             var startX = userActionOrigin.x
             var startY = userActionOrigin.y
-            if(userActionOrigin.switch == "move"){
-              var movingPiece = givenGame.pieces.find(piece => piece.x == userActionOrigin.x && piece.y == userActionOrigin.y)
-              var max = givenGame.gameInfo.maxPlayers + 5
-              for(var endX = 1;endX <= max; endX++){
-                for(var endY = 1;endY <= max; endY++){
-                  var deltaX = endX - startX
-                  var deltaY = endY - startY
-                  if(userTeam == 1){
-                    deltaX = -deltaX
-                    deltaY = -deltaY
-                  }
-                  if(checkIfMovePossible(startX,startY,endX,endY,movingPiece,givenGame,userTeam)){
+            var originPiece = givenGame.pieces.find(piece => piece.x == userActionOrigin.x && piece.y == userActionOrigin.y)
+            var max = givenGame.gameInfo.maxPlayers + 5
+            var deltaX = endX - startX
+            var deltaY = endY - startY
+            if(userTeam == 1){
+              deltaX = -deltaX
+              deltaY = -deltaY
+            }
+            for(var endX = 1;endX <= max; endX++){
+              for(var endY = 1;endY <= max; endY++){
+                if(userActionOrigin.switch == "move"){
+                  if(checkIfMovePossible(startX,startY,endX,endY,originPiece,givenGame,userTeam)){
                     if(tempMe.team == 1){
                       var x = -1*endX + kohrGrid + 1
                       var y = -1*endY + kohrGrid + 1
@@ -1172,7 +1172,27 @@
                       var x = endX
                       var y = endY
                     }
-                    kohrCtxS.fillStyle = "rgba(255,255,255,0.8)";
+                    kohrCtxS.fillStyle = "rgba(255,255,255,0.3)";
+                    kohrCtxS.beginPath();
+                    let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
+                    let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
+                    kohrCtxS.moveTo(leftPointX,leftPointY);
+                    kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
+                    kohrCtxS.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
+                    kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
+                    kohrCtxS.closePath();
+                    kohrCtxS.fill();
+                  }
+                }else if(userActionOrigin.switch == "attack1" || userActionOrigin.switch == "attack2"){
+                  if(checkIfAttackPossible(startX,startY,endX,endY,originPiece,givenGame,userTeam)){
+                    if(tempMe.team == 1){
+                      var x = -1*endX + kohrGrid + 1
+                      var y = -1*endY + kohrGrid + 1
+                    }else{
+                      var x = endX
+                      var y = endY
+                    }
+                    kohrCtxS.fillStyle = "rgba(255,0,0,0.3)";
                     kohrCtxS.beginPath();
                     let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
                     let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
