@@ -196,8 +196,8 @@
         var socket = io();
         pseudo = "#-1";
         gameTimerIntervalId = undefined;
-        selected = {unselect:true,x:1,y:1,atMiddle:true,switch:0}
-        actionOrigin = {unselect:true,x:1,y:1,atMiddle:true}
+        selected = {unselect:true,x:1,y:1,atMiddle:true,switch:""}
+        actionOrigin = {unselect:true,x:1,y:1,atMiddle:true,switch:""}
         game = {}
         canPlay = false
         if(true){ //game const
@@ -337,11 +337,11 @@
           }else if(buttonType.startsWith("precreatepiece")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGameFast(game,pseudo,selected,canPlay)
+            showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("precreatebuilding")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGameFast(game,pseudo,selected,canPlay)
+            showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("upgrade")){
             socket.emit("buildingEdit",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : "upgrade"});
           }else if(buttonType.startsWith("collect")){
@@ -358,15 +358,18 @@
           }else if(buttonType.startsWith("move")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGameFast(game,pseudo,selected,canPlay)
+            actionOrigin = selected
+            showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("attack1")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGameFast(game,pseudo,selected,canPlay)
+            actionOrigin = selected
+            showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("attack2")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
-            showGameFast(game,pseudo,selected,canPlay)
+            actionOrigin = selected
+            showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }
         })
 
@@ -413,7 +416,7 @@
             selected.unselect = true
           }
           
-          showGameFast(game,pseudo,selected,play)
+          showGameFast(game,pseudo,selected,play,actionOrigin)
         });
 
         function countBuildings(game,type,team){
@@ -594,7 +597,7 @@
           ctx.setLineDash([]);
         }
 
-        function showGame(givenGame,userPseudo,userSelected,canPlay){
+        function showGame(givenGame,userPseudo,userSelected,canPlay,userActionOrigin){
           //SHOW THE GAME
           $("#lobby-frame").attr("hidden",true);
           $("#game-frame").attr("hidden",false);
@@ -876,11 +879,11 @@
           }
           kohrCtx.shodowBlur = 0;
           baseCtx.shodowBlur = 0;
-          var returnArray = showGameFast(givenGame,userPseudo,userSelected,canPlay)
+          var returnArray = showGameFast(givenGame,userPseudo,userSelected,canPlay,userActionOrigin)
           return returnArray;
         }
         
-        function showGameFast(givenGame,userPseudo,userSelected,canPlay){
+        function showGameFast(givenGame,userPseudo,userSelected,canPlay,userActionOrigin){
           //SET DYNAMIC CSS PROPERTIES AT START
           $(".game-energybar").css("height",$(".game-energybar-under").first().css("height"))
           $(".game-ressources").css("height",2*parseInt($(".game-energybar-under").first().css("height")) + "px")
@@ -980,6 +983,57 @@
               baseCtxS.fill();
             }
           }
+          
+          //DRAW ACTIONORIGIN AND MOVE/ATTACKSQUARES
+          if(!userActionOrigin.unselect){
+            if(userActionOrigin.switch == "move"){
+              var max = givenGame.gameInfo.maxPlayers + 5
+              for(var endX = 1;endX <= max; endX++){
+                console.log(endX)
+              }
+              /*var startX = userActionOrigin.x
+              var startY = userActionOrigin.y
+              var deltaX = endX - startX
+              var deltaY = endY - startY
+              if(team == 1){
+                deltaX = -deltaX
+                deltaY = -deltaY
+              }
+              if(!piecePossibleMoves[movingPiece.constructor.name].includes([deltaX, deltaY])){
+                console.log("50")
+                return false //move is not possible for this piece
+              }else{
+                for(var building in this.buildings){
+                  if(!building.atMiddle){
+                    continue
+                    //si le batiment n'est pas au milieu on le skip
+                  }
+                  var buildingDeltaX = building.x - startX
+                  var buildingDeltaY = building.y - startY
+                  if(piecePossibleMoves[movingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
+                    //le batiment pourrait se trouver sur le chemin de la pièce
+                    if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY)){
+                      console.log("51")
+                      return false // le batiment bloque le chemin !
+                    }
+                  }
+                }
+                for(var piece in this.pieces){
+                  var pieceDeltaX = piece.x - startX
+                  var pieceDeltaY = piece.y - startY
+                  if(piecePossibleMoves[movingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
+                    //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
+                    if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY)){
+                      console.log("52")
+                      return false // une pièce bloque le chemin !
+                    }
+                  }
+                }
+              }*/
+            }
+          }
+
+
           var entitiesToDraw = givenGame.buildings
           for(index in entitiesToDraw){
             var entity = entitiesToDraw[index]
@@ -1308,14 +1362,14 @@
         
         socket.on("showGamePlay",function(data){
           canPlay = true
-          var returnedStuff = showGame(data,pseudo,selected,canPlay)
+          var returnedStuff = showGame(data,pseudo,selected,canPlay,actionOrigin)
           game = returnedStuff[0]
           selected = returnedStuff[1]
         })
         
         socket.on("showGameWait",function(data){
           canPlay = false
-          var returnedStuff = showGame(data,pseudo,selected,canPlay)
+          var returnedStuff = showGame(data,pseudo,selected,canPlay,actionOrigin)
           game = returnedStuff[0]
           selected = returnedStuff[1]
         })
