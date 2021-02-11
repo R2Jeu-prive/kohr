@@ -642,6 +642,7 @@ class Game {
 
     // PIECE MOVE
     canPieceMove(startX,startY,endX,endY,team){
+        console.log(startX,startY,endX,endY)
         var maxBase = 4 + 1 
         var maxMiddle = 7 + 1
         if(this.gameInfo.maxPlayers == 4){
