@@ -356,19 +356,28 @@
           }else if(buttonType.startsWith("delete")){
             socket.emit("buildingDelete",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
           }else if(buttonType.startsWith("move")){
-            var cuts = buttonId.split("-");
-            selected.switch = cuts[cuts.length - 1]
-            actionOrigin = selected
+            actionOrigin.x = selected.x
+            actionOrigin.y = selected.y
+            actionOrigin.switch = "move"
+            actionOrigin.unselect = false
+            actionOrigin.atMiddle = true
+            selected.switch = "move"
             showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("attack1")){
-            var cuts = buttonId.split("-");
-            selected.switch = cuts[cuts.length - 1]
-            actionOrigin = selected
+            actionOrigin.x = selected.x
+            actionOrigin.y = selected.y
+            actionOrigin.switch = "action1"
+            actionOrigin.unselect = false
+            actionOrigin.atMiddle = true
+            selected.switch = "action1"
             showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("attack2")){
-            var cuts = buttonId.split("-");
-            selected.switch = cuts[cuts.length - 1]
-            actionOrigin = selected
+            actionOrigin.x = selected.x
+            actionOrigin.y = selected.y
+            actionOrigin.switch = "action2"
+            actionOrigin.unselect = false
+            actionOrigin.atMiddle = true
+            selected.switch = "action2"
             showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }
         })
