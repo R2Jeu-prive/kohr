@@ -429,7 +429,52 @@
             return false
           }
         }
-        
+
+        function checkIfMovePossible(startX,startY,endX,endY,movingPiece,givenGame,userTeam){
+          var deltaX = endX - startX
+          var deltaY = endY - startY
+          if(userTeam == 1){
+            deltaX = -deltaX
+            deltaY = -deltaY
+          }
+          if(!piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
+            console.log("50")
+            return false //move is not possible for this piece
+          }else{
+            for(var index in givenGame.building){
+              var building = givenGame.buildings[index]
+              if(!building.atMiddle){
+                continue
+                //si le batiment n'est pas au milieu on le skip
+              }
+              var buildingDeltaX = building.x - startX
+              var buildingDeltaY = building.y - startY
+              if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
+                //le batiment pourrait se trouver sur le chemin de la pièce
+                if(intMiddle(startX,building.x,endX) && intMiddle(startY,building.y,endY)){
+                  console.log("51")
+                  return false // le batiment bloque le chemin !
+                }
+              }
+            }
+            for(var index in givenGame.pieces){
+              var piece = givenGame.pieces[index]
+              var pieceDeltaX = piece.x - startX
+              var pieceDeltaY = piece.y - startY
+              if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
+                //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
+                if(intMiddle(startX,piece.x,endX) && intMiddle(startY,piece.y,endY)){
+                  console.log("52")
+                  return false // une pièce bloque le chemin !
+                }
+              }
+            }
+          }
+
+          //IF NOTHING WRONG
+          return true
+        }
+    
         function countBuildings(game,type,team){
           var counter = 0
           game.buildings.forEach(function(building){
@@ -1010,50 +1055,24 @@
                     deltaX = -deltaX
                     deltaY = -deltaY
                   }
-                  if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
-                    console.log(2)
-                    for(index in givenGame.buildings){
-                      var building = givenGame.buildings[index]
-                      if(!building.atMiddle){
-                        continue
-                        //si le batiment n'est pas au milieu on le skip
-                      }
-                      var buildingDeltaX = building.x - startX
-                      var buildingDeltaY = building.y - startY
-                      if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
-                        //le batiment pourrait se trouver sur le chemin de la pièce
-                        if(!(intMiddle(startX,building.x,endX) && intMiddle(startY,building.y,endY))){
-                          for(index in givenGame.pieces){
-                            var piece = givenGame.pieces[index]
-                            var pieceDeltaX = piece.x - startX
-                            var pieceDeltaY = piece.y - startY
-                            if(piecePossibleMoves[movingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
-                              //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
-                              if(!(intMiddle(startX,piece.x,endX) && intMiddle(startY,piece.y,endY))){
-                                console.log(endX,endY,"ok")
-                                if(tempMe.team == 1){
-                                  var x = -1*endX + kohrGrid + 1
-                                  var y = -1*endY + kohrGrid + 1
-                                }else{
-                                  var x = endX
-                                  var y = endY
-                                }
-                                kohrCtxS.fillStyle = "rgba(255,255,255,0.8)";
-                                kohrCtxS.beginPath();
-                                let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
-                                let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
-                                kohrCtxS.moveTo(leftPointX,leftPointY);
-                                kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
-                                kohrCtxS.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
-                                kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
-                                kohrCtxS.closePath();
-                                kohrCtxS.fill();
-                              }
-                            }
-                          }
-                        }
-                      }
+                  if(checkIfMovePossible(startX,startY,endX,endY,movingPiece,givenGame,userTeam)){
+                    if(tempMe.team == 1){
+                      var x = -1*endX + kohrGrid + 1
+                      var y = -1*endY + kohrGrid + 1
+                    }else{
+                      var x = endX
+                      var y = endY
                     }
+                    kohrCtxS.fillStyle = "rgba(255,255,255,0.8)";
+                    kohrCtxS.beginPath();
+                    let leftPointX = (2*kohrM) + ((x-1)*kohrWidthCell) + ((y-1)*kohrWidthCell)
+                    let leftPointY = (gridHeight/2) + ((x-1)*kohrHeightCell) - ((y-1)*kohrHeightCell)
+                    kohrCtxS.moveTo(leftPointX,leftPointY);
+                    kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY-kohrHeightCell);
+                    kohrCtxS.lineTo(leftPointX+2*kohrWidthCell,leftPointY);
+                    kohrCtxS.lineTo(leftPointX+kohrWidthCell,leftPointY+kohrHeightCell);
+                    kohrCtxS.closePath();
+                    kohrCtxS.fill();
                   }
                 }
               }
