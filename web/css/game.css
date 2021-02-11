@@ -449,3 +449,8 @@
     margin: 0px;
     font-family: "Comfortaa";
 }
+
+.game-piece-img{
+    position: relative;
+    left: 6px;
+}
