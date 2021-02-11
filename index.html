@@ -363,7 +363,7 @@
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
             showGameFast(game,pseudo,selected,canPlay)
-          }else if(buttonType.startsWith("attack1")){
+          }else if(buttonType.startsWith("attack2")){
             var cuts = buttonId.split("-");
             selected.switch = cuts[cuts.length - 1]
             showGameFast(game,pseudo,selected,canPlay)
@@ -1223,7 +1223,7 @@
           })
           $(".game-piece-button").each(function() {
             if(["game-base-"+userSelected.switch,"game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
-              $(this).css("background","rgba(221,197,250,0.1")
+              $(this).css("background","rgba(221,197,250,0.3")
             }else{
               $(this).css("background","")
             }
