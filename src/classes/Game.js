@@ -789,6 +789,7 @@ class Game {
 
         //DOESN'T HAVE ENERGY
         console.log(pieceAttacks)
+        console.log(attackType)
         console.log(pieceAttacks[attackType])
         if(this.stats[team][0] < pieceAttacks[attackType][1]){
             console.log("59")
