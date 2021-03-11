@@ -430,7 +430,7 @@
               socket.emit("pieceMove",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y});
               actionOrigin.unselect = true
             }else if(actionOrigin.switch == "attack1"){
-
+              ////[TODO]
             }else if(actionOrigin.switch == "attack2"){
               
             }
@@ -1442,7 +1442,7 @@
           //SET DYNAMIC CSS PROPERTIES AT END
           $(".game-switch-" + userSelected.switch).css("background-color","green")
           $(".game-precreate-button").each(function() {
-            if(["#game-base-precreatepiece-"+userSelected.switch,"#game-base-precreatebuilding-"+userSelected.switch,"game-kohr-precreatepiece-"+userSelected.switch,"game-kohr-precreatebuilding-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
+            if(["game-base-precreatepiece-"+userSelected.switch,"game-base-precreatebuilding-"+userSelected.switch,"game-kohr-precreatepiece-"+userSelected.switch,"game-kohr-precreatebuilding-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.1)")
             }else{
               $(this).css("background","")
@@ -1450,7 +1450,7 @@
           })
           $(".game-piece-button").each(function() {
             console.log(userSelected)
-            if(["#game-base-"+userSelected.switch,"#game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
+            if(["game-base-"+userSelected.switch,"game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.3)")
             }else{
               $(this).css("background","")
