@@ -809,7 +809,7 @@ class Game {
         console.log(attackingPiece.constructor.name)
         console.log([deltaX, deltaY])
         console.log(piecePossibleAttacks)
-        if(!piecePossibleAttacks[attackingPiece.constructor.name].includes([deltaX, deltaY])){
+        if(!piecePossibleAttacks[attackingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
             console.log("61")
             return false //attack moving is not possible for this piece
         }else{
@@ -820,7 +820,7 @@ class Game {
                 }
                 var buildingDeltaX = building.x - startX
                 var buildingDeltaY = building.y - startY
-                if(piecePossibleAttacks[attackingPiece.constructor.name].includes([buildingDeltaX, buildingDeltaY])){
+                if(piecePossibleAttacks[attackingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == buildingDeltaX && deltaCouple[1] == buildingDeltaY)){
                     //le batiment pourrait se trouver sur le chemin de la pièce
                     if(this.intMiddle(startX,building.x,endX) && this.intMiddle(startY,building.y,endY) && (building.x != endX || building.y != endY)){
                         console.log("62")
@@ -835,7 +835,7 @@ class Game {
             for(var piece in this.pieces){
                 var pieceDeltaX = piece.x - startX
                 var pieceDeltaY = piece.y - startY
-                if(piecePossibleAttacks[attackingPiece.constructor.name].includes([pieceDeltaX, pieceDeltaY])){
+                if(piecePossibleAttacks[attackingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
                     //la pièce pourrait se trouver sur le chemin de la pièce que l'on bouge
                     if(this.intMiddle(startX,piece.x,endX) && this.intMiddle(startY,piece.y,endY) && (piece.x != endX || piece.y != endY)){
                         console.log("64")
