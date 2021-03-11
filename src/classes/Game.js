@@ -757,7 +757,7 @@ class Game {
         if(this.gameInfo.maxPlayers == 4){
             maxMiddle = 9 + 1
         }
-        if(!(startX>0 && startX<maxBase && startY>0 && startY<maxBase && endX>0 && endX<maxBase && endY>0 && endY<maxBase)){
+        if(!(startX>0 && startX<maxMiddle && startY>0 && startY<maxMiddle && endX>0 && endX<maxMiddle && endY>0 && endY<maxMiddle)){
             console.log("55")
             return false //out of range coords
         }
