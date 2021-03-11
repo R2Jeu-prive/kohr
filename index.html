@@ -1448,12 +1448,14 @@
               $(this).css("background","")
             }
           })
+          console.log(userSelected)
           $(".game-piece-button").each(function() {
-            console.log(userSelected)
             if(["game-base-"+userSelected.switch,"game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.3)")
+              console.log("yes")
             }else{
               $(this).css("background","")
+              console.log("no")
             }
           })
           $(".game-changeprod-img").css("width", (30/320)*$(".game-actions").width() + "px")
