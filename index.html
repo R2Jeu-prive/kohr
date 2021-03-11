@@ -1162,7 +1162,7 @@
             }
             for(var endX = 1;endX <= max; endX++){
               for(var endY = 1;endY <= max; endY++){
-                if(userActionOrigin.switch == "move"){
+                if(userSelected.switch == "move"){
                   if(checkIfMovePossible(startX,startY,endX,endY,originPiece,givenGame,userTeam)){
                     if(tempMe.team == 1){
                       var x = -1*endX + kohrGrid + 1
@@ -1182,7 +1182,7 @@
                     kohrCtxS.closePath();
                     kohrCtxS.fill();
                   }
-                }else if(userActionOrigin.switch == "attack1" || userActionOrigin.switch == "attack2"){
+                }else if(userSelected.switch == "attack1" || userSelected.switch == "attack2"){
                   if(checkIfAttackPossible(startX,startY,endX,endY,originPiece,givenGame,userTeam)){
                     if(tempMe.team == 1){
                       var x = -1*endX + kohrGrid + 1
