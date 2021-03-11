@@ -513,7 +513,7 @@
           if(!piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
               return false //attack moving is not possible for this piece
           }else{
-            for(var building of this.buildings){
+            for(var building of givenGame.buildings){
               if(!building.atMiddle){
                 continue
                 //si le batiment n'est pas au milieu on le skip
