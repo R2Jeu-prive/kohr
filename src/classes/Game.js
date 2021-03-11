@@ -788,9 +788,6 @@ class Game {
         }
 
         //DOESN'T HAVE ENERGY
-        console.log(pieceAttacks)
-        console.log(attackType)
-        console.log(pieceAttacks[attackType])
         if(this.stats[team][0] < pieceAttacks[attackType][1]){
             console.log("59")
             return false //doesn't have energy to attack
@@ -809,6 +806,9 @@ class Game {
             deltaX = -deltaX
             deltaY = -deltaY
         }
+        console.log(attackingPiece.constructor.name)
+        console.log([deltaX, deltaY])
+        console.log(piecePossibleAttacks)
         if(!piecePossibleAttacks[attackingPiece.constructor.name].includes([deltaX, deltaY])){
             console.log("61")
             return false //attack moving is not possible for this piece
