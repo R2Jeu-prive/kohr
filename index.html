@@ -448,7 +448,7 @@
               }else if(attackingPiece.type == "Enchanter"){
                 var attack = "enchant"
               }
-              socket.emit("pieceAttack",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y, attack : attack});
+              socket.emit("pieceAttack",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y, attackType : attack});
               actionOrigin.unselect = true
             }
           }
