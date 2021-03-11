@@ -462,7 +462,6 @@
           }else{
             for(var index in givenGame.buildings){
               var building = givenGame.buildings[index]
-              console.log(index,building)
               if(!building.atMiddle){
                 continue
                 //si le batiment n'est pas au milieu on le skip
@@ -1450,6 +1449,7 @@
             }
           })
           $(".game-piece-button").each(function() {
+            console.log(userSelected)
             if(["game-base-"+userSelected.switch,"game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.3")
             }else{
