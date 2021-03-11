@@ -8,8 +8,8 @@ class Building {
         this.type = type
     }
     hit(damage){
-        this.health = this.health - damage
-        return this.health <= 0 //building is destroyed from attack
+        this.health[0] = this.health[0] - damage
+        return this.health[0] <= 0 //building is destroyed from attack
     }
 }
 

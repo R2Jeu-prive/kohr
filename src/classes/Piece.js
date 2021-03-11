@@ -48,8 +48,8 @@ class Piece {
         this.y = y
     }
     hit(damage){
-        this.health = this.health - damage
-        return this.health <= 0 //piece is destroyed from attack
+        this.health[0] = this.health[0] - damage
+        return this.health[0] <= 0 //piece is destroyed from attack
     }
 }
 
