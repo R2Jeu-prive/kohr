@@ -429,10 +429,27 @@
             if(actionOrigin.switch == "move"){
               socket.emit("pieceMove",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y});
               actionOrigin.unselect = true
-            }else if(actionOrigin.switch == "attack1"){
-              ////[TODO]
-            }else if(actionOrigin.switch == "attack2"){
-              
+            }else if(actionOrigin.switch == "attack1" || actionOrigin.switch == "attack2"){
+              var attackingPiece = game.pieces.find(piece => piece.x == startX && piece.y == startY)
+              if(attackingPiece.type == "Queen"){
+                if(actionOrigin.switch == "attack1"){
+                  var attack = "queenSoft" 
+                }else{
+                  var attack = "queenHard" 
+                }
+              }else if(attackingPiece.type == "Rook"){
+                var attack = "healing"
+              }else if(attackingPiece.type == "Bishop"){
+                var attack = "diagonalSuicide"
+              }else if(attackingPiece.type == "Knight"){
+                var attack = "jumping"
+              }else if(attackingPiece.type == "Pawn"){
+                var attack = "simpleAttack"
+              }else if(attackingPiece.type == "Enchanter"){
+                var attack = "enchant"
+              }
+              socket.emit("pieceAttack",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y, attack : attack});
+              actionOrigin.unselect = true
             }
           }
           
