@@ -532,7 +532,7 @@
                 }
               }
             }
-            for(var piece of this.pieces){
+            for(var piece of givenGame.pieces){
               var pieceDeltaX = piece.x - startX
               var pieceDeltaY = piece.y - startY
               if(piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == pieceDeltaX && deltaCouple[1] == pieceDeltaY)){
