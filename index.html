@@ -430,7 +430,7 @@
               socket.emit("pieceMove",{lastTimeStamp : game.timeStamp, startX : actionOrigin.x, endX : selected.x, startY : actionOrigin.y, endY : selected.y});
               actionOrigin.unselect = true
             }else if(actionOrigin.switch == "attack1" || actionOrigin.switch == "attack2"){
-              var attackingPiece = game.pieces.find(piece => piece.x == startX && piece.y == startY)
+              var attackingPiece = game.pieces.find(piece => piece.x == actionOrigin.x && piece.y == actionOrigin.y)
               if(attackingPiece.type == "Queen"){
                 if(actionOrigin.switch == "attack1"){
                   var attack = "queenSoft" 
