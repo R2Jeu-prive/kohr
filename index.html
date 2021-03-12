@@ -1433,7 +1433,7 @@
               $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
               $(".game-info-description").html(gameDisplayInfo[selectedEntity.type].description)
               if(selectedEntity.hasOwnProperty('health')){
-                $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity[1]+"pv")
+                $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity.health[1]+"pv")
               }
               if(selectedEntity.hasOwnProperty('buildingTimeLeft')){
                 var turns = selectedEntity.buildingTimeLeft + " tour"

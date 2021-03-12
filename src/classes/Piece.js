@@ -40,7 +40,7 @@ class Piece {
         this.x = x
         this.y = y
         this.team = team
-        this.health = health
+        this.health = [health,health]
         this.type = type
     }
     changeCoords(x,y){
