@@ -42,6 +42,9 @@ class Extractor extends Building {
         super(x,y,atMiddle,team,20,"Extractor")
         this.level = 1
         this.inventory = [0,10,ressource]
+        if(this.atMiddle){
+            this.inventory[1] = this.inventory[1] * 2
+        }
     }
     countNeighbours(gameBuildings){
         var neighbours = 0
@@ -57,6 +60,9 @@ class Extractor extends Building {
     upgrade(){
         this.level += 1
         this.inventory[1] = (75*this.level*this.level)-(205*this.level)+140
+        if(this.atMiddle){
+            this.inventory[1] = this.inventory[1] * 2
+        }
     }
 }
 

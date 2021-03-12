@@ -153,7 +153,7 @@
             <p class="game-info-description game-info-texts">Description</p>
             <p class="game-info-health game-info-texts">50PV / 100PV</p>
             <p class="game-info-buildingTimeLeft game-info-texts">2 tours</p>
-            <p class="game-info-level game-info-texts">Level 1 : (10 items / tour)</p>
+            <p class="game-info-production game-info-texts">prod : 10 items / tour</p>
             <p class="game-info-inventory game-info-texts">50 / 100 <img class="game-info-ressource-icon" src="/icon/copper"/></p>
             <button class="game-buttons game-build-button" id="game-base-build">
 
@@ -1430,10 +1430,17 @@
               $(".game-infos").children().attr("hidden",false)
               $(".game-info-needEntity").attr("hidden",true)
               $(".game-info-none").attr("hidden",true)
+              var name = gameDisplayInfo[selectedEntity.type].name
+              if(selectedEntity.hasOwnProperty('level')){
+                name = name + " lvl"+ selectedEntity.level
+              }
               $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
               $(".game-info-description").html(gameDisplayInfo[selectedEntity.type].description)
               if(selectedEntity.hasOwnProperty('health')){
                 $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity.health[1]+"pv")
+                $(".game-info-health").attr("hidden",false)
+              }else{
+                $(".game-info-health").attr("hidden",true)
               }
               if(selectedEntity.hasOwnProperty('buildingTimeLeft')){
                 var turns = selectedEntity.buildingTimeLeft + " tour"
@@ -1441,6 +1448,34 @@
                   turns = turns + "s"
                 }
                 $(".game-info-buildingTimeLeft").html("Operationnel dans "+turns)
+                $(".game-info-buildingTimeLeft").attr("hidden",false)
+              }else{
+                $(".game-info-buildingTimeLeft").attr("hidden",true)
+              }
+              if(selectedEntity.hasOwnProperty('inventory')){
+                var initialProduction = (2.5*selectedEntity.level*selectedEntity.level)-(2.5*selectedEntity.level)+10 // 1 => 10 | 2 => 15 | 3 => 25
+                var neighbours = 0
+                givenGame.buildings.forEach(function(building){
+                  if(building.type == "Extractor"){
+                    if(Math.abs(building.x - selectedEntity.x) + Math.abs(building.y - selectedEntity.y) == 1 && building.atMiddle == selectedEntity.atMiddle && building.inventory[2] == selectedEntity.inventory[2]){
+                      neighbours = neighbours + 1
+                    }
+                  }
+                },this)
+                var proximityBonus = neighbours*5
+                var production = initialProduction + proximityBonus
+                var middleMultiplicator = "1(au kohr)"
+                if(selectedEntity.atMiddle){
+                  middleMultiplicator = "2(au centre)"
+                }
+                $(".game-info-production").html("Prod : "+production+" items / tour<br/></i>[(level)" + initialProduction+" + (proximité)"+proximityBonus+"] x " + middleMultiplicator + "</i>")
+                $(".game-info-production").html("Stockage : " + selectedEntity.inventory[0] + " / " + selectedEntity.inventory[1])
+                $(".game-info-ressource-icon").attr("src","/icon/"+selectedEntity.inventory[2]);
+                $(".game-info-production").attr("hidden",false)
+                $(".game-info-inventory").attr("hidden",false)
+              }else{
+                $(".game-info-production").attr("hidden",true)
+                $(".game-info-inventory").attr("hidden",true)
               }
             }else{
               $(".game-infos").children().attr("hidden",true)
