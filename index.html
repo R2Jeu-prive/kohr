@@ -1432,7 +1432,16 @@
               $(".game-info-none").attr("hidden",true)
               $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
               $(".game-info-description").html(gameDisplayInfo[selectedEntity.type].description)
-              //selectedEntity.hasOwnProperty('property1')
+              if(selectedEntity.hasOwnProperty('health')){
+                $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity[1]+"pv")
+              }
+              if(selectedEntity.hasOwnProperty('buildingTimeLeft')){
+                var turns = selectedEntity.buildingTimeLeft + " tour"
+                if(selectedEntity.buildingTimeLeft>1){
+                  turns = turns + "s"
+                }
+                $(".game-info-buildingTimeLeft").html("Operationnel dans "+turns)
+              }
             }else{
               $(".game-infos").children().attr("hidden",true)
               $(".game-info-needEntity").attr("hidden",false)
