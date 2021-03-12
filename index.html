@@ -1464,11 +1464,14 @@
                 },this)
                 var proximityBonus = neighbours*5
                 var production = initialProduction + proximityBonus
+                if(building.atMiddle){
+                    production = production * 2
+                }
                 var middleMultiplicator = "1(au kohr)"
                 if(selectedEntity.atMiddle){
                   middleMultiplicator = "2(au centre)"
                 }
-                $(".game-info-production").html("Prod : "+production+" items / tour<br/></i>[(level)" + initialProduction+" + (proximité)"+proximityBonus+"] x " + middleMultiplicator + "</i>")
+                $(".game-info-production").html("Prod : "+production+" items / tour<br/><i>[(level)" + initialProduction+" + (proximité)"+proximityBonus+"] x " + middleMultiplicator + "</i>")
                 $(".game-info-inventory").html("Stockage : " + selectedEntity.inventory[0] + " / " + selectedEntity.inventory[1])
                 $(".game-info-ressource-icon").attr("src","/icon/"+selectedEntity.inventory[2]);
                 $(".game-info-production").attr("hidden",false)
