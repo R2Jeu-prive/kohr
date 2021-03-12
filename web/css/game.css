@@ -466,3 +466,16 @@
     height: 35%;
     width: 25%;
 }
+
+.game-info-none{
+    position: absolute;
+    margin: 0;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    font-family: "Comfortaa";
+    font-size: larger;
+    color: rgb(230,230,240);
+}
