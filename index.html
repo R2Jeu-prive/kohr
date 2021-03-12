@@ -290,7 +290,7 @@
           gameDisplayInfo["Knight"] = {name:"Cavalier",description:"Il utilise les bigs blacks legs de son cheval pour sauter sur tout ce qui bouge",attacks:["Furious Jumper"]}
           gameDisplayInfo["Rook"] = {name:"Tour",description:"Celle là, elle s'est pas faite détruire...",attacks:["Heal"]}
           gameDisplayInfo["Bishop"] = {name:"Fou",description:'"Moi ? Fou ? Jamais !" Il arrête pas de répéter ça depuis qu\'il est né ',attacks:["Et ça fait bim, bam, boum !"]}
-          gameDisplayInfo["Enchanter"] = {name:"Envoûteur",description:"il te trouve, te drogue, et te ramène dans son pays natal",attacks:["Connaissez vous le GHB ?"]}
+          gameDisplayInfo["Enchanter"] = {name:"Envoûteur",description:"Il te trouve, te drogue, et te ramène dans son pays natal",attacks:["Connaissez vous le GHB ?"]}
           gameDisplayInfo["Queen"] = {name:"Reine",description:"Que font ces gueux en face de ma magnifique personne ?",attacks:["Coup de baton","Machette dans ta bouche"]}
           gameDisplayInfo["Core"] = {name:"Noyau",description:"Faut le prendre en 4-4-2"}
           gameDisplayInfo["Workshop"] = {name:"Atelier",description:"Viens tater de mes outils"}
@@ -1430,6 +1430,9 @@
               $(".game-infos").children().attr("hidden",false)
               $(".game-info-needEntity").attr("hidden",true)
               $(".game-info-none").attr("hidden",true)
+              $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
+              $(".game-info-description").html(gameDisplayInfo[selectedEntity.type].description)
+              //selectedEntity.hasOwnProperty('property1')
             }else{
               $(".game-infos").children().attr("hidden",true)
               $(".game-info-needEntity").attr("hidden",false)
