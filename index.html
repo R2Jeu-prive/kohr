@@ -91,19 +91,19 @@
           </div>
           <div class="game-ressources">
             <div class="game-copper">
-              <img class="game-ressource-icon" src="/icon/copper"/>
+              <img class="game-stats-ressource-icon" src="/icon/copper"/>
               <p class="game-copper-count game-ressource-count">x0000</p>
             </div>
             <div class="game-titanium">
-              <img class="game-ressource-icon" src="/icon/titanium"/>
+              <img class="game-stats-ressource-icon" src="/icon/titanium"/>
               <p class="game-titanium-count game-ressource-count">x0000</p>
             </div>
             <div class="game-gold">
-              <img class="game-ressource-icon" src="/icon/gold"/>
+              <img class="game-stats-ressource-icon" src="/icon/gold"/>
               <p class="game-gold-count game-ressource-count">x0000</p>
             </div>
             <div class="game-ruby">
-              <img class="game-ressource-icon" src="/icon/ruby"/>
+              <img class="game-stats-ressource-icon" src="/icon/ruby"/>
               <p class="game-ruby-count game-ressource-count">x0000</p>
             </div>
           </div>
@@ -181,19 +181,19 @@
           </div>
           <div class="game-ressources">
             <div class="game-copper">
-              <img class="game-ressource-icon" src="/icon/copper"/>
+              <img class="game-stats-ressource-icon" src="/icon/copper"/>
               <p class="game-copper-count game-ressource-count">x0000</p>
             </div>
             <div class="game-titanium">
-              <img class="game-ressource-icon" src="/icon/titanium"/>
+              <img class="game-stats-ressource-icon" src="/icon/titanium"/>
               <p class="game-titanium-count game-ressource-count">x0000</p>
             </div>
             <div class="game-gold">
-              <img class="game-ressource-icon" src="/icon/gold"/>
+              <img class="game-stats-ressource-icon" src="/icon/gold"/>
               <p class="game-gold-count game-ressource-count">x0000</p>
             </div>
             <div class="game-ruby">
-              <img class="game-ressource-icon" src="/icon/ruby"/>
+              <img class="game-stats-ressource-icon" src="/icon/ruby"/>
               <p class="game-ruby-count game-ressource-count">x0000</p>
             </div>
           </div>
@@ -1435,7 +1435,7 @@
                 name = name + " lvl"+ selectedEntity.level
               }
               $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
-              $(".game-info-description").html(gameDisplayInfo[selectedEntity.type].description)
+              $(".game-info-description").html("<i>"+gameDisplayInfo[selectedEntity.type].description+"</i>")
               if(selectedEntity.hasOwnProperty('health')){
                 $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity.health[1]+"pv")
                 $(".game-info-health").attr("hidden",false)

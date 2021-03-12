@@ -128,7 +128,7 @@
     margin: 0px;
 }
 
-.game-ressource-icon{
+.game-stats-ressource-icon{
     position: absolute;
     height: 100%;
 }
@@ -481,7 +481,7 @@
 }
 
 .game-info-title{
-    margin: 15px 0px;
+    margin: 15px 0px 0px;
     position: static;
     text-align: center;
     width: 100%;
