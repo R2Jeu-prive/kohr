@@ -1414,9 +1414,9 @@
           var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
 
           //NOTHING TO ATTACK
-          if(selectedPiece === selectedBuilding){
+          if(selectedPiece === selectedBuilding || userSelected.unselect){
             $(".game-infos").children().attr("hidden",true)
-            $(".game-infos-none").attr("hidden",false)
+            $(".game-info-none").attr("hidden",false)
           }else{
             if(selectedPiece != undefined){
               var selectedEntity = selectedPiece;
