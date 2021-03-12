@@ -1411,7 +1411,7 @@
 
 
           //SETTING RIGHT FRAME
-          var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
+          var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle)
           var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
 
           if(userSelected.unselect){
