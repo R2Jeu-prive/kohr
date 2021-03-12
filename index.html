@@ -1443,12 +1443,16 @@
                 $(".game-info-health").attr("hidden",true)
               }
               if(selectedEntity.hasOwnProperty('buildingTimeLeft')){
-                var turns = selectedEntity.buildingTimeLeft + " tour"
-                if(selectedEntity.buildingTimeLeft>1){
-                  turns = turns + "s"
+                if(selectedEntity.buildingTimeLeft>0){
+                  var turns = selectedEntity.buildingTimeLeft + " tour"
+                  if(selectedEntity.buildingTimeLeft>1){
+                    turns = turns + "s"
+                  }
+                  $(".game-info-buildingTimeLeft").html("Operationnel dans "+turns)
+                  $(".game-info-buildingTimeLeft").attr("hidden",false)
+                }else{
+                  $(".game-info-buildingTimeLeft").attr("hidden",true)
                 }
-                $(".game-info-buildingTimeLeft").html("Operationnel dans "+turns)
-                $(".game-info-buildingTimeLeft").attr("hidden",false)
               }else{
                 $(".game-info-buildingTimeLeft").attr("hidden",true)
               }
@@ -1467,12 +1471,8 @@
                 if(building.atMiddle){
                     production = production * 2
                 }
-                var middleMultiplicator = "1(au kohr)"
-                if(selectedEntity.atMiddle){
-                  middleMultiplicator = "2(au centre)"
-                }
-                $(".game-info-production").html("Prod : "+production+" items / tour<br/><i>[(level)" + initialProduction+" + (proximité)"+proximityBonus+"] x " + middleMultiplicator + "</i>")
-                $(".game-info-inventory").html("Stockage : " + selectedEntity.inventory[0] + " / " + selectedEntity.inventory[1])
+                $(".game-info-production").html("Prod : "+production+" items / tour")
+                $(".game-info-inventory").html("Stockage : " + selectedEntity.inventory[0] + " / " + selectedEntity.inventory[1] + "<img class='game-info-ressource-icon' src='/icon/copper'/>")
                 $(".game-info-ressource-icon").attr("src","/icon/"+selectedEntity.inventory[2]);
                 $(".game-info-production").attr("hidden",false)
                 $(".game-info-inventory").attr("hidden",false)
