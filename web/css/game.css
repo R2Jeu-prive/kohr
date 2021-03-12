@@ -467,7 +467,7 @@
     width: 25%;
 }
 
-.game-info-none{
+.game-info-none, .game-info-needEntity{
     position: absolute;
     margin: 0;
     text-align: center;
