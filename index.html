@@ -149,12 +149,14 @@
           <div class="game-infos">
             <p class="game-info-none">Aucune case seléctionnée</p>
             <p class="game-info-title">Titre</p>
-            <p class="game-info-descrtiption">Description</p>
-            <p class="game-info-health">50PV / 100PV</p>
-            <p class="game-info-buildingTimeLeft">2 tours</p>
-            <p class="game-info-level">Level 1 : (10 items / tour)</p>
-            <p class="game-info-inventory">50 / 100 <img class="game-info-ressource-icon" src="/icon/copper"/></p>
-            <button class="game-buttons game-build-button" id="game-base-build">Construire</button>
+            <p class="game-info-descrtiption game-info-texts">Description</p>
+            <p class="game-info-health game-info-texts">50PV / 100PV</p>
+            <p class="game-info-buildingTimeLeft game-info-texts">2 tours</p>
+            <p class="game-info-level game-info-texts">Level 1 : (10 items / tour)</p>
+            <p class="game-info-inventory game-info-texts">50 / 100 <img class="game-info-ressource-icon" src="/icon/copper"/></p>
+            <button class="game-buttons game-build-button" id="game-base-build">
+
+            </button>
           </div>
         </div>
         <div id="game-kohr-side">
@@ -361,7 +363,6 @@
             var prodTrio = ["copper","titanium","gold","ruby"]
             prodTrio.splice(["copper","titanium","gold","ruby"].indexOf(extractor.inventory[2]),1)
             var newRess = prodTrio[parseInt(buttonType.substr(buttonType.length - 1)) - 1];
-            console.log(extractor,prodTrio,newRess)
             socket.emit("buildingEdit",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : newRess})
           }else if(buttonType.startsWith("delete")){
             socket.emit("buildingDelete",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
@@ -1407,6 +1408,24 @@
             }
           }
 
+
+          //SETTING RIGHT FRAME
+          var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
+          var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+
+          //NOTHING TO ATTACK
+          if(selectedPiece === selectedBuilding){
+            $(".game-infos").children().attr("hidden",true)
+            $(".game-infos-none").attr("hidden",false)
+          }else{
+            if(selectedPiece != undefined){
+              var selectedEntity = selectedPiece;
+            }else{
+              var selectedEntity = selectedBuilding;
+            }
+            console.log("selected",selectedEntity)
+          }
+
           //DRAW ACTIONORIGIN AND MOVE/ATTACKSQUARES
           if(!userActionOrigin.unselect){
             var startX = userActionOrigin.x
@@ -1475,14 +1494,11 @@
               $(this).css("background","")
             }
           })
-          console.log(userSelected)
           $(".game-piece-button").each(function() {
             if(["game-base-"+userSelected.switch,"game-kohr-"+userSelected.switch].indexOf($(this).attr("id")) != -1){
               $(this).css("background","rgba(221,197,250,0.3)")
-              console.log("yes", $(this).attr("id"))
             }else{
               $(this).css("background","")
-              console.log("no", $(this).attr("id"))
             }
           })
           $(".game-changeprod-img").css("width", (30/320)*$(".game-actions").width() + "px")

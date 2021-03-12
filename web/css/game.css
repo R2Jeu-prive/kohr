@@ -479,3 +479,22 @@
     font-size: larger;
     color: rgb(230,230,240);
 }
+
+.game-info-title{
+    margin: 15px 0px;
+    position: static;
+    text-align: center;
+    width: 100%;
+    font-family: "Comfortaa";
+    font-size: larger;
+    color: rgb(230,230,240);
+}
+
+.game-info-texts{
+    margin: 10px;
+    position: static;
+    width: calc(100% - 20px);
+    font-family: "Comfortaa";
+    font-size: smaller;
+    color: rgb(230,230,240);
+}
