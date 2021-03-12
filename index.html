@@ -148,6 +148,7 @@
           </div>
           <div class="game-infos">
             <p class="game-info-none">Aucune case seléctionnée</p>
+            <p class="game-info-needEntity">Seléctionnez une entitée à contruire dans le panel de gauche</p>
             <p class="game-info-title">Titre</p>
             <p class="game-info-descrtiption game-info-texts">Description</p>
             <p class="game-info-health game-info-texts">50PV / 100PV</p>
@@ -1413,17 +1414,27 @@
           var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y)
           var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
 
-          //NOTHING TO ATTACK
-          if(selectedPiece === selectedBuilding || userSelected.unselect){
+          if(userSelected.unselect){
             $(".game-infos").children().attr("hidden",true)
             $(".game-info-none").attr("hidden",false)
           }else{
+            $(".game-info-none").attr("hidden",true)
             if(selectedPiece != undefined){
-              var selectedEntity = selectedPiece;
+              var selectedEntity = selectedPiece
+            }else if(selectedBuilding != undefined){
+              var selectedEntity = selectedBuilding
             }else{
-              var selectedEntity = selectedBuilding;
+              var selectedEntity = false
             }
-            console.log("selected",selectedEntity)
+            if(selectedEntity){
+              $(".game-infos").children().attr("hidden",false)
+              $(".game-info-needEntity").attr("hidden",true)
+              $(".game-info-none").attr("hidden",true)
+            }else{
+              $(".game-infos").children().attr("hidden",true)
+              $(".game-info-needEntity").attr("hidden",false)
+            }
+            console.log("selected ",selectedEntity)
           }
 
           //DRAW ACTIONORIGIN AND MOVE/ATTACKSQUARES
