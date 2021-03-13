@@ -1555,7 +1555,6 @@
                 $(".game-info-description").attr("hidden",false)
               }
             }
-            console.log("selected ",selectedEntity)
           }
 
           //DRAW ACTIONORIGIN AND MOVE/ATTACKSQUARES
@@ -1640,7 +1639,6 @@
           $(".game-piece-img").css("width", (30/320)*$(".game-actions").width() + "px")
           $(".game-piece-img").css("height", (30/320)*$(".game-actions").width() + "px")
           $(".game-action-4, .game-action-5, .game-action-6").each(function() {
-            console.log($(this).height(),$(this).parent().height())
             if($(this).height() < $(this).parent().height()){
               $(this).css("top", "50%")
               $(this).css("transform", "translate(-50%, -50%)")
@@ -1649,7 +1647,6 @@
               $(this).css("transform", "translateX(-50%)")
             }
           })
-          console.log(userSelected)
           return [givenGame,userSelected]
         }
         
