@@ -262,6 +262,8 @@
     border-right: 4px solid rgb(110,110,145);
     height: 35%;
     width: 25%;
+    overflow-x:hidden;
+    overflow-y: scroll;
 }
 
 .game-action-simpletext{
@@ -473,6 +475,8 @@
     border-right: 4px solid rgb(110,110,145);
     height: 35%;
     width: 25%;
+    overflow-x:hidden;
+    overflow-y: scroll;
 }
 
 .game-info-none, .game-info-needEntity{
