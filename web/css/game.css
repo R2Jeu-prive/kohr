@@ -282,10 +282,9 @@
 .game-action-4{
     position: absolute;
     left: 50%;
-    top: 50%;
     padding: 5px 0px 0px 5px;
     margin: 0px;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .game-precreate-button{
@@ -313,11 +312,10 @@
 .game-action-6{
     position: absolute;
     left: 50%;
-    top: 50%;
     padding: 0px;
     margin: 0px;
     width: 90%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .game-no-interaction{
@@ -427,11 +425,10 @@
 .game-action-5{
     position: absolute;
     left: 50%;
-    top: 50%;
     padding: 0px;
     margin: 0px;
     width: 90%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .game-piece-button{
