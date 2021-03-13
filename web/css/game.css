@@ -345,6 +345,7 @@
     font-size: larger;
     padding: 10 15 7 15;
     width: fit-content;
+    min-width: 51%;
     left: 50%;
     margin: 2px 0px;
     transform: translateX(-50%);
@@ -365,6 +366,7 @@
     font-size: larger;
     padding: 10 15 7 15;
     width: fit-content;
+    min-width: 51%;
     left: 50%;
     margin: 2px 0px;
     transform: translateX(-50%);
@@ -385,6 +387,7 @@
     font-size: larger;
     padding: 10 15 7 15;
     width: fit-content;
+    min-width: 51%;
     left: 50%;
     transform: translateX(-50%);
     margin: 2px 0px;
@@ -443,6 +446,7 @@
     z-index: 1;
     padding: 10 15 7 15;
     width: fit-content;
+    min-width: 51%;
     left: 50%;
     margin: 2px 0px;
     transform: translateX(-50%);
@@ -517,6 +521,7 @@
     z-index: 1;
     padding: 10 15 7 15;
     width: fit-content;
+    min-width: 51%;
     left: 50%;
     margin: 2px 0px;
     transform: translateX(-50%);
