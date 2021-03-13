@@ -277,6 +277,9 @@ class Game {
         if(atMiddle){
             var neighbours = 0
             this.buildings.forEach(function(building){
+                console.log(building)
+                console.log(this)
+                console.log(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle)
                 if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle){
                     neighbours = neighbours + 1
                 }
