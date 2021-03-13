@@ -1277,7 +1277,7 @@
             var leftShow = 1;
           }else{
             var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle && !userSelected.unselect)
-            var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && !userSelected.unselect)
+            var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && !userSelected.unselect && (!building.atMiddle || building.team == userTeam))
             if(selectedPiece != undefined){
               if(selectedPiece.team == userTeam){
                 if(selectedPiece.buildingTimeLeft == 0){
@@ -1457,7 +1457,7 @@
 
           //SETTING RIGHT FRAME
           var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle)
-          var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle)
+          var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && (!building.atMiddle || building.team == userTeam))
 
           if(userSelected.unselect){
             $(".game-infos").children().attr("hidden",true)
