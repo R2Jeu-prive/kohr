@@ -555,11 +555,7 @@ class Game {
             console.log("35")
             return false //team has to 0 or 1
         }
-        var maxMiddle = 7 + 1
-        if(this.gameInfo.maxPlayers == 4){
-            maxMiddle = 9 + 1
-        }
-        if(!(x>0 && x<maxBase && y>0 && y<maxBase)){
+        if(!(x>0 && x<maxMiddle && y>0 && y<maxMiddle)){
             console.log("36")
             return false //out of range coords
         }
@@ -574,7 +570,7 @@ class Game {
         if(atMiddle){
             var neighbours = 0
             this.buildings.forEach(function(building){
-                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                if(Math.abs(building.x - x) + Math.abs(building.y - y) == 1 && building.atMiddle == atMiddle){
                     neighbours = neighbours + 1
                 }
             },this)
