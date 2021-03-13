@@ -159,26 +159,6 @@ io.on('connection', function(socket){
             if(game.isUserConnected(user) && game.gameInfo.status == "lobby"){
                 if(user.pseudo == game.gameInfo.masterPseudo){
                     game.tryStartGame(io)
-                    game.pieceBuild("Queen",2,5,0,456456,io)
-                    game.pieceBuild("Pawn",7,7,0,456456,io)
-                    game.pieceBuild("Pawn",1,1,0,456456,io)
-                    game.pieceBuild("Pawn",1,7,0,456456,io)
-                    game.buildingBuild("Wall",7,1,undefined,0,456456,io)
-                    game.buildingBuild("Wall",7,2,undefined,0,456456,io)
-                    game.buildingBuild("Wall",6,1,undefined,0,456456,io)
-                    game.buildingBuild("Wall",6,2,undefined,0,456456,io)
-                    game.buildingBuild("Wall",6,3,undefined,0,456456,io)
-                    game.buildingBuild("Wall",6,4,undefined,0,456456,io)
-                    game.buildingBuild("Wall",2,1,undefined,0,456456,io)
-                    game.buildingBuild("Wall",6,3,undefined,0,456456,io)
-                    game.buildingBuild("Wall",5,3,undefined,0,456456,io)
-                    game.buildingBuild("Wall",4,3,undefined,0,456456,io)
-                    game.buildingBuild("Wall",5,4,undefined,0,456456,io)
-                    game.buildingBuild("Wall",5,2,undefined,0,456456,io)
-                    game.buildingBuild("Wall",1,2,undefined,1,456456,io)
-                    game.buildingBuild("Wall",1,3,undefined,1,456456,io)
-                    game.buildingBuild("Extractor",5,5,true,1,456456,io)
-                    game.pieceBuild("Pawn",3,2,0,456456,io)
                 }else{
                     socket.emit("fatalError",{text : "Error #004 | Vous ne pouvez pas lancer cette partie !"});
                 }

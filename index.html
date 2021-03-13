@@ -195,8 +195,55 @@
               <p class="game-ruby-count game-ressource-count">x0000</p>
             </div>
           </div>
+          <div class="game-actions">
+            <p class="game-action-0 game-action-simpletext">Aucune case sélectionnée</p>
+            <p class="game-action-1 game-action-simpletext">Ce n'est pas à votre tour de jouer !</p>
+            <p class="game-action-2 game-action-simpletext">Entité ennemie !</p>
+            <p class="game-action-3 game-action-simpletext">La pièce n'a pas fini de se construire !</p>
+            <ul class="game-action-4">
+              <button class="game-buttons game-precreate-button game-swicth-Queen" id="game-kohr-precreatepiece-Queen"><img class="game-precreate-img" src="/piece/blue_queen"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Rook" id="game-kohr-precreatepiece-Rook"><img class="game-precreate-img" src="/piece/blue_rook"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Enchanter" id="game-kohr-precreatepiece-Enchanter"><img class="game-precreate-img" src="/piece/blue_enchanter"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Knight" id="game-kohr-precreatepiece-Knight"><img class="game-precreate-img" src="/piece/blue_knight"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Bishop" id="game-kohr-precreatepiece-Bishop"><img class="game-precreate-img" src="/piece/blue_bishop"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Pawn" id="game-kohr-precreatepiece-Pawn"><img class="game-precreate-img" src="/piece/blue_pawn"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Extractor" id="game-kohr-precreatebuilding-Extractor"><img class="game-precreate-img" src="/building/blue_extractor"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Wall" id="game-kohr-precreatebuilding-Wall"><img class="game-precreate-img" src="/building/blue_wall"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Battery" id="game-kohr-precreatebuilding-Battery"><img class="game-precreate-img" src="/building/blue_battery"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-Workshop" id="game-kohr-precreatebuilding-Workshop"><img class="game-precreate-img" src="/building/blue_workshop"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-LightArmory" id="game-kohr-precreatebuilding-LightArmory"><img class="game-precreate-img" src="/building/blue_light"/></button>
+              <button class="game-buttons game-precreate-button game-swicth-HeavyArmory" id="game-kohr-precreatebuilding-HeavyArmory"><img class="game-precreate-img" src="/building/blue_heavy"/></button>
+            </ul>
+            <ul class="game-action-5">
+              <button class="game-buttons game-piece-button game-switch-move" id="game-kohr-move"></button>
+              <button class="game-buttons game-piece-button game-switch-attack1" id="game-kohr-attack1"></button>
+              <button class="game-buttons game-piece-button game-switch-attack2" id="game-kohr-attack2"></button>
+            </ul>
+            <ul class="game-action-6">
+              <button class="game-buttons game-collect-button" id="game-kohr-collect">Récolter</button>
+              <div class="game-changeprod-container">
+                <button class="game-buttons game-changeprod-button" id="game-kohr-changeprod-1"></button>
+                <button class="game-buttons game-changeprod-button" id="game-kohr-changeprod-2"></button>
+                <button class="game-buttons game-changeprod-button" id="game-kohr-changeprod-3"></button>
+              </div>
+              <button class="game-buttons game-upgrade-button" id="game-kohr-upgrade"></button>
+              <button class="game-buttons game-destroy-button" id="game-kohr-destroy">Détruire</button>
+              <p class="game-no-interaction">Aucune action possible !</p>
+            </ul>
+          </div>
           <div class="game-timer-background">
             <p class="game-timer-text">30s</p>
+          </div>
+          <div class="game-infos">
+            <p class="game-info-none">Aucune case seléctionnée</p>
+            <p class="game-info-needEntity">Seléctionnez une entitée à contruire dans le panel de gauche</p>
+            <p class="game-info-title">Titre</p>
+            <p class="game-info-description game-info-texts">Description</p>
+            <p class="game-info-health game-info-texts">50PV / 100PV</p>
+            <p class="game-info-buildingTimeLeft game-info-texts">2 tours</p>
+            <p class="game-info-production game-info-texts">prod : 10 items / tour</p>
+            <p class="game-info-inventory game-info-texts">50 / 100</p>
+            <button class="game-buttons game-info-buildButton" id="game-kohr-build"></button>
           </div>
         </div>
       </div>
@@ -626,7 +673,7 @@
         }
 
         function setGameTimer(time,canPlay,maxTime){
-          return //to disable timer in dev
+          //return //to disable timer in dev
           if(time > maxTime){
             time = maxTime;
           }
