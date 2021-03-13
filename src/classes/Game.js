@@ -16,7 +16,7 @@ class Game {
         this.buildings = []
         this.players = []
         this.disconnectedPlayers = []
-        this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
+        this.stats = [[1000,1000,1000,1000,0],[0,0,0,0,0]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
     }
@@ -586,7 +586,8 @@ class Game {
             lightPieces += this.countPieces("Bishop",team)
             var lightCapacity = this.getCapacity("Light",team)
             if(lightCapacity == lightPieces){
-                console.log(lightPieces, lightCapacity)
+                console.log(lightPieces)
+                console.log(lightCapacity)
                 console.log("39")
                 return false //capacité max atteinte pour les pieces légères
             }
@@ -598,7 +599,8 @@ class Game {
             heavyPieces += this.countPieces("Enchanter",team)
             var heavyCapacity = this.getCapacity("Heavy",team)
             if(heavyCapacity == heavyPieces){
-                console.log(heavyPieces, heavyCapacity)
+                console.log(heavyPieces)
+                console.log(heavyCapacity)
                 console.log("40")
                 return false //capacité max atteinte pour les pieces lourdes
             }
