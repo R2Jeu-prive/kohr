@@ -1634,6 +1634,7 @@
             }
           })
           $(".game-action-4, .game-action-5, .game-action-6").each(function() {
+            console.log($(this).height(),$(this).parent().height())
             if($(this).height() < $(this).parent().height()){
               $(this).css("top", "50%")
               $(this).css("transform", "translate(-50%, -50%)")
