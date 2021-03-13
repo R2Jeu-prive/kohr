@@ -214,13 +214,6 @@
         game = {}
         canPlay = false
         if(true){ //game const
-          var buildingPrices = {}
-          buildingPrices["Extractor"] = [30,50,10,0]
-          buildingPrices["Wall"] = [0,20,0,0]
-          buildingPrices["Workshop"] = [0,120,0,30]
-          buildingPrices["Battery"] = [50,0,0,0]
-          buildingPrices["LightArmory"] = [70,0,30,0]
-          buildingPrices["HeavyArmory"] = [0,70,20,50]
           var imageOffsets = {}
           imageOffsets["Pawn"] = [0,25]
           imageOffsets["Enchanter"] = [0,25]
@@ -249,13 +242,19 @@
           imageScales["Battery"] = 2
           imageScales["Workshop"] = 2
           imageScales["Wall"] = 2
-          var piecePrices = {}
-          piecePrices["Queen"] = [20,0,100,20]
-          piecePrices["Rook"] = [0,60,0,30]
-          piecePrices["Bishop"] = [65,0,10,0]
-          piecePrices["Enchanter"] = [0,0,50,50]
-          piecePrices["Knight"] = [70,0,30,0]
-          piecePrices["Pawn"] = [0,20,0,0]
+          var entityPrices = {}
+          entityPrices["Queen"] = [20,0,100,20]
+          entityPrices["Rook"] = [0,60,0,30]
+          entityPrices["Bishop"] = [65,0,10,0]
+          entityPrices["Enchanter"] = [0,0,50,50]
+          entityPrices["Knight"] = [70,0,30,0]
+          entityPrices["Pawn"] = [0,20,0,0]
+          entityPrices["Extractor"] = [30,50,10,0]
+          entityPrices["Wall"] = [0,20,0,0]
+          entityPrices["Workshop"] = [0,120,0,30]
+          entityPrices["Battery"] = [50,0,0,0]
+          entityPrices["LightArmory"] = [70,0,30,0]
+          entityPrices["HeavyArmory"] = [0,70,20,50]
           var pieceMovePrices = {}
           pieceMovePrices["Queen"] = 4
           pieceMovePrices["Rook"] = 8
@@ -1486,6 +1485,20 @@
               if(userSelected.switch == ""){
                 $(".game-info-needEntity").attr("hidden",false)
               }else{
+                var cost = ""
+                if(entityPrices[userSelected.switch][0] > 0){
+                  cost += "<img class='game-info-buildIcon' game-ressource-icon' src='/icon/copper'/>x"+entityPrices[userSelected.switch][0]
+                }
+                if(entityPrices[userSelected.switch][1] > 0){
+                  cost += "<img class='game-info-buildIcon' game-ressource-icon' src='/icon/titanium'/>x"+entityPrices[userSelected.switch][1]
+                }
+                if(entityPrices[userSelected.switch][2] > 0){
+                  cost += "<img class='game-info-buildIcon' game-ressource-icon' src='/icon/gold'/>x"+entityPrices[userSelected.switch][2]
+                }
+                if(entityPrices[userSelected.switch][3] > 0){
+                  cost += "<img class='game-info-buildIcon' game-ressource-icon' src='/icon/ruby'/>x"+entityPrices[userSelected.switch][3]
+                }
+                $(".game-info-buildButton").html("<p class='game-info-buildText'>Construire</p>" + cost)
                 $(".game-info-buildButton").attr("hidden",false)
               }
             }
