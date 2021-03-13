@@ -54,7 +54,7 @@ class Game {
         var armoryAtMiddleCount = this.countBuildings(armoryName, team, true)
         var allArmoryCount = this.countBuildings(armoryName, team)
         var armoryAtBaseCount = allArmoryCount - armoryAtMiddleCount
-        if(type="Light"){
+        if(type=="Light"){
             armoryAtBaseCount += 1
         }
         var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
