@@ -362,7 +362,7 @@
             prodTrio.splice(["copper","titanium","gold","ruby"].indexOf(extractor.inventory[2]),1)
             var newRess = prodTrio[parseInt(buttonType.substr(buttonType.length - 1)) - 1];
             socket.emit("buildingEdit",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y, edit : newRess})
-          }else if(buttonType.startsWith("delete")){
+          }else if(buttonType.startsWith("destroy")){
             socket.emit("buildingDelete",{lastTimeStamp : game.timeStamp, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
           }else if(buttonType.startsWith("move")){
             actionOrigin.x = selected.x
