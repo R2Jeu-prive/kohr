@@ -331,7 +331,7 @@
 }
 
 .game-collect-button{
-    position: static;
+    position: relative;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -344,13 +344,14 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
-    width: 52%;
-    margin-left: 24%;
-    margin-bottom: 5px;
+    width: fit-content;
+    left: 50%;
+    margin: 2px 0px;
+    transform: translateX(-50%);
 }
 
 .game-destroy-button{
-    position: static;
+    position: relative;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -363,13 +364,14 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
-    width: 52%;
-    margin-left: 24%;
-    margin-bottom: 5px;
+    width: fit-content;
+    left: 50%;
+    margin: 2px 0px;
+    transform: translateX(-50%);
 }
 
 .game-upgrade-button{
-    position: static;
+    position: relative;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -382,9 +384,10 @@
     z-index: 1;
     font-size: larger;
     padding: 10 15 7 15;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 5px;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 2px 0px;
 }
 
 .game-upgrade-text{
@@ -427,7 +430,7 @@
 }
 
 .game-piece-button{
-    position: static;
+    position: relative;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -439,9 +442,10 @@
     font-family: "Comfortaa";
     z-index: 1;
     padding: 10 15 7 15;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 5px;
+    width: fit-content;
+    left: 50%;
+    margin: 2px 0px;
+    transform: translateX(-50%);
 }
 
 .game-piece-text{
@@ -500,7 +504,7 @@
 }
 
 .game-info-buildButton{
-    position: static;
+    position: relative;
     border-top: none;
     border-right: 2px solid rgb(110,110,145);
     border-bottom: none;
@@ -512,9 +516,10 @@
     font-family: "Comfortaa";
     z-index: 1;
     padding: 10 15 7 15;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 5px;
+    width: fit-content;
+    left: 50%;
+    margin: 2px 0px;
+    transform: translateX(-50%);
 }
 
 .game-info-buildText{
