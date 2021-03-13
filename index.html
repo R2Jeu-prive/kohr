@@ -639,7 +639,7 @@
               lightPieces += countPieces(givenGame,"Pawn",team)
               lightPieces += countPieces(givenGame,"Knight",team)
               lightPieces += countPieces(givenGame,"Bishop",team)
-              var lightCapacity = getCapacity(givenGame,"LIGHT",team)
+              var lightCapacity = getCapacity(givenGame,"Light",team)
               if(lightCapacity <= lightPieces){
                 console.log("67")
                 return false //capacité max atteinte pour les pieces légères
@@ -650,7 +650,7 @@
               heavyPieces += countPieces(givenGame,"Queen",team)
               heavyPieces += countPieces(givenGame,"Rook",team)
               heavyPieces += countPieces(givenGame,"Enchanter",team)
-              var heavyCapacity = getCapacity(givenGame,"HEAVY",team)
+              var heavyCapacity = getCapacity(givenGame,"Heavy",team)
               if(heavyCapacity <= heavyPieces){
                 console.log("68")
                 return false //capacité max atteinte pour les pieces lourdes
@@ -661,15 +661,16 @@
           //IF NOTHING WRONG
           return true
         }
-    
-        function countBuildings(game,type,team){
-          var counter = 0
+
+        function countBuildings(game,buildingName,team,onlyAtMiddle){
+          var onlyAtMiddle = onlyAtMiddle || false
+          var count = 0
           game.buildings.forEach(function(building){
-            if(building.type == type && building.team == team){
-              counter = counter + 1
+            if(building.type == buildingName && building.team == team && !(onlyAtMiddle && !building.atMiddle)){
+              count = count + 1
             }
           })
-          return counter
+          return count
         }
 
         function setGameTimer(time,canPlay,maxTime){
@@ -721,11 +722,11 @@
         }
 
         function getCapacity(game,type,team){
-          var armoryName = type.toLowerCase() + "Armory"
+          var armoryName = type + "Armory"
           var armoryAtMiddleCount = countBuildings(game,armoryName, team, true)
           var allArmoryCount = countBuildings(game,armoryName, team)
           var armoryAtBaseCount = allArmoryCount - armoryAtMiddleCount
-          if(type="LIGHT"){
+          if(type="Light"){
             armoryAtBaseCount += 1
           }
           var capacity = armoryAtMiddleCount*2 + armoryAtBaseCount
