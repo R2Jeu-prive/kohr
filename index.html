@@ -1207,13 +1207,8 @@
               kohrCtxS.closePath();
               kohrCtxS.fill();
             }else{
-              if(tempMe.team == 1){
-                var x = -1*userSelected.x + baseGrid + 1
-                var y = -1*userSelected.y + baseGrid + 1
-              }else{
-                var x = userSelected.x
-                var y = userSelected.y
-              }
+              var x = userSelected.x
+              var y = userSelected.y
               baseCtxS.fillStyle = "rgba(221,197,250,0.5)";
               baseCtxS.beginPath();
               let leftPointX = (2*baseM) + ((x-1)*baseWidthCell) + ((y-1)*baseWidthCell)
