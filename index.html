@@ -475,7 +475,7 @@
           var isoY = 1 - (relY - relX + 0.5)
           var coordX = Math.floor(isoX*grid+1)
           var coordY = Math.floor(isoY*grid+1)
-          if(tempMe.team == 1){
+          if(tempMe.team == 1 && selected.atMiddle){
             coordX = -1*coordX + grid + 1
             coordY = -1*coordY + grid + 1
           }
