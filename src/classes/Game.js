@@ -569,7 +569,7 @@ class Game {
         //ALLOWED BUILD
         var neighbours = 0
         this.buildings.forEach(function(building){
-            if(Math.abs(building.x - x) + Math.abs(building.y - y) == 1 && building.atMiddle == atMiddle){
+            if(Math.abs(building.x - x) + Math.abs(building.y - y) == 1 && building.atMiddle){
                 neighbours = neighbours + 1
             }
         },this)
