@@ -646,7 +646,6 @@ class Game {
 
     // PIECE MOVE
     canPieceMove(startX,startY,endX,endY,team){
-        console.log(startX,startY,endX,endY)
         var maxBase = 4 + 1 
         var maxMiddle = 7 + 1
         if(this.gameInfo.maxPlayers == 4){
@@ -810,9 +809,6 @@ class Game {
             deltaX = -deltaX
             deltaY = -deltaY
         }
-        console.log(attackingPiece.constructor.name)
-        console.log([deltaX, deltaY])
-        console.log(piecePossibleAttacks)
         if(!piecePossibleAttacks[attackingPiece.constructor.name].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
             console.log("61")
             return false //attack moving is not possible for this piece
