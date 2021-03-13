@@ -1117,8 +1117,6 @@
                 let imageSize = (baseHeightCell/250) * imageScales[entity.type] * 500
                 let x = (2*baseM + baseWidthCell) + (entityX*baseWidthCell) + (entityY*baseWidthCell)
                 let y = (gridHeight/2) + (entityX*baseHeightCell) - (entityY*baseHeightCell)
-                console.log(entity)
-                console.log(entity.type)
                 baseCtx.drawImage(entityImage, x + imageOffsets[entity.type][0] - imageSize/2, y + imageOffsets[entity.type][1] - imageSize, imageSize, imageSize);
               }
             }
