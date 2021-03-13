@@ -1434,7 +1434,7 @@
               if(selectedEntity.hasOwnProperty('level')){
                 name = name + " lvl"+ selectedEntity.level
               }
-              $(".game-info-title").html(gameDisplayInfo[selectedEntity.type].name)
+              $(".game-info-title").html(name)
               $(".game-info-description").html("<i>"+gameDisplayInfo[selectedEntity.type].description+"</i>")
               if(selectedEntity.hasOwnProperty('health')){
                 $(".game-info-health").html(selectedEntity.health[0]+"pv / "+selectedEntity.health[1]+"pv")
@@ -1500,6 +1500,10 @@
                 }
                 $(".game-info-buildButton").html("<p class='game-info-buildText'>Construire</p>" + cost)
                 $(".game-info-buildButton").attr("hidden",false)
+                $(".game-info-title").html(gameDisplayInfo[userSelected.switch].name)
+                $(".game-info-description").html("<i>"+gameDisplayInfo[userSelected.switch].description+"</i>")
+                $(".game-info-title").attr("hidden",false)
+                $(".game-info-description").attr("hidden",false)
               }
             }
             console.log("selected ",selectedEntity)
