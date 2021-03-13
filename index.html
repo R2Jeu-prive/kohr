@@ -155,7 +155,7 @@
             <p class="game-info-buildingTimeLeft game-info-texts">2 tours</p>
             <p class="game-info-production game-info-texts">prod : 10 items / tour</p>
             <p class="game-info-inventory game-info-texts">50 / 100</p>
-            <button class="game-buttons game-build-button" id="game-base-build">
+            <button class="game-buttons game-info-buildButton" id="game-base-build">
 
             </button>
           </div>
@@ -1430,6 +1430,7 @@
               $(".game-infos").children().attr("hidden",false)
               $(".game-info-needEntity").attr("hidden",true)
               $(".game-info-none").attr("hidden",true)
+              $(".game-info-buildButton").attr("hidden",true)
               var name = gameDisplayInfo[selectedEntity.type].name
               if(selectedEntity.hasOwnProperty('level')){
                 name = name + " lvl"+ selectedEntity.level
@@ -1482,7 +1483,11 @@
               }
             }else{
               $(".game-infos").children().attr("hidden",true)
-              $(".game-info-needEntity").attr("hidden",false)
+              if(userSelected.switch == ""){
+                $(".game-info-needEntity").attr("hidden",false)
+              }else{
+                $(".game-info-buildButton").attr("hidden",false)
+              }
             }
             console.log("selected ",selectedEntity)
           }
