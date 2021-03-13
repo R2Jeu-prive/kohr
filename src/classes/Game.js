@@ -567,17 +567,15 @@ class Game {
         }
 
         //ALLOWED BUILD
-        if(atMiddle){
-            var neighbours = 0
-            this.buildings.forEach(function(building){
-                if(Math.abs(building.x - x) + Math.abs(building.y - y) == 1 && building.atMiddle == atMiddle){
-                    neighbours = neighbours + 1
-                }
-            },this)
-            if(neighbours == 0){
-                console.log("38")
-                return false //can't place solo at middle
+        var neighbours = 0
+        this.buildings.forEach(function(building){
+            if(Math.abs(building.x - x) + Math.abs(building.y - y) == 1 && building.atMiddle == atMiddle){
+                neighbours = neighbours + 1
             }
+        },this)
+        if(neighbours == 0){
+            console.log("38")
+            return false //can't place solo at middle
         }
 
         //MAX COUNT
