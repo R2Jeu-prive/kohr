@@ -586,8 +586,6 @@ class Game {
             lightPieces += this.countPieces("Bishop",team)
             var lightCapacity = this.getCapacity("Light",team)
             if(lightCapacity == lightPieces){
-                console.log(lightPieces)
-                console.log(lightCapacity)
                 console.log("39")
                 return false //capacité max atteinte pour les pieces légères
             }
@@ -599,8 +597,6 @@ class Game {
             heavyPieces += this.countPieces("Enchanter",team)
             var heavyCapacity = this.getCapacity("Heavy",team)
             if(heavyCapacity == heavyPieces){
-                console.log(heavyPieces)
-                console.log(heavyCapacity)
                 console.log("40")
                 return false //capacité max atteinte pour les pieces lourdes
             }
