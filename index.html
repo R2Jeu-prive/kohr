@@ -389,7 +389,7 @@
             selected.switch = "attack2"
             showGameFast(game,pseudo,selected,canPlay,actionOrigin)
           }else if(buttonType.startsWith("build")){
-            if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(selected.switch) == -1){
+            if(["Extractor","Wall","Workshop","Battery","LightArmory","HeavyArmory"].indexOf(selected.switch) != -1){
               socket.emit("buildingBuild",{lastTimeStamp : game.timeStamp, type : selected.switch, atMiddle : selected.atMiddle, x : selected.x, y : selected.y});
             }else{
               socket.emit("pieceBuild",{lastTimeStamp : game.timeStamp, type : selected.switch, x : selected.x, y : selected.y});
