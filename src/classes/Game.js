@@ -110,7 +110,7 @@ class Game {
             }
         },this)
         this.refreshAllGame(io,30)
-        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
+        this.skipId = setTimeout(this.processTurn.bind(this), 10000, io); //in 30 secs will recall itself
     }
     refreshAllGame(io,newTurn = 0){
         this.players.forEach(function(player){
@@ -277,7 +277,7 @@ class Game {
         if(atMiddle){
             var neighbours = 0
             this.buildings.forEach(function(building){
-                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle && building.inventory[2] == this.inventory[2]){
+                if(Math.abs(building.x - this.x) + Math.abs(building.y - this.y) == 1 && building.atMiddle == this.atMiddle){
                     neighbours = neighbours + 1
                 }
             },this)
