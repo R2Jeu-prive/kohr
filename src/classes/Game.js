@@ -341,11 +341,15 @@ class Game {
         }else if(type == "Extractor"){
             var building = new Extractor("copper", x, y, atMiddle, team)
         }
+        if(this.countBuildings("Extractor",team) < 3 && type == "Extractor"){
+            //It's FREE
+        }else{
+            this.stats[team][1] = this.stats[team][1] - buildingPrices[type][0]
+            this.stats[team][2] = this.stats[team][2] - buildingPrices[type][1]
+            this.stats[team][3] = this.stats[team][3] - buildingPrices[type][2]
+            this.stats[team][4] = this.stats[team][4] - buildingPrices[type][3]
+        }
         this.buildings.push(building)
-        this.stats[team][1] = this.stats[team][1] - buildingPrices[type][0]
-        this.stats[team][2] = this.stats[team][2] - buildingPrices[type][1]
-        this.stats[team][3] = this.stats[team][3] - buildingPrices[type][2]
-        this.stats[team][4] = this.stats[team][4] - buildingPrices[type][3]
         this.lastTimeStamp = timeStamp
         this.refreshAllGame(io)
     }
