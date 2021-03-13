@@ -263,7 +263,7 @@
     height: 35%;
     width: 25%;
     overflow-x:hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .game-action-simpletext{
@@ -473,7 +473,7 @@
     height: 35%;
     width: 25%;
     overflow-x:hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .game-info-none, .game-info-needEntity{
