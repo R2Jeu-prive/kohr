@@ -1490,17 +1490,21 @@
                 $(".game-info-needEntity").attr("hidden",false)
               }else{
                 var cost = ""
-                if(entityPrices[userSelected.switch][0] > 0){
-                  cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/copper'/>x"+entityPrices[userSelected.switch][0]
-                }
-                if(entityPrices[userSelected.switch][1] > 0){
-                  cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/titanium'/>x"+entityPrices[userSelected.switch][1]
-                }
-                if(entityPrices[userSelected.switch][2] > 0){
-                  cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/gold'/>x"+entityPrices[userSelected.switch][2]
-                }
-                if(entityPrices[userSelected.switch][3] > 0){
-                  cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/ruby'/>x"+entityPrices[userSelected.switch][3]
+                if(userSelected.switch == "Extractor" && countBuildings(givenGame,"Extractor",userTeam) < 3){
+                  cost += "gratuit"
+                }else{
+                  if(entityPrices[userSelected.switch][0] > 0){
+                    cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/copper'/>x"+entityPrices[userSelected.switch][0]
+                  }
+                  if(entityPrices[userSelected.switch][1] > 0){
+                    cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/titanium'/>x"+entityPrices[userSelected.switch][1]
+                  }
+                  if(entityPrices[userSelected.switch][2] > 0){
+                    cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/gold'/>x"+entityPrices[userSelected.switch][2]
+                  }
+                  if(entityPrices[userSelected.switch][3] > 0){
+                    cost += "<img class='game-info-buildIcon game-ressource-icon' src='/icon/ruby'/>x"+entityPrices[userSelected.switch][3]
+                  }
                 }
                 $(".game-info-buildButton").html("<p class='game-info-buildText'>Construire</p>" + cost)
                 $(".game-info-buildButton").attr("hidden",false)
