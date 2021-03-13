@@ -1458,11 +1458,11 @@
           //SETTING RIGHT FRAME
           var selectedPiece = givenGame.pieces.find(piece => piece.x == userSelected.x && piece.y == userSelected.y && userSelected.atMiddle)
           var selectedBuilding = givenGame.buildings.find(building => building.x == userSelected.x && building.y == userSelected.y && building.atMiddle == userSelected.atMiddle && (!building.atMiddle || building.team == userTeam))
-          console.log("qsdqsd",!building.atMiddle)
-          console.log("qsdqsd",building.team == userTeam)
-          console.log("qsdqsd",building.team)
+          console.log("qsdqsd",!selectedBuilding.atMiddle)
+          console.log("qsdqsd",selectedBuilding.team == userTeam)
+          console.log("qsdqsd",selectedBuilding.team)
           console.log("qsdqsd",userTeam)
-          console.log("qsdqsd",building.atMiddle)
+          console.log("qsdqsd",selectedBuilding.atMiddle)
           if(userSelected.unselect){
             $(".game-infos").children().attr("hidden",true)
             $(".game-info-none").attr("hidden",false)
