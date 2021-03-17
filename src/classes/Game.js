@@ -16,7 +16,7 @@ class Game {
         this.buildings = []
         this.players = []
         this.disconnectedPlayers = []
-        this.stats = [[0,1000,1000,1000,1000],[0,0,0,0,0]]
+        this.stats = [[0,1000,1000,1000,1000],[0,1000,1000,1000,1000]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
     }
