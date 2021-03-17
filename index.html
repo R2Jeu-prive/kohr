@@ -72,7 +72,7 @@
     <div id="game-frame" hidden>
       <div id="game-board">
         <div id="game-base-side">
-          <button class="game-buttons game-skip">Finir le tour</button>
+          <button class="game-buttons game-skip" id="game-base-skip">Finir le tour</button>
           <button class="game-buttons game-switch" id="game-base-change-board">Voir le Kohr</button>
           <canvas class="game-canvas" id="game-base-canvas-selected"></canvas>
           <canvas class="game-canvas" id="game-base-canvas"></canvas>
@@ -159,7 +159,7 @@
           </div>
         </div>
         <div id="game-kohr-side">
-          <button class="game-buttons game-skip">Finir le tour</button>
+          <button class="game-buttons game-skip" id="game-kohr-skip">Finir le tour</button>
           <button class="game-buttons game-switch" id="game-kohr-change-board">Voir la Base</button>
           <canvas class="game-canvas" id="game-kohr-canvas-selected"></canvas>
           <canvas class="game-canvas" id="game-kohr-canvas"></canvas>
@@ -441,6 +441,8 @@
             }else{
               socket.emit("pieceBuild",{lastTimeStamp : game.timeStamp, type : selected.switch, x : selected.x, y : selected.y});
             }
+          }else if(buttonType.startsWith("skip")){
+            socket.emit("skipRequest",{lastTimeStamp : game.timeStamp});
           }
         })
 
@@ -1726,6 +1728,7 @@
           var returnedStuff = showGame(data,pseudo,selected,canPlay,actionOrigin)
           game = returnedStuff[0]
           selected = returnedStuff[1]
+          $(".game-skip").attr("disabled",false)
         })
         
         socket.on("showGameWait",function(data){
@@ -1733,6 +1736,7 @@
           var returnedStuff = showGame(data,pseudo,selected,canPlay,actionOrigin)
           game = returnedStuff[0]
           selected = returnedStuff[1]
+          $(".game-skip").attr("disabled",true)
         })
         
       });
