@@ -51,6 +51,9 @@ class Piece {
         this.health[0] = this.health[0] - damage
         return this.health[0] <= 0 //piece is destroyed from attack
     }
+    switchTeam(){
+        this.team = - this.team + 1
+    }
 }
 
 class Queen extends Piece{
