@@ -636,10 +636,10 @@
             }
             else if(["Bishop","Knight","Pawn"].indexOf(attackedPiece.type) != -1){
               var lightPieces = 0
-              lightPieces += countPieces(givenGame,"Pawn",team)
-              lightPieces += countPieces(givenGame,"Knight",team)
-              lightPieces += countPieces(givenGame,"Bishop",team)
-              var lightCapacity = getCapacity(givenGame,"Light",team)
+              lightPieces += countPieces(givenGame,"Pawn",userTeam)
+              lightPieces += countPieces(givenGame,"Knight",userTeam)
+              lightPieces += countPieces(givenGame,"Bishop",userTeam)
+              var lightCapacity = getCapacity(givenGame,"Light",userTeam)
               if(lightCapacity <= lightPieces){
                 console.log("67")
                 return false //capacité max atteinte pour les pieces légères
@@ -647,10 +647,10 @@
             }
             else if(["Queen","Rook","Enchanter"].indexOf(attackedPiece.type) != -1){
               var heavyPieces = 0
-              heavyPieces += countPieces(givenGame,"Queen",team)
-              heavyPieces += countPieces(givenGame,"Rook",team)
-              heavyPieces += countPieces(givenGame,"Enchanter",team)
-              var heavyCapacity = getCapacity(givenGame,"Heavy",team)
+              heavyPieces += countPieces(givenGame,"Queen",userTeam)
+              heavyPieces += countPieces(givenGame,"Rook",userTeam)
+              heavyPieces += countPieces(givenGame,"Enchanter",userTeam)
+              var heavyCapacity = getCapacity(givenGame,"Heavy",userTeam)
               if(heavyCapacity <= heavyPieces){
                 console.log("68")
                 return false //capacité max atteinte pour les pieces lourdes
