@@ -112,6 +112,10 @@ class Game {
         this.refreshAllGame(io,30)
         this.skipId = setTimeout(this.processTurn.bind(this), 10000, io); //in 30 secs will recall itself
     }
+    skipTurn(io){
+        clearTimeout(this.skipId)
+        this.skipId = setTimeout(this.processTurn.bind(this), 0, io);
+    }
     refreshAllGame(io,newTurn = 0){
         this.players.forEach(function(player){
             if(player.team == this.gameInfo.teamPlaying){

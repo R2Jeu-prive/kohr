@@ -300,6 +300,21 @@ io.on('connection', function(socket){
             }
         })
     })
+    socket.on('skipRequest',function(data){
+        user = getUserBySocket(socket)
+        if(user == undefined){
+            return //user WTF
+        }
+        games.forEach(function(game){
+            if(game.isUserConnected(user) && game.gameInfo.status == "game"){
+                if(data.lastTimeStamp == game.lastTimeStamp && user.team == game.gameInfo.teamPlaying){
+                    game.skipTurn(io)
+                }else{
+                    game.refreshPlayerGame(user, io)
+                }
+            }
+        })
+    })
 
     socket.on('disconnect', function() {
         leavingUser = users.find(user => user.socket_id === socket.id)
