@@ -590,7 +590,8 @@
               deltaY = -deltaY
           }
           if(!piecePossibleAttacks[attackingPiece.type].some(deltaCouple => deltaCouple[0] == deltaX && deltaCouple[1] == deltaY)){
-              return false //attack moving is not possible for this piece
+            console.log('qsd',deltaX,deltaY,piecePossibleAttacks,attackingPiece.type,piecePossibleAttacks[attackingPiece.type])
+            return false //attack moving is not possible for this piece
           }else{
             for(var building of givenGame.buildings){
               if(!building.atMiddle){
