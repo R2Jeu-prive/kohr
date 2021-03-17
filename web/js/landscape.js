@@ -1,5 +1,5 @@
 $( window ).on( "orientationchange", function( event ) {
-    setLandscape(true)
+    setTimeout(setLandscape(true),50)
 });
 function setLandscape(inverse){
     if (window.matchMedia("(orientation: landscape)").matches) {
