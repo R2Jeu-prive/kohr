@@ -504,7 +504,7 @@ class Game {
             var validCoordsNew = [{x : core.x, y : core.y}]
             var deltas = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
             //gets all valid coords
-            while(validCoordsNew.length != validCoordsNew.length){
+            while(validCoords.length != validCoordsNew.length){
                 console.log("looping")
                 console.log(validCoords)
                 console.log(validCoordsNew)
