@@ -508,7 +508,7 @@ class Game {
                 console.log("looping")
                 console.log(validCoords)
                 console.log(validCoordsNew)
-                validCoords = validCoordsNew
+                validCoords = JSON.parse(JSON.stringify(validCoordsNew))
                 console.log(validCoords)
                 console.log(validCoordsNew)
                 for (var coords of validCoords) {
