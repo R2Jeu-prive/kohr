@@ -496,7 +496,7 @@ class Game {
     }
     buildingDelete(x,y,atMiddle,team,destroyingTeam,timeStamp,io){
         this.buildingForceDelete(x,y,atMiddle,team,destroyingTeam)
-        
+        console.log(atMiddle)
         //if the building is at middle we check for "floating buildings" not retached to the team core 
         if(atMiddle){
             var core = this.buildings.find(building => (building.constructor.name == "Core", building.team == team))
