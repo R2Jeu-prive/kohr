@@ -505,20 +505,9 @@ class Game {
             var deltas = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
             //gets all valid coords
             while(validCoords.length != validCoordsNew.length){
-                console.log("looping")
-                console.log(validCoords)
-                console.log(validCoordsNew)
                 validCoords = JSON.parse(JSON.stringify(validCoordsNew))
-                console.log(validCoords)
-                console.log(validCoordsNew)
                 for (var coords of validCoords) {
-                    console.log("forCoords")
-                    console.log(coords)
-                    console.log(validCoords)
-                    console.log(validCoordsNew)
                     for (var delta of deltas){
-                        console.log("forDelta")
-                        console.log(delta)
                         let x = coords.x + delta.x
                         let y = coords.y + delta.y
                         var buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
@@ -526,21 +515,18 @@ class Game {
                         if(buildingAtCoords && !alreadyValid){
                             validCoordsNew.push({x:x,y:y})
                         }
-                        console.log(x)
-                        console.log(y)
-                        console.log(buildingAtCoords)
                     }
                 }
             }
+            console.log(validCoords)
             //removes all building that don't have valid coords
             for (var buildingAtCoords of this.buildings){
+                if(buildingAtCoords.team != team || !buildingAtCoords.atMiddle){
+                    continue
+                }
+                var deleteBuilding = true
                 for(var coords of validCoords){
-                    var deleteBuilding = true
-                    if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y && buildingAtCoords.atMiddle && buildingAtCoords.team == team){
-                        deleteBuilding = false
-                    }else if(!buildingAtCoords.atMiddle){
-                        deleteBuilding = false
-                    }else if(buildingAtCoords.atMiddle && buildingAtCoords.team != team){
+                    if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y){
                         deleteBuilding = false
                     }
                 }
