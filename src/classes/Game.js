@@ -524,6 +524,7 @@ class Game {
                 if(buildingAtCoords.team != team || !buildingAtCoords.atMiddle){
                     continue
                 }
+                console.log(buildingAtCoords)
                 var deleteBuilding = true
                 for(var coords of validCoords){
                     if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y){
