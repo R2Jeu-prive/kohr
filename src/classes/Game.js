@@ -509,9 +509,13 @@ class Game {
                 console.log(validCoords)
                 console.log(validCoordsNew)
                 validCoords = validCoordsNew
+                console.log(validCoords)
+                console.log(validCoordsNew)
                 for (var coords of validCoords) {
                     console.log("forCoords")
                     console.log(coords)
+                    console.log(validCoords)
+                    console.log(validCoordsNew)
                     for (var delta of deltas){
                         console.log("forDelta")
                         console.log(delta)
