@@ -772,13 +772,15 @@
           return 0
         }
 
-        function orderEntitiesAlgoInverted(a,b){
+        function orderEntitiesMiddleInvertedAlgo(a,b){
           var aMiddle = a.atMiddle || true;
           var bMiddle = b.atMiddle || true; //if atMiddle is undefined it's a piece, so it's True
           if(aMiddle && !bMiddle){
             return -1
           }else if(!aMiddle && bMiddle){
             return 1
+          }else if(aMiddle && bMiddle){
+            return 0
           }else{
             if(a.y - a.x < b.y - b.x){
               return -1
@@ -791,10 +793,9 @@
 
         function orderEntities(gameToOrder,showTeam){
           var allEntities = gameToOrder.pieces.concat(gameToOrder.buildings)
-          if(showTeam == 0){
-            allEntities.sort(orderEntitiesAlgo)
-          }else{
-            allEntities.sort(orderEntitiesAlgoInverted)
+          allEntities.sort(orderEntitiesAlgo)
+          if(showTeam == 1){
+            allEntities.sort(orderEntitiesMiddleInvertedAlgo)
           }
           return allEntities
         }
