@@ -16,7 +16,7 @@ class Game {
         this.buildings = []
         this.players = []
         this.disconnectedPlayers = []
-        this.stats = [[0,1000,1000,1000,1000],[0,1000,1000,1000,1000]]
+        this.stats = [[0,0,0,0,0],[0,0,0,0,0]]
         this.lastTimeStamp = 0;
         this.skipId = undefined
     }
@@ -110,7 +110,7 @@ class Game {
             }
         },this)
         this.refreshAllGame(io,30)
-        this.skipId = setTimeout(this.processTurn.bind(this), 10000, io); //in 30 secs will recall itself
+        this.skipId = setTimeout(this.processTurn.bind(this), 30000, io); //in 30 secs will recall itself
     }
     skipTurn(io){
         clearTimeout(this.skipId)
