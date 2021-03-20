@@ -500,8 +500,8 @@ class Game {
         //if the building is at middle we check for "floating buildings" not retached to the team core 
         if(atMiddle){
             var core = this.buildings.find(building => (building.constructor.name == "Core", building.team == team))
-            var validCoords = [{x : core.x, y : core.y}]
-            var validCoordsNew = []
+            var validCoords = []
+            var validCoordsNew = [{x : core.x, y : core.y}]
             var deltas = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}]
             //gets all valid coords
             while(validCoordsNew.length != validCoordsNew.length){
