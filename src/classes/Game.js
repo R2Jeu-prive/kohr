@@ -520,21 +520,29 @@ class Game {
             }
             console.log(validCoords)
             //removes all building that don't have valid coords
-            for (var buildingAtCoords of this.buildings){
-                if(buildingAtCoords.team != team || !buildingAtCoords.atMiddle){
-                    console.log("skipping")
+            while(true){
+                var doneDeleting = true
+                for (var buildingAtCoords of this.buildings){
+                    if(buildingAtCoords.team != team || !buildingAtCoords.atMiddle){
+                        console.log("skipping")
+                        console.log(buildingAtCoords)
+                        continue
+                    }
                     console.log(buildingAtCoords)
-                    continue
-                }
-                console.log(buildingAtCoords)
-                var deleteBuilding = true
-                for(var coords of validCoords){
-                    if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y){
-                        deleteBuilding = false
+                    var deleteBuilding = true
+                    for(var coords of validCoords){
+                        if(coords.x == buildingAtCoords.x && coords.y == buildingAtCoords.y){
+                            deleteBuilding = false
+                        }
+                    }
+                    if(deleteBuilding){
+                        doneDeleting = false
+                        this.buildingForceDelete(buildingAtCoords.x,buildingAtCoords.y,buildingAtCoords.atMiddle,team,destroyingTeam)
+                        break
                     }
                 }
-                if(deleteBuilding){
-                    this.buildingForceDelete(buildingAtCoords.x,buildingAtCoords.y,buildingAtCoords.atMiddle,team,destroyingTeam)
+                if(doneDeleting){
+                    break
                 }
             }
         }
