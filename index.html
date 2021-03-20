@@ -780,15 +780,15 @@
           }else if(!aMiddle && bMiddle){
             return 1
           }else if(aMiddle && bMiddle){
-            if(a.y - a.x > b.y - b.x){
-              return -1
-            }else if(b.y - b.x > a.y - a.x){
-              return 1
-            }
-          }else{
             if(a.y - a.x < b.y - b.x){
               return -1
             }else if(b.y - b.x < a.y - a.x){
+              return 1
+            }
+          }else{
+            if(a.y - a.x > b.y - b.x){
+              return -1
+            }else if(b.y - b.x > a.y - a.x){
               return 1
             }
           }
