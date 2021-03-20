@@ -522,6 +522,8 @@ class Game {
             //removes all building that don't have valid coords
             for (var buildingAtCoords of this.buildings){
                 if(buildingAtCoords.team != team || !buildingAtCoords.atMiddle){
+                    console.log("skipping")
+                    console.log(buildingAtCoords)
                     continue
                 }
                 console.log(buildingAtCoords)
