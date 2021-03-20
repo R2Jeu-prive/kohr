@@ -523,9 +523,9 @@ class Game {
                         let y = coords.y + delta.y
                         var buildingAtCoords = this.buildings.find(buildingAtCoords => (buildingAtCoords.x == x && buildingAtCoords.y == y && buildingAtCoords.atMiddle && buildingAtCoords.team == team))
                         var alreadyValid = validCoordsNew.find(validCoords => (validCoords.x == x && validCoords.y == y))
-                        /*if(buildingAtCoords && !alreadyValid){
+                        if(buildingAtCoords && !alreadyValid){
                             validCoordsNew.push({x:x,y:y})
-                        }*/
+                        }
                         console.log(x)
                         console.log(y)
                         console.log(buildingAtCoords)
